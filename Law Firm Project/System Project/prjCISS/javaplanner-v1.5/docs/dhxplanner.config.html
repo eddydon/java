@@ -1,0 +1,1468 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;<a href="options_and_templates.html" class="wikilink1" title="options_and_templates">Configuration options and templates</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;DHXPlanner.config</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#dhxplannerconfig" class="toc">DHXPlanner.config</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#available_methods_of_dhxplannerconfig" class="toc">Available methods of DHXPlanner.config</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#description" class="toc">Description</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#illustration_images" class="toc">Illustration images</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#cascade_mode" class="toc">Cascade mode</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#cascade_event_margin" class="toc">Cascade event margin</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#day_view" class="toc">Day view</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#week_view" class="toc">Week view</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#month_view" class="toc">Month view</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#separating_short_events" class="toc">Separating short events</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="dhxplannerconfig" id="dhxplannerconfig">DHXPlanner.config</a></h1>
+<div class="level1">
+
+<p>
+In this chapter you&#039;ll find available configuration options.
+</p>
+
+<p>
+To set the desired option, write it as it&#039;s stated in this documentation changing <em>DHXPlanner</em> to the name of your <em>DHXPlanner instance</em>.
+
+</p>
+<pre class="code csharp">DHXPlanner planner <span class="sy0">=</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">config</span>.<span class="me1">setXmlDate</span><span class="br0">&#40;</span><span class="st0">&quot;%d/%m/%Y %H:%i&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">config</span>.<span class="me1">setFirstHour</span><span class="br0">&#40;</span>8<span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">config</span>.<span class="me1">setLastHour</span><span class="br0">&#40;</span>17<span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">config</span>.<span class="me1">setStartOnMonday</span><span class="br0">&#40;</span><span class="kw1">true</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+
+See available variations of the format string <a href="format_string.html" class="wikilink1" title="format_string">here</a>.
+</p>
+
+</div>
+
+<h2><a name="available_methods_of_dhxplannerconfig" id="available_methods_of_dhxplannerconfig">Available methods of DHXPlanner.config</a></h2>
+<div class="level2">
+<table class="columns-plugin" style="width:950px">
+<tr><td class="first" style="width:50%;vertical-align:top;">
+<ul>
+<li class="level1"><div class="li"> <strong>General managing</strong></div>
+<ul>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetreadonly_boolean_isreadonly" class="wikilink1" title="dhxplanner.config">setReadonly</a></span>(Boolean <em>isReadonly</em>) </div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetreadonlyform_boolean_isreadonly" class="wikilink1" title="dhxplanner.config">setReadonlyForm</a></span>(Boolean <em>isReadonly</em>) </div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetshowloading_boolean_showspinner" class="wikilink1" title="dhxplanner.config">setShowLoading</a></span>(Boolean <em>showSpinner</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetdragresize_boolean_canresizeondrag" class="wikilink1" title="dhxplanner.config">setDragResize</a></span>(Boolean <em>canResizeOnDrag</em>) </div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetdragmove_boolean_canmoveondrag" class="wikilink1" title="dhxplanner.config">setDragMove</a></span>(Boolean <em>canMoveOnDrag</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetdraglightbox_boolean_candraglightbox" class="wikilink1" title="dhxplanner.config">setDragLightbox</a></span>(Boolean <em>canDragLightbox</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetdragcreate_boolean_cancreateondrag" class="wikilink1" title="dhxplanner.config">setDragCreate</a></span>(Boolean <em>canCreateOnDrag</em>) </div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetdblclickcreate_boolean_cancreateondbldrag" class="wikilink1" title="dhxplanner.config">setDblClickCreate</a></span>(Boolean <em>canCreateOnDblDrag</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigseteditoncreate_boolean_openlightboxoncreate" class="wikilink1" title="dhxplanner.config">setEditOnCreate</a></span>(Boolean <em>openLightboxOnCreate</em>) </div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetdetailsoncreate_boolean_openextendedformoncreate" class="wikilink1" title="dhxplanner.config">setDetailsOnCreate</a></span>(Boolean <em>openExtendedFormOnCreate</em>) </div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetdetailsondblclick_boolean_openextendedformondblclick" class="wikilink1" title="dhxplanner.config">setDetailsOnDblClick</a></span>(Boolean <em>openExtendedFormOnDblClick</em>) </div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong>Scales</strong></div>
+<ul>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetfirsthour_integer_hour" class="wikilink1" title="dhxplanner.config">setFirstHour</a></span>(Integer <em>hour</em>) </div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsethoursizepx_integer_hourheight" class="wikilink1" title="dhxplanner.config">setHourSizePx</a></span>(Integer <em>hourHeight</em>) </div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetlasthour_integer_hour" class="wikilink1" title="dhxplanner.config">setLastHour</a></span>(Integer <em>hour</em>) </div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetlimittimeselect_boolean_limittime" class="wikilink1" title="dhxplanner.config">setLimitTimeSelect</a></span>(Boolean <em>limitTime</em>) </div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetmarknow_boolean_displaymarker" class="wikilink1" title="dhxplanner.config">setMarkNow</a></span>(Boolean <em>displayMarker</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetscrollhour_integer_hour" class="wikilink1" title="dhxplanner.config">setScrollHour</a></span>(Integer <em>hour</em>) </div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetstartonmonday_boolean_startonmonday" class="wikilink1" title="dhxplanner.config">setStartOnMonday</a></span>(Boolean <em>startOnMonday</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsettimestep_integer_step" class="wikilink1" title="dhxplanner.config">setTimeStep</a></span>(Integer <em>step</em>) </div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>Date formats</strong></div>
+<ul>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetapidate_string_format" class="wikilink1" title="dhxplanner.config">setApiDate</a></span>(String <em>format</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetdaydate_string_format" class="wikilink1" title="dhxplanner.config">setDayDate</a></span>(String <em>format</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetdefaultdate_string_format" class="wikilink1" title="dhxplanner.config">setDefaultDate</a></span>(String <em>format</em>) </div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsethourdate_string_format" class="wikilink1" title="dhxplanner.config">setHourDate</a></span>(String <em>format</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetmonthdate_string_format" class="wikilink1" title="dhxplanner.config">setMonthDate</a></span>(String <em>format</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetmonthday_string_format" class="wikilink1" title="dhxplanner.config">setMonthDay</a></span>(String <em>format</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetweekdate_string_format" class="wikilink1" title="dhxplanner.config">setWeekDate</a></span>(String <em>format</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetxmldate_string_format" class="wikilink1" title="dhxplanner.config">setXmlDate</a></span>(String <em>format</em>)</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>Highlighting events</strong></div>
+<ul>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetdisplayedeventcolor_string_color" class="wikilink1" title="dhxplanner.config">setDisplayedEventColor</a></span>(String <em>color</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetdisplayedeventtextcolor_string_color" class="wikilink1" title="dhxplanner.config">setDisplayedEventTextColor</a></span>(String <em>color</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsethighlightdisplayedevent_boolean_highlightevents" class="wikilink1" title="dhxplanner.config">setHighlightDisplayedEvent</a></span>(Boolean <em>highlightEvents</em>)</div>
+</li>
+</ul>
+</li>
+</ul>
+</td><td class="last" style="width:50%;">
+<ul>
+<li class="level1"><div class="li"> <strong>Blocking events</strong></div>
+<ul>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetchecklimits_boolean_checklimits" class="wikilink1" title="dhxplanner.config">setCheckLimits</a></span>(Boolean <em>checkLimits</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetdisplaymarkedtimespans_boolean_displaymarkedspans" class="wikilink1" title="dhxplanner.config">setDisplayMarkedTimespans</a></span>(Boolean <em>displayMarkedSpans</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetlimitend_date_enddate" class="wikilink1" title="dhxplanner.config">setLimitEnd</a></span>(Date <em>endDate</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetlimitstart_date_startdate" class="wikilink1" title="dhxplanner.config">setLimitStart</a></span>(Date <em>startDate</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetlimitview_boolean_limitviewingevents" class="wikilink1" title="dhxplanner.config">setLimitView</a></span>(Boolean <em>limitViewingEvents</em>)</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>Recurring events</strong></div>
+<ul>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetlightboxrecurring_dhxreclightboxbehavior_mode" class="wikilink1" title="dhxplanner.config">setLightboxRecurring</a></span>(DHXRecLightboxBehavior <em>mode</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetoccurrencetimestampinutc_boolean_storespansasunix" class="wikilink1" title="dhxplanner.config">setOccurrenceTimestampInUTC</a></span>(Boolean <em>storeSpansAsUNIX</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetrepeatdate_string_format" class="wikilink1" title="dhxplanner.config">setRepeatDate</a></span>(String <em>format</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetrepeatprecise_boolean_excludepastdays" class="wikilink1" title="dhxplanner.config">setRepeatPrecise</a></span>(Boolean <em>excludePastDays</em>)</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>Touch support</strong></div>
+<ul>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsettouch_boolean_enabletouch" class="wikilink1" title="dhxplanner.config">setTouch</a></span>(Boolean <em>enableTouch</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsettouchtip_boolean_enabletips" class="wikilink1" title="dhxplanner.config">setTouchTip</a></span>(Boolean <em>enableTips</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsettouchdrag_integer_time" class="wikilink1" title="dhxplanner.config">setTouchDrag</a></span>(Integer <em>time</em>)</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>Other</strong></div>
+<ul>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetalltimed_string_boolean_mode" class="wikilink1" title="dhxplanner.config">setAllTimed</a></span>(String, Boolean <em>mode</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetautoenddate_boolean_autoenddate" class="wikilink1" title="dhxplanner.config">setAutoEndDate</a></span>(Boolean <em>autoEndDate</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetcascadeeventcount_integer_maxamount" class="wikilink1" title="dhxplanner.config">setCascadeEventCount</a></span>(Integer <em>maxAmount</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetcascadeeventdisplay_boolean_displayascascade" class="wikilink1" title="dhxplanner.config">setCascadeEventDisplay</a></span>(Boolean <em>displayAsCascade</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetcascadeeventmargin_integer_margin" class="wikilink1" title="dhxplanner.config">setCascadeEventMargin</a></span>(Integer <em>margin</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigseteventduration_integer_initialduration" class="wikilink1" title="dhxplanner.config">setEventDuration</a></span>(Integer <em>initialDuration</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetfixtabposition_boolean_fixedposition" class="wikilink1" title="dhxplanner.config">setFixTabPosition</a></span>(Boolean <em>fixedPosition</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetfullday_boolean_fullday" class="wikilink1" title="dhxplanner.config">setFullDay</a></span>(Boolean <em>fullDay</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetmapinfowindowmaxwidth_integer_maxwidth" class="wikilink1" title="dhxplanner.config">setMapInfoWindowMaxWidth</a></span>(Integer <em>maxWidth</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetmapinitalzoom_integer_zoom" class="wikilink1" title="dhxplanner.config">setMapInitalZoom</a></span>(Integer <em>zoom</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetmapresolveeventlocation_boolean_resolveevlocation" class="wikilink1" title="dhxplanner.config">setMapResolveEventLocation</a></span>(Boolean <em>resolveEvLocation</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetmapresolveuserlocation_boolean_resolveuserlocation" class="wikilink1" title="dhxplanner.config">setMapResolveUserLocation</a></span>(Boolean <em>resolveUserLocation</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetmaptype_dhxmaptype_type" class="wikilink1" title="dhxplanner.config">setMapType</a></span>(DHXMapType <em>type</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetmapzoomafterresolve_integer_zoom" class="wikilink1" title="dhxplanner.config">setMapZoomAfterResolve</a></span>(Integer <em>zoom</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetmaxmonthevents_integer_events" class="wikilink1" title="dhxplanner.config">setMaxMonthEvents</a></span>(Integer <em>events</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetmultiday_boolean_enablemultidayevents" class="wikilink1" title="dhxplanner.config">setMultiDay</a></span>(Boolean <em>enableMultidayEvents</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetpositiveclosing_boolean_positiveclosing" class="wikilink1" title="dhxplanner.config">setPositiveClosing</a></span>(Boolean <em>positiveClosing</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetpreservescroll_boolean_preservescrollposition" class="wikilink1" title="dhxplanner.config">setPreserveScroll</a></span>(Boolean <em>preserveScrollPosition</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetseparateshortevents_boolean_separateevents" class="wikilink1" title="dhxplanner.config">setSeparateShortEvents</a></span>(Boolean <em>separateEvents</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetserverutc_boolean_convertdatestolocaltime" class="wikilink1" title="dhxplanner.config">setServerUTC</a></span>(Boolean <em>convertDatesToLocalTime</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetupdaterender_boolean_refreshwhenupdated" class="wikilink1" title="dhxplanner.config">setUpdateRender</a></span>(Boolean <em>refreshWhenUpdated</em>)</div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigsetuseselectmenuspace_boolean_occupymenuspace" class="wikilink1" title="dhxplanner.config">setUseSelectMenuSpace</a></span>(Boolean <em>occupyMenuSpace</em>)</div>
+</li>
+</ul>
+</li>
+</ul>
+</td></tr></table>
+
+</div>
+
+<h2><a name="description" id="description">Description</a></h2>
+<div class="level2">
+
+</div>
+
+<h4><a name="dhxplannerconfigsetalltimed_string_boolean_mode" id="dhxplannerconfigsetalltimed_string_boolean_mode">DHXPlanner.config.setAllTimed(String, Boolean mode)</a></h4>
+<div class="level4">
+
+<p>
+&#039;Says&#039; to show multi-day events in the regular way (as one-day events are displayed).The available values are:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>false</em> - to show all multi-day events as lines in the upper part of the scheduler (the standard display mode for multi-day events).</div>
+</li>
+<li class="level1"><div class="li"> <em>true</em> - to show all multi-day events in the regular way.</div>
+</li>
+<li class="level1"><div class="li"> <em>&#039;short&#039;</em> - to show only multi-day events that last less than 24 hours (starts one day and ends another) in the regular way.</div>
+</li>
+</ul>
+
+<p>
+
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetapidate_string_format" id="dhxplannerconfigsetapidate_string_format">DHXPlanner.config.setApiDate(String format)</a></h4>
+<div class="level4">
+
+<p>
+Sets date format that will be used while specifying dates through <acronym title="Application Programming Interface">API</acronym> methods (<a href="format_string.html" class="wikilink1" title="format_string">format string variations</a>). Used to parse incoming dates. 
+</p>
+
+<p>
+<strong>Default value:</strong> ”%d-%m-%Y %H:%i”<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetautoenddate_boolean_autoenddate" id="dhxplannerconfigsetautoenddate_boolean_autoenddate">DHXPlanner.config.setAutoEndDate(Boolean autoEndDate)</a></h4>
+<div class="level4">
+
+<p>
+If the option is set to <em>true</em> then when you change start event time or date, the end event time and date will be changed automatically in order to make the event duration value equal to 60 minutes.
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetcascadeeventcount_integer_maxamount" id="dhxplannerconfigsetcascadeeventcount_integer_maxamount">DHXPlanner.config.setCascadeEventCount(Integer maxAmount)</a></h4>
+<div class="level4">
+
+<p>
+Sets the maximum number of events in a cascade. Events that &#039;exceed&#039; the set value will be drown over the cascade. For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#cascade_mode" class="wikilink1" title="dhxplanner.config">go to the image</a></span>). 
+</p>
+
+<p>
+<strong>Default value:</strong> 4<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetcascadeeventdisplay_boolean_displayascascade" id="dhxplannerconfigsetcascadeeventdisplay_boolean_displayascascade">DHXPlanner.config.setCascadeEventDisplay(Boolean displayAsCascade)</a></h4>
+<div class="level4">
+
+<p>
+By default, events scheduled to the same time are displayed one by one. If you want to present such events as a cascade, set the option to <em>true</em>. For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#cascade_mode" class="wikilink1" title="dhxplanner.config">go to the image</a></span>).
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetcascadeeventmargin_integer_margin" id="dhxplannerconfigsetcascadeeventmargin_integer_margin">DHXPlanner.config.setCascadeEventMargin(Integer margin)</a></h4>
+<div class="level4">
+
+<p>
+Sets the left margin for the cascade of events. For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#cascade_event_margin" class="wikilink1" title="dhxplanner.config">go to the image</a></span>).
+</p>
+
+<p>
+<strong>Default value:</strong> 30<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetchecklimits_boolean_checklimits" id="dhxplannerconfigsetchecklimits_boolean_checklimits">DHXPlanner.config.setCheckLimits(Boolean checkLimits)</a></h4>
+<div class="level4">
+
+<p>
+Activates/disables checking of limits. It has sense to disable this option when you don&#039;t set any limits and just make some highlighting or mark the current time - this will increase the performance speed. But if you have some limit set, disabling this option will disable all the &#039;blocking&#039; methods.
+</p>
+
+<p>
+
+<strong>Default value:</strong> true<br/>
+
+<strong>Applicable views:</strong> day, month, timeline, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetdaydate_string_format" id="dhxplannerconfigsetdaydate_string_format">DHXPlanner.config.setDayDate(String format)</a></h4>
+<div class="level4">
+
+<p>
+Sets the format for the date in the header of the <a href="default_views.html" class="wikilink1" title="default_views">week</a> and <a href="unitsview.html" class="wikilink1" title="unitsview">units</a> views (<a href="format_string.html" class="wikilink1" title="format_string">format string variations</a>). For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#week_view" class="wikilink1" title="dhxplanner.config">go to the image</a></span>). 
+</p>
+
+<p>
+<strong>Default value:</strong> ”%D, %F %j”<br/>
+
+<strong>Applicable views:</strong> week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetdblclickcreate_boolean_cancreateondbldrag" id="dhxplannerconfigsetdblclickcreate_boolean_cancreateondbldrag">DHXPlanner.config.setDblClickCreate(Boolean canCreateOnDblDrag)</a></h4>
+<div class="level4">
+
+<p>
+Allows creating new events by double click.
+</p>
+
+<p>
+
+<strong>Default value:</strong> true<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetdefaultdate_string_format" id="dhxplannerconfigsetdefaultdate_string_format">DHXPlanner.config.setDefaultDate(String format)</a></h4>
+<div class="level4">
+
+<p>
+Sets the date format using by the templates <a href="templatetypes.date.html#dhxplannertemplatesday_date" class="wikilink1" title="templatetypes.date">day_date</a>, <a href="templatetypes.period.html#dhxplannertemplatesweek_date" class="wikilink1" title="templatetypes.period">week_date</a>, <a href="templatetypes.date.html#dhxplannertemplatesday_scale_date" class="wikilink1" title="templatetypes.date">day_scale_date</a> for setting date in the headers of the day, timeline, week, weekAgenda and units views (<a href="format_string.html" class="wikilink1" title="format_string">format string variations</a>). For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#day_view" class="wikilink1" title="dhxplanner.config">go to the image</a></span>).
+</p>
+
+<p>
+<strong>Default value:</strong> ”%j %M %Y”<br/>
+
+<strong>Applicable views:</strong> day, timeline, week, weekAgenda, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetdetailsoncreate_boolean_openextendedformoncreate" id="dhxplannerconfigsetdetailsoncreate_boolean_openextendedformoncreate">DHXPlanner.config.setDetailsOnCreate(Boolean openExtendedFormOnCreate)</a></h4>
+<div class="level4">
+
+<p>
+&#039;Says&#039; to use the extended form on new event creation by drag or by double click. 
+</p>
+
+<p>
+<strong>Default value:</strong> true<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetdetailsondblclick_boolean_openextendedformondblclick" id="dhxplannerconfigsetdetailsondblclick_boolean_openextendedformondblclick">DHXPlanner.config.setDetailsOnDblClick(Boolean openExtendedFormOnDblClick)</a></h4>
+<div class="level4">
+
+<p>
+&#039;Says&#039; to use the extended form on event double click.
+</p>
+
+<p>
+<strong>Default value:</strong> true<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetdisplayedeventcolor_string_color" id="dhxplannerconfigsetdisplayedeventcolor_string_color">DHXPlanner.config.setDisplayedEventColor(String color)</a></h4>
+<div class="level4">
+
+<p>
+Sets the default background color for the events retrieved by the client-side <strong>showEvent()</strong> method.
+Used only in the <strong>showEvent()</strong> method context.
+</p>
+
+<p>
+<strong>Default value:</strong> ”#ffc5ab”<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetdisplayedeventtextcolor_string_color" id="dhxplannerconfigsetdisplayedeventtextcolor_string_color">DHXPlanner.config.setDisplayedEventTextColor(String color)</a></h4>
+<div class="level4">
+
+<p>
+Sets the default font color for the events retrieved by the client-side <strong>showEvent()</strong> method.
+Used only in the <strong>showEvent()</strong> method context.
+</p>
+
+<p>
+<strong>Default value:</strong> ”#7e2727”<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetdisplaymarkedtimespans_boolean_displaymarkedspans" id="dhxplannerconfigsetdisplaymarkedtimespans_boolean_displaymarkedspans">DHXPlanner.config.setDisplayMarkedTimespans(Boolean displayMarkedSpans)</a></h4>
+<div class="level4">
+
+<p>
+Defines whether the specified highlighted (marked) time spans should be displayed.
+</p>
+
+<p>
+<strong>Default value:</strong> true<br/>
+
+<strong>Applicable views:</strong> day, month, timeline, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetdragcreate_boolean_cancreateondrag" id="dhxplannerconfigsetdragcreate_boolean_cancreateondrag">DHXPlanner.config.setDragCreate(Boolean canCreateOnDrag)</a></h4>
+<div class="level4">
+
+<p>
+Allows creating new events by drag-and-drop.
+</p>
+
+<p>
+<strong>Default value:</strong> true<br/>
+
+<strong>Applicable views:</strong> day, month, timeline, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetdraglightbox_boolean_candraglightbox" id="dhxplannerconfigsetdraglightbox_boolean_candraglightbox">DHXPlanner.config.setDragLightbox(Boolean canDragLightbox)</a></h4>
+<div class="level4">
+
+<p>
+If the option is set to <em>true</em> then the lightbox can be dragged by the header.
+</p>
+
+<p>
+<strong>Default value:</strong> true<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetdragmove_boolean_canmoveondrag" id="dhxplannerconfigsetdragmove_boolean_canmoveondrag">DHXPlanner.config.setDragMove(Boolean canMoveOnDrag)</a></h4>
+<div class="level4">
+
+<p>
+Allows moving events by drag-and-drop.
+</p>
+
+<p>
+<strong>Default value:</strong> true<br/>
+
+<strong>Applicable views:</strong> day, month, timeline, week, weekAgenda, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetdragresize_boolean_canresizeondrag" id="dhxplannerconfigsetdragresize_boolean_canresizeondrag">DHXPlanner.config.setDragResize(Boolean canResizeOnDrag)</a></h4>
+<div class="level4">
+
+<p>
+Allows resizing events by drag-and-drop.
+</p>
+
+<p>
+<strong>Default value:</strong> true<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigseteditoncreate_boolean_openlightboxoncreate" id="dhxplannerconfigseteditoncreate_boolean_openlightboxoncreate">DHXPlanner.config.setEditOnCreate(Boolean openLightboxOnCreate)</a></h4>
+<div class="level4">
+
+<p>
+&#039;Says&#039; to open the lightbox on new event creation.
+</p>
+
+<p>
+
+<strong>Default value:</strong> true<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigseteventduration_integer_initialduration" id="dhxplannerconfigseteventduration_integer_initialduration">DHXPlanner.config.setEventDuration(Integer initialDuration)</a></h4>
+<div class="level4">
+
+<p>
+Sets the initial duration of an event in minutes.
+</p>
+
+<p>
+<strong>Default value:</strong> 5 <br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetfirsthour_integer_hour" id="dhxplannerconfigsetfirsthour_integer_hour">DHXPlanner.config.setFirstHour(Integer hour)</a></h4>
+<div class="level4">
+
+<p>
+Sets the minimum value for the hour scale (Y-Axis). For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#day_view" class="wikilink1" title="dhxplanner.config">go to the image</a></span>).
+</p>
+
+<p>
+<strong>Default value:</strong> 0<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetfixtabposition_boolean_fixedposition" id="dhxplannerconfigsetfixtabposition_boolean_fixedposition">DHXPlanner.config.setFixTabPosition(Boolean fixedPosition)</a></h4>
+<div class="level4">
+
+<p>
+By default, the <a href="skins.html#the_terrace_skin" class="wikilink1" title="skins">dhx_terrace skinned planner</a> presents the views tabs on the left side. To place the tabs on the right side - set the option to <em>false</em>. 
+</p>
+
+<p>
+
+<strong>Default value:</strong> true<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetfullday_boolean_fullday" id="dhxplannerconfigsetfullday_boolean_fullday">DHXPlanner.config.setFullDay(Boolean fullDay)</a></h4>
+<div class="level4">
+
+<p>
+If the option is set to <em>true</em> then entry fields in the &#039;<strong>Time period</strong>&#039; section of the lightbox are blocked and the time period is set to a full day from <strong>00.00</strong> the current cell date untill <strong>00.00</strong> next day.
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsethighlightdisplayedevent_boolean_highlightevents" id="dhxplannerconfigsethighlightdisplayedevent_boolean_highlightevents">DHXPlanner.config.setHighlightDisplayedEvent(Boolean highlightEvents)</a></h4>
+<div class="level4">
+
+<p>
+Specifies whether events retrieved by the client-side <strong>showEvent()</strong> method.
+Used only in the <strong>showEvent()</strong> method context.
+</p>
+
+<p>
+<strong>Default value:</strong> true<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsethourdate_string_format" id="dhxplannerconfigsethourdate_string_format">DHXPlanner.config.setHourDate(String format)</a></h4>
+<div class="level4">
+
+<p>
+Sets the format for Y-Axis items (<a href="format_string.html" class="wikilink1" title="format_string">format string variations</a>). For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#week_view" class="wikilink1" title="dhxplanner.config">go to the image</a></span>). 
+</p>
+
+<p>
+<strong>Default value:</strong> ”%H:%i”<br/>
+
+<strong>Applicable views:</strong> day, week, units 
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsethoursizepx_integer_hourheight" id="dhxplannerconfigsethoursizepx_integer_hourheight">DHXPlanner.config.setHourSizePx(Integer hourHeight)</a></h4>
+<div class="level4">
+
+<p>
+Sets the height of an hour in pixels. For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#week_view" class="wikilink1" title="dhxplanner.config">go to the image</a></span>).
+</p>
+
+<p>
+<strong>Default value:</strong> 42<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetlasthour_integer_hour" id="dhxplannerconfigsetlasthour_integer_hour">DHXPlanner.config.setLastHour(Integer hour)</a></h4>
+<div class="level4">
+
+<p>
+Sets the maximum value of the hour scale (Y-Axis). For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#day_view" class="wikilink1" title="dhxplanner.config">go to the image</a></span>).
+</p>
+
+<p>
+<strong>Default value:</strong> 24<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetlightboxrecurring_dhxreclightboxbehavior_mode" id="dhxplannerconfigsetlightboxrecurring_dhxreclightboxbehavior_mode">DHXPlanner.config.setLightboxRecurring(DHXRecLightboxBehavior mode)</a></h4>
+<div class="level4">
+
+<p>
+Defines the lightbox behavior while opening in the edit mode. The available values are:
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>&#039;Ask&#039;</em> - before the lightbox is opened a message box alerts and asks the user whether he will edit a certain instance or the entire recurring event.</div>
+</li>
+<li class="level1"><div class="li"> <em>&#039;Instance&#039;</em> - the lightbox opens straight for editing a certain instance of the event.</div>
+</li>
+<li class="level1"><div class="li"> <em>&#039;Series&#039;</em> - the lightbox opens straight for editing the entire recurring event.</div>
+</li>
+</ul>
+
+<p>
+
+<strong>Default value:</strong> &#039;Ask&#039;<br/>
+
+<strong>Applicable views:</strong>all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetlimitend_date_enddate" id="dhxplannerconfigsetlimitend_date_enddate">DHXPlanner.config.setLimitEnd(Date endDate)</a></h4>
+<div class="level4">
+
+<p>
+Sets the right border of the allowable date range.
+</p>
+
+<p>
+<strong>Applicable views:</strong>day, month, timeline, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetlimitstart_date_startdate" id="dhxplannerconfigsetlimitstart_date_startdate">DHXPlanner.config.setLimitStart(Date startDate)</a></h4>
+<div class="level4">
+
+<p>
+Sets the left border of the allowable date range.
+</p>
+
+<p>
+<strong>Applicable views:</strong>day, month, timeline, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetlimittimeselect_boolean_limittime" id="dhxplannerconfigsetlimittimeselect_boolean_limittime">DHXPlanner.config.setLimitTimeSelect (Boolean limitTime)</a></h4>
+<div class="level4">
+
+<p>
+Sets the maximum and minimum values for the time selector in the lightbox to the values of the <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfiglast_hour" class="wikilink1" title="dhxplanner.config">last_hour</a></span> and <span class="curid"><a href="dhxplanner.config.html#dhxplannerconfigfirst_hour" class="wikilink1" title="dhxplanner.config">first_hour</a></span> options.
+</p>
+
+<p>
+
+<strong>Default value:</strong> false <br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetlimitview_boolean_limitviewingevents" id="dhxplannerconfigsetlimitview_boolean_limitviewingevents">DHXPlanner.config.setLimitView(Boolean limitViewingEvents)</a></h4>
+<div class="level4">
+
+<p>
+Limits viewing events. If we, for example, set a limit on the 2010 year we can&#039;t move to the 2009 year - only 2010 and further
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong>day, month, timeline, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetmapinfowindowmaxwidth_integer_maxwidth" id="dhxplannerconfigsetmapinfowindowmaxwidth_integer_maxwidth">DHXPlanner.config.setMapInfoWindowMaxWidth(Integer maxWidth)</a></h4>
+<div class="level4">
+
+<p>
+The maximum width of the google maps popup marker in the map view. 
+</p>
+
+<p>
+<strong>Default value:</strong> 300<br/>
+
+<strong>Applicable views:</strong> map
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetmapinitalzoom_integer_zoom" id="dhxplannerconfigsetmapinitalzoom_integer_zoom">DHXPlanner.config.setMapInitalZoom(Integer zoom)</a></h4>
+<div class="level4">
+
+<p>
+Sets the initial zoom of Google Maps in the map view.
+</p>
+
+<p>
+<strong>Default value:</strong> 1<br/>
+
+<strong>Applicable views:</strong> map
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetmapresolveeventlocation_boolean_resolveevlocation" id="dhxplannerconfigsetmapresolveeventlocation_boolean_resolveevlocation">DHXPlanner.config.setMapResolveEventLocation(Boolean resolveEvLocation)</a></h4>
+<div class="level4">
+
+<p>
+If the locations of events have no latitude and longitude values in the database but this option is set to <em>true</em> then coordinates will be defined automatically while event loading. 
+</p>
+
+<p>
+<strong>Default value:</strong> true <br/>
+
+<strong>Applicable views:</strong> map
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetmapresolveuserlocation_boolean_resolveuserlocation" id="dhxplannerconfigsetmapresolveuserlocation_boolean_resolveuserlocation">DHXPlanner.config.setMapResolveUserLocation(Boolean resolveUserLocation)</a></h4>
+<div class="level4">
+
+<p>
+Some browsers open up the opportunity to determine your location. And if this option is set to <em>true</em>, such opportunity will be offered while map loading. 
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> map
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetmaptype_dhxmaptype_type" id="dhxplannerconfigsetmaptype_dhxmaptype_type">DHXPlanner.config.setMapType(DHXMapType type)</a></h4>
+<div class="level4">
+
+<p>
+Sets the type of Google Maps in the map view.
+</p>
+
+<p>
+Available values:
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>HYBRID</em> - displays a transparent layer of major streets on satellite images.</div>
+</li>
+<li class="level1"><div class="li"> <em>ROADMAP</em> - displays a normal street map.</div>
+</li>
+<li class="level1"><div class="li"> <em>SATELLITE</em> - displays satellite images.</div>
+</li>
+<li class="level1"><div class="li"> <em>TERRAIN</em> - displays maps with physical features such as terrain and vegetation.</div>
+</li>
+</ul>
+
+<p>
+
+<strong>Default value:</strong> ROADMAP<br/>
+
+<strong>Applicable views:</strong> map
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetmapzoomafterresolve_integer_zoom" id="dhxplannerconfigsetmapzoomafterresolve_integer_zoom">DHXPlanner.config.setMapZoomAfterResolve(Integer zoom)</a></h4>
+<div class="level4">
+
+<p>
+Sets the zoom that will be used to show your location if you agree to a browser offer to show it.
+</p>
+
+<p>
+<strong>Default value:</strong> 15<br/>
+
+<strong>Applicable views:</strong> map
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetmarknow_boolean_displaymarker" id="dhxplannerconfigsetmarknow_boolean_displaymarker">DHXPlanner.config.setMarkNow(Boolean displayMarker)</a></h4>
+<div class="level4">
+
+<p>
+If the option is set to <em>true</em> then the day and week views will have marker displaying the current time. For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#week_view" class="wikilink1" title="dhxplanner.config">go to the image</a></span>).
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> day, week
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetmaxmonthevents_integer_events" id="dhxplannerconfigsetmaxmonthevents_integer_events">DHXPlanner.config.setMaxMonthEvents(Integer events)</a></h4>
+<div class="level4">
+
+<p>
+Sets the maximum number of events visible in a cell.
+</p>
+
+<p>
+<strong>Applicable views:</strong> month
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetmonthdate_string_format" id="dhxplannerconfigsetmonthdate_string_format">DHXPlanner.config.setMonthDate(String format)</a></h4>
+<div class="level4">
+
+<p>
+Sets the format for the header of the <a href="default_views.html#look-and-feel" class="wikilink1" title="default_views">month</a> view (<a href="format_string.html" class="wikilink1" title="format_string">format string variations</a>). For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#month_view" class="wikilink1" title="dhxplanner.config">go to the image</a></span>). 
+</p>
+
+<p>
+<strong>Default value:</strong> ”%F %Y”<br/>
+
+<strong>Applicable views:</strong> month
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetmonthday_string_format" id="dhxplannerconfigsetmonthday_string_format">DHXPlanner.config.setMonthDay(String format)</a></h4>
+<div class="level4">
+
+<p>
+Sets the format for the day in a cell of the <a href="default_views.html#look-and-feel" class="wikilink1" title="default_views">month</a> and <a href="yearview.html" class="wikilink1" title="yearview">year</a> views (<a href="format_string.html" class="wikilink1" title="format_string">format string variations</a>). For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#month_view" class="wikilink1" title="dhxplanner.config">go to the image</a></span>). 
+</p>
+
+<p>
+<strong>Default value:</strong> ”%d” <br/>
+
+<strong>Applicable views:</strong> month, year
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetmultiday_boolean_enablemultidayevents" id="dhxplannerconfigsetmultiday_boolean_enablemultidayevents">DHXPlanner.config.setMultiDay(Boolean enableMultidayEvents)</a></h4>
+<div class="level4">
+
+<p>
+Enables rendering multi-day events.
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetoccurrencetimestampinutc_boolean_storespansasunix" id="dhxplannerconfigsetoccurrencetimestampinutc_boolean_storespansasunix">DHXPlanner.config.setOccurrenceTimestampInUTC(Boolean storeSpansAsUNIX)</a></h4>
+<div class="level4">
+
+<p>
+The property allows working with recurring events independently of time zones. If the option is enabled timestamps of events are stored as UNIX time.<br/>
+<strong>Watch out! The option is intended for &#039;newborn&#039; planners and won&#039;t affect already running ones.</strong>
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetpositiveclosing_boolean_positiveclosing" id="dhxplannerconfigsetpositiveclosing_boolean_positiveclosing">DHXPlanner.config.setPositiveClosing(Boolean positiveClosing)</a></h4>
+<div class="level4">
+
+<p>
+A click on the button <img src="images/edit_button.png" class="media" alt="" /> opens the edit form for editing the text of the event. Any outside click closes the form and cancels you changes. To prevent this and save any changes made in the form, set the option to <em>true</em>. 
+</p>
+
+<p>
+<strong>Default value:</strong> false <br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetpreservescroll_boolean_preservescrollposition" id="dhxplannerconfigsetpreservescroll_boolean_preservescrollposition">DHXPlanner.config.setPreserveScroll(Boolean preserveScrollPosition)</a></h4>
+<div class="level4">
+
+<p>
+If the option is set to <em>true</em>, the current scroll position is preserved while navigating between dates of the same view (through this panel -  <img src="images/navigation_buttons.png" class="media" alt="" />).
+</p>
+
+<p>
+<strong>Default value:</strong> true<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetreadonly_boolean_isreadonly" id="dhxplannerconfigsetreadonly_boolean_isreadonly">DHXPlanner.config.setReadonly(Boolean isReadonly)</a></h4>
+<div class="level4">
+
+<p>
+Activates the read-only mode for events. 
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetreadonlyform_boolean_isreadonly" id="dhxplannerconfigsetreadonlyform_boolean_isreadonly">DHXPlanner.config.setReadonlyForm(Boolean isReadonly)</a></h4>
+<div class="level4">
+
+<p>
+Activates the read-only mode for lightbox. 
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetrepeatdate_string_format" id="dhxplannerconfigsetrepeatdate_string_format">DHXPlanner.config.setRepeatDate(String format)</a></h4>
+<div class="level4">
+
+<p>
+Sets the date format for the &#039;End_by&#039; field in the &#039;recurring&#039; details form.
+</p>
+
+<p>
+<strong>Default value:</strong> &#039;%m.%d.%Y&#039;<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetrepeatprecise_boolean_excludepastdays" id="dhxplannerconfigsetrepeatprecise_boolean_excludepastdays">DHXPlanner.config.setRepeatPrecise(Boolean excludePastDays)</a></h4>
+<div class="level4">
+
+<p>
+Prevents including past days to events with the &#039;weekly&#039; recurrence.
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetscrollhour_integer_hour" id="dhxplannerconfigsetscrollhour_integer_hour">DHXPlanner.config.setScrollHour(Integer hour)</a></h4>
+<div class="level4">
+
+<p>
+Sets the start value of the hour scale of a view (24h format).
+</p>
+
+<p>
+<strong>Default value:</strong> 0 (i.e. the scale starts from the midnight - 00:00)<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetseparateshortevents_boolean_separateevents" id="dhxplannerconfigsetseparateshortevents_boolean_separateevents">DHXPlanner.config.setSeparateShortEvents(Boolean separateEvents)</a></h4>
+<div class="level4">
+
+<p>
+Allows you to prevent short events from overlapping.  For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#separating_short_events" class="wikilink1" title="dhxplanner.config">go to the image</a></span>).
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetserverutc_boolean_convertdatestolocaltime" id="dhxplannerconfigsetserverutc_boolean_convertdatestolocaltime">DHXPlanner.config.setServerUTC(Boolean convertDatesToLocalTime)</a></h4>
+<div class="level4">
+
+<p>
+If the option is set to <em>true</em>,  server-side dates will be converted from UTC to a local time zone and backward, during sending data to the server.
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetshowloading_boolean_showspinner" id="dhxplannerconfigsetshowloading_boolean_showspinner">DHXPlanner.config.setShowLoading(Boolean showSpinner)</a></h4>
+<div class="level4">
+
+<p>
+&#039;Says&#039; to show a progress/spinner while data is loading (useful for dynamic loading).
+</p>
+
+<p>
+
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetstartonmonday_boolean_startonmonday" id="dhxplannerconfigsetstartonmonday_boolean_startonmonday">DHXPlanner.config.setStartOnMonday(Boolean startOnMonday)</a></h4>
+<div class="level4">
+
+<p>
+If the parameter is set to <em>true</em> then a week will start from Monday (otherwise, from Sunday).
+</p>
+
+<p>
+<strong>Default value:</strong> true <br/>
+
+<strong>Applicable views:</strong> month, week, weekAgenda, year
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsettimestep_integer_step" id="dhxplannerconfigsettimestep_integer_step">DHXPlanner.config.setTimeStep(Integer step)</a></h4>
+<div class="level4">
+
+<p>
+Sets the scale interval for the time selector in the lightbox.
+</p>
+
+<p>
+<strong>Default value:</strong> 5 <br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsettouch_boolean_enabletouch" id="dhxplannerconfigsettouch_boolean_enabletouch">DHXPlanner.config.setTouch(Boolean enableTouch)</a></h4>
+<div class="level4">
+
+<p>
+Enables/disables the touch support in the planner.
+</p>
+
+<p>
+<strong>Default value:</strong> true <br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsettouchtip_boolean_enabletips" id="dhxplannerconfigsettouchtip_boolean_enabletips">DHXPlanner.config.setTouchTip(Boolean enableTips)</a></h4>
+<div class="level4">
+
+<p>
+Enables/disables prompting messages in the right up corner of the screen.
+</p>
+
+<p>
+<strong>Default value:</strong> true <br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsettouchdrag_integer_time" id="dhxplannerconfigsettouchdrag_integer_time">DHXPlanner.config.setTouchDrag(Integer time)</a></h4>
+<div class="level4">
+
+<p>
+Defines the time period in milliseconds that is used to differ the long touch gesture from the scroll gesture. If you set the 0 value, the user won&#039;t be able to drag events.
+</p>
+
+<p>
+<strong>Default value:</strong> 500 <br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetupdaterender_boolean_refreshwhenupdated" id="dhxplannerconfigsetupdaterender_boolean_refreshwhenupdated">DHXPlanner.config.setUpdateRender(Boolean refreshWhenUpdated)</a></h4>
+<div class="level4">
+
+<p>
+If the option is set to <em>true</em>, each time when an event is updated, the whole view will be refreshed ( instead of a changed event only). It smooths size re-calculation but results in much more CPU consuming.
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetweekdate_string_format" id="dhxplannerconfigsetweekdate_string_format">DHXPlanner.config.setWeekDate(String format)</a></h4>
+<div class="level4">
+
+<p>
+Sets the format for the date in the sub-header of the month view (<a href="format_string.html" class="wikilink1" title="format_string">format string variations</a>). For more details, see an illustration image (<span class="curid"><a href="dhxplanner.config.html#month_view" class="wikilink1" title="dhxplanner.config">go to the image</a></span>).
+</p>
+
+<p>
+<strong>Default value:</strong> ”%l”<br/>
+
+<strong>Applicable views:</strong> month
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetuseselectmenuspace_boolean_occupymenuspace" id="dhxplannerconfigsetuseselectmenuspace_boolean_occupymenuspace">DHXPlanner.config.setUseSelectMenuSpace(Boolean occupyMenuSpace)</a></h4>
+<div class="level4">
+
+<p>
+By default, an event occupies just a part of the cell width and leaves the place for the left-side menu. Set the option to <em>true</em> and events will start to occupy the whole width.
+</p>
+
+<p>
+<strong>Default value:</strong> false<br/>
+
+<strong>Applicable views:</strong> day, week, units
+</p>
+
+</div>
+
+<h4><a name="dhxplannerconfigsetxmldate_string_format" id="dhxplannerconfigsetxmldate_string_format">DHXPlanner.config.setXmlDate(String format)</a></h4>
+<div class="level4">
+
+<p>
+Sets the date format that is used while converting a string from an <acronym title="Extensible Markup Language">XML</acronym> file into a date object (<a href="format_string.html" class="wikilink1" title="format_string">format string variations</a>). 
+</p>
+
+<p>
+<strong>Default value:</strong> ”%m/%d/%Y %H:%i”<br/>
+
+<strong>Applicable views:</strong> all views
+</p>
+
+</div>
+
+<h2><a name="illustration_images" id="illustration_images">Illustration images</a></h2>
+<div class="level2">
+
+</div>
+
+<h3><a name="cascade_mode" id="cascade_mode">Cascade mode</a></h3>
+<div class="level3">
+<table class="columns-plugin" style="width:950px">
+<tr><td class="first" style="width:33%;vertical-align:top;">
+
+<p>
+
+<em class="u">Default mode</em>
+</p>
+
+<p>
+<img src="images/default-mode.png" class="media" alt="" />
+</p>
+</td><td style="width:33%;">
+
+<p>
+
+<em class="u">Cascade mode</em>
+</p>
+
+<p>
+<img src="images/cascade-mode.png" class="media" alt="" />
+
+</p>
+</td><td class="last" style="width:33%;">
+</td></tr></table>
+
+</div>
+
+<h3><a name="cascade_event_margin" id="cascade_event_margin">Cascade event margin</a></h3>
+<div class="level3">
+
+<p>
+<br/>
+
+<img src="images/cascade_event-margin.png" class="media" alt="" />
+</p>
+
+</div>
+
+<h3><a name="day_view" id="day_view">Day view</a></h3>
+<div class="level3">
+
+<p>
+<img src="images/config_day-view.png" class="media" alt="" />
+</p>
+
+</div>
+
+<h3><a name="week_view" id="week_view">Week view</a></h3>
+<div class="level3">
+
+<p>
+<img src="images/config_week-view.png" class="media" alt="" />
+</p>
+
+</div>
+
+<h3><a name="month_view" id="month_view">Month view</a></h3>
+<div class="level3">
+
+<p>
+<img src="images/config_month_view.png" class="media" alt="" />
+</p>
+
+</div>
+
+<h3><a name="separating_short_events" id="separating_short_events">Separating short events</a></h3>
+<div class="level3">
+
+<p>
+<img src="images/separating_short-events.png" class="media" alt="" />
+
+</p>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

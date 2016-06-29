@@ -1,0 +1,278 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;<a href="fields_and_views.html" class="wikilink1" title="fields_and_views">Views</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Map view</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#map_view" class="toc">Map view</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#initialization" class="toc">Initialization</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#main_methods" class="toc">Main methods</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#details" class="toc">Details</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="map_view" id="map_view">Map view</a></h1>
+<div class="level1">
+
+<p>
+
+<img src="images/google_map.png" class="media" alt="" />
+</p>
+
+<p>
+<div class='dhx_note'><div class='dhx_note_img'>&nbsp;</div>
+By default, the left list of the view displays events beginning from the current date. 
+</div>
+</p>
+
+</div>
+
+<h2><a name="initialization" id="initialization">Initialization</a></h2>
+<div class="level2">
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">DHXMapView</span> view <span class="sy0">=</span> <span class="kw1">new</span> DHXMapView<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">views</span>.<span class="me1">add</span><span class="br0">&#40;</span>view<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="main_methods" id="main_methods">Main methods</a></h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <strong>DHXMapView.getViewType()</strong> - gets the type of the view. </div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setELat</strong>(Double <em>lat</em>) / <strong>getELat()</strong> - sets/gets the latitude (in degrees) of the error position (the position that an event will take if it doesn&#039;t have associated coordinates). </div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setELng</strong>(Double <em>lng</em>) / <strong>getELng()</strong> - sets/gets the longitude (in degrees) of the error position (the position that an event will take if it doesn&#039;t have associated coordinates). </div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setErrorPosition</strong>(Double <em>lat</em>, Double <em>lng</em>) / <strong>getErrorPosition()</strong> - sets/gets the coordinates (in degrees) of the error position (the position that an event will take if it doesn&#039;t have associated coordinates). </div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setFilter</strong>(DHXFilter <em>filter</em>) / <strong>getFilter()</strong> - defines filter for the view/gets the filter set for the view.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setILat</strong>(Double <em>lat</em>) / <strong>getILat()</strong> - sets/gets the latitude (in degrees) of the initial map position. </div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setILng</strong>(Double <em>lng</em>) / <strong>getILng()</strong> - sets/gets the longitude (in degrees) of the  initial map position. </div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setInitialPosition</strong>(Double <em>lat</em>, Double <em>lng</em>) / <strong>getInitialPosition()</strong> - sets/gets the coordinates (in degrees) of the initial map position. </div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setLabel</strong>(String <em>label</em>) / <strong>getLabel()</strong> - sets/gets the text label. </div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setMarkerGeoFail</strong>(String <em>text</em>) / <strong>getMarkerGeoFail()</strong> - sets/gets the text for the notice window that appears in case of unsuccessful geolocation response.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setMarkerGeoSuccess</strong>(String <em>text</em>) / <strong>getMarkerGeoSuccess()</strong> - sets/gets the text for the notice window that appears in case of successful geolocation response.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setName</strong>(String <em>name</em>) / <strong>getName()</strong> - sets/gets the name of the view. </div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setTabClass</strong>(String <em>className</em>) / <strong>getTabClass()</strong> - specifies/gets the name of a css class that will be applied to the tab.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setTabPosition</strong>(Integer <em>offset</em>) / <strong>getTabPosition()</strong> - sets/gets the right offset of the view tab in the tabbar. By default, tabs go right-to-left in the order of addition to the planner.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setTabStyle</strong>(String <em>style</em>) / <strong>getTabStyle()</strong> - specifies/gets the style that will be applied to the tab.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setTabWidth</strong>(Integer <em>width</em>) / <strong>getTabWidth()</strong> - specifies/gets the width of the tab.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setStartDate</strong>(Date <em>startDate</em>) / <strong>getStartDate()</strong> -  sets/gets the date that the view will display events beginning from. By default - the current date.</div>
+<ul>
+<li class="level2"><div class="li"> <strong>setStartDate</strong>(Calendar <em>startDate</em>)</div>
+</li>
+<li class="level2"><div class="li"> <strong>setStartDate</strong>(Integer <em>year</em>, Integer <em>month</em>, Integer <em>day</em>)</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMapView.setEndDate</strong>(Date <em>endDate</em>) / <strong>getEndDate()</strong> -  sets/gets the end date that the view will display events until.</div>
+<ul>
+<li class="level2"><div class="li"> <strong>setEndDate</strong>(Calendar <em>endDate</em>)</div>
+</li>
+<li class="level2"><div class="li"> <strong>setEndDate</strong>(Integer <em>year</em>, Integer <em>month</em>, Integer <em>day</em>)</div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="details" id="details">Details</a></h2>
+<div class="level2">
+
+<p>
+Beware, to be correctly rendered on the map view data must contain a number of additional properties. The final list of mandatory properties (that data should have) looks as in:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>start_date</strong> (<em>Date</em> or <em>String</em>) - the date when a task is scheduled to begin. The default format - ”%m/%d/%Y %H:%i”.</div>
+</li>
+<li class="level1"><div class="li"> <strong>end_date</strong> (<em>Date</em> or <em>String</em>) - the date when a task is scheduled to be completed. The default format - ”%m/%d/%Y %H:%i”.</div>
+</li>
+<li class="level1"><div class="li"> <strong>text</strong> (<em>String</em>) - the text of a task.</div>
+</li>
+<li class="level1"><div class="li"> <strong>location</strong> - (<em>String</em>) the location of an event.</div>
+</li>
+<li class="level1"><div class="li"> <strong>lat</strong> - (<em>Double</em>) the latitude of the event location.</div>
+</li>
+<li class="level1"><div class="li"> <strong>lng</strong> - (<em>Double</em>) the longitude of the event location.</div>
+</li>
+</ul>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

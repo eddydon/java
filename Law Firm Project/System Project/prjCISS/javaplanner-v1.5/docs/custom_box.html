@@ -1,0 +1,242 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Custom display for events</div>
+    <div class="inner">
+        
+    
+    
+
+
+<h1><a name="custom_display_for_events" id="custom_display_for_events">Custom display for events</a></h1>
+<div class="level1">
+
+<p>
+If the standard look of the events boxes don&#039;t fit you, you can provide your custom display.
+</p>
+
+<p>
+Generally, a common technique for customizing events boxes consists in the following:
+
+</p>
+<ol>
+<li class="level1"><div class="li"> Create a <strong>DHXEventBox</strong> object.<br/>
+<em>The DHXEventBox class is a general class for custom event boxes.</em><br/>
+<br/>
+</div>
+</li>
+<li class="level1"><div class="li"> Define a template for the new box.<br/>
+<em>The template is specified through the DHXEventBox.setTemplate(String template) method</em><br/>
+<br/>
+</div>
+</li>
+<li class="level1"><div class="li"> Define and set a css class for the new box.<br/>
+<em>The name of a css class is set through the DHXEventBox.setCssClass(String className) method </em><br/>
+<br/>
+</div>
+</li>
+<li class="level1"><div class="li"> Set the new box for events.<br/>
+<em> A new box for events is specified through the  DHXPlanner.templates.setEventBox(DHXEventBox </em>ev<em>) method.  If you don&#039;t call the method, events will be rendered in the standard(default) boxes. </em></div>
+</li>
+</ol>
+
+<p>
+
+<br/>
+
+The <strong>DHXEventBox</strong> class provides 4 important methods:
+</p>
+<ol>
+<li class="level1"><div class="li"> <strong>DHXEventBox.setCanDrag(Boolean <em>canDrag</em>)</strong> - specifies whether the user can drag the event box;</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXEventBox.setCanResize(Boolean <em>canResize</em>)</strong> - specifies whether the user can change the duration of the event by dragging it onto the planner;</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXEventBox.setCssClass(String <em>className</em>)</strong> - sets the name of a css class that will be applied to the event box; </div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXEventBox.setTemplate(String <em>template</em>)</strong> - sets the template for the event box. The template is defined in a usual way (read more on templates <a href="dhxplanner.templates.html" class="wikilink1" title="dhxplanner.templates">here</a>). The template function takes 3 parameters: ev, start, end (<a href="templatetypes.event.html" class="wikilink1" title="templatetypes.event">details</a>).</div>
+</li>
+</ol>
+
+<p>
+
+If you don&#039;t want to use the default &#039;drag&#039;, &#039;resize&#039; controls you should call the <strong>DHXEventBox.setCanDrag(Boolean <em>canDrag</em>)</strong> and <strong>DHXEventBox.setCanDrag(Boolean <em>canDrag</em>)</strong> methods with the <em>false</em> value<br/>
+and define your custom controls in the template function (<strong>DHXEventBox.setTemplate(String <em>template</em>)</strong>).<br/>
+In this case, remember that some styles have a special purpose and must go first:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong><em>.dhx_event_move</em></strong> - an element with this style can be dragged (usually, it&#039;s the event header); </div>
+</li>
+<li class="level1"><div class="li"> <strong><em>.dhx_event_resize</em></strong> - dragging an element with this style will change the event duration.</div>
+</li>
+</ul>
+
+<p>
+
+Below is an example of some custom event box: 
+
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">DHXEventBox</span> ev <span class="sy0">=</span> <span class="kw1">new</span> DHXEventBox<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ev.<span class="me1">setTemplate</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;div class='custom_event' style='background-color:#1796B0; opacity:0.7; padding:10px;'&gt;&quot;</span><span class="sy0">+</span>
+          <span class="st0">&quot;&lt;span class='event_date'&gt;{start_date:date(%H:%i)}&lt;/span&gt; - &quot;</span><span class="sy0">+</span>
+          <span class="st0">&quot;&lt;span class='event_date'&gt;{end_date:date(%H:%i)}&lt;/span&gt;&lt;br&gt;&quot;</span><span class="sy0">+</span>
+          <span class="st0">&quot;&lt;span&gt;&lt;b&gt;{text}&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&quot;</span><span class="sy0">+</span>
+          <span class="st0">&quot;&lt;/div&gt;&quot;</span><span class="sy0">+</span>
+          <span class="st0">&quot;&lt;/div&gt;&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ev.<span class="me1">setCssClass</span><span class="br0">&#40;</span><span class="st0">&quot;custom_event&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">templates</span>.<span class="me1">setEventBox</span><span class="br0">&#40;</span>ev<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

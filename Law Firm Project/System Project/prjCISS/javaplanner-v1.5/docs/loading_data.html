@@ -1,0 +1,469 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Loading data</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#loading_data" class="toc">Loading data</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#ajax_loading_common_use_case" class="toc">Ajax loading (common use case)</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#big_datasets" class="toc">Big datasets</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#static_loading" class="toc">Static loading</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#data_requirements" class="toc">Data requirements</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#sample_db_structure" class="toc">Sample DB structure</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#custom_date_format" class="toc">Custom date format</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="loading_data" id="loading_data">Loading data</a></h1>
+<div class="level1">
+
+</div>
+
+<h2><a name="ajax_loading_common_use_case" id="ajax_loading_common_use_case">Ajax loading (common use case)</a></h2>
+<div class="level2">
+
+<p>
+The logic of retrieving data from a data source is fully managed by the developer.<br/>
+
+The library provides class <strong><em>DHXEventsManager</em></strong> which gets and renders a collection of data objects in the format supported by the planner. 
+</p>
+
+<p>
+The <strong>DHXEventsManager</strong> class has 3 important methods you surely will need if once decided to manage data: 
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong><em>getEvents()</em></strong> - answers for data loading;</div>
+</li>
+<li class="level1"><div class="li"> <strong><em>saveEvent()</em></strong> - manages the update/insert/delete operations;</div>
+</li>
+<li class="level1"><div class="li"> <strong><em>createEvent()</em></strong> - creates a new <strong>DHXEvent</strong> instance.</div>
+</li>
+</ul>
+
+<p>
+
+By default, methods do nothing and to provide the desired behaviour for data loading and processing you should create a new class and extend it from <em><strong>DHXEventsManager</strong></em>.
+</p>
+
+<p>
+<strong>Generally, to load data from a database table you should follow these steps:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> Create a new class (let&#039;s name it as <em>CustomEventsManager</em>) and extend it from the <em>DHXEventsManager</em> class:<br/>
+<br/>
+ <pre class="code java"><span class="co1">//CustomEventsManager.java file</span>
+<span class="kw1">public</span> <span class="kw1">class</span> CustomEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+        ...
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> In the newly-created class, redefine the <strong>getEvents()</strong> method and provide the logic of getting data from a data set there:<br/>
+<br/>
+<pre class="code java"><span class="co1">//CustomEventsManager.java file</span>
+<span class="kw1">public</span> Iterable<span class="sy0">&lt;</span>DHXEv<span class="sy0">&gt;</span> getEvents<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+	DHXEventsManager.<span class="me1">date_format</span> <span class="sy0">=</span> <span class="st0">&quot;yyyy-MM-dd HH:mm:ss&quot;</span><span class="sy0">;</span>
+	List<span class="sy0">&lt;</span>DHXEv<span class="sy0">&gt;</span> evs <span class="sy0">=</span> <span class="kw1">new</span> ArrayList<span class="sy0">&lt;</span>DHXEv<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="kw1">try</span> <span class="br0">&#123;</span>
+		java.<span class="me1">sql</span>.<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aconnection+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Connection</span></a> conn <span class="sy0">=</span> DatabaseConnection.<span class="me1">getConnection</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	        java.<span class="me1">sql</span>.<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astatement+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Statement</span></a> statement <span class="sy0">=</span> conn.<span class="me1">createStatement</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> 
+&nbsp;
+	        <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> query <span class="sy0">=</span> <span class="st0">&quot;SELECT event_id, event_name, start_date, end_date FROM events&quot;</span><span class="sy0">;</span> 
+	        <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aresultset+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">ResultSet</span></a> resultset <span class="sy0">=</span> statement.<span class="me1">executeQuery</span><span class="br0">&#40;</span>query<span class="br0">&#41;</span><span class="sy0">;</span> 
+&nbsp;
+	        <span class="kw1">while</span> <span class="br0">&#40;</span>resultset.<span class="me1">next</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> 
+	           <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aevent+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Event</span></a> e <span class="sy0">=</span> <span class="kw1">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aevent+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Event</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	           e.<span class="me1">setId</span><span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Ainteger+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Integer</span></a>.<span class="me1">parseInt</span><span class="br0">&#40;</span>resultset.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;event_id&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	           e.<span class="me1">setText</span><span class="br0">&#40;</span>resultset.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;event_name&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	           e.<span class="me1">setStart_date</span><span class="br0">&#40;</span>resultset.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;start_date&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	           e.<span class="me1">setEnd_date</span><span class="br0">&#40;</span>resultset.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;end_date&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	           evs.<span class="me1">add</span><span class="br0">&#40;</span>e<span class="br0">&#41;</span><span class="sy0">;</span> 
+	        <span class="br0">&#125;</span> 
+	        conn.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span> <span class="kw1">catch</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asqlexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SQLException</span></a> e1<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		e1.<span class="me1">printStackTrace</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+	DHXEventsManager.<span class="me1">date_format</span> <span class="sy0">=</span> <span class="st0">&quot;MM/dd/yyyy HH:mm&quot;</span><span class="sy0">;</span>
+&nbsp;
+	<span class="kw1">return</span> evs<span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> Create a new <em>.jsp</em> file (let&#039;s name it as &#039;events.jsp&#039;) that will instantiate the <strong>CustomEventsManager</strong> class and retrieve data:<br/>
+<br/>
+<pre class="code java"><span class="co1">//events.jsp file</span>
+<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> getEvents<span class="br0">&#40;</span>HttpServletRequest request<span class="br0">&#41;</span> <span class="kw1">throws</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Exception</span></a> <span class="br0">&#123;</span>
+	CustomEventsManager evs <span class="sy0">=</span> <span class="kw1">new</span> CustomEventsManager<span class="br0">&#40;</span>request<span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="kw1">return</span> evs.<span class="me1">run</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> In the main <em>.jsp</em> file, call method <strong>load()</strong>:<br/>
+<br/>
+<pre class="code java"><span class="co1">//Sampleplanner.jsp</span>
+<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> getJava Planner <span class="br0">&#40;</span>HttpServletRequest request<span class="br0">&#41;</span> <span class="kw1">throws</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Exception</span></a> <span class="br0">&#123;</span>
+	DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        ...
+	<span class="me1">planner</span>.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;events.jsp&quot;</span>, DHXDataFormat.<span class="me1">JSON</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// events.jsp - the name of the file created on the previous step</span>
+	<span class="kw1">return</span> planner.<span class="me1">render</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+</ul>
+
+<p>
+
+The <strong>load()</strong> method takes 2 parameters:
+
+</p>
+<ol>
+<li class="level1"><div class="li"> The path to a <em>.jsp</em> file that instantiates a custom class extended with  <em>DHXEventsManager</em>;</div>
+</li>
+<li class="level1"><div class="li"> The final format of retrieved data. The parameter is set through class <strong>DHXDataFormat</strong>. Available formats: <acronym title="Extensible Markup Language">XML</acronym>, JSON, iCal.</div>
+</li>
+</ol>
+
+</div>
+
+<h3><a name="big_datasets" id="big_datasets">Big datasets</a></h3>
+<div class="level3">
+
+<p>
+By default, planner retrieves all data from the data source at once. It&#039;s normal when your data set is relatively small, but when you deal with a big event collection such behaviour may become rather problematic. That&#039;s why, for big data sets we encourage you to use the dynamic mode and load data by parts required to fill the displayable selected view. 
+</p>
+
+<p>
+To enable dynamic loading you need to call method <strong>DHXPlanner.data.enableDynamicLoading</strong>(DHXDynLoadingMode <em>mode</em>):
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">data</span>.<span class="me1">enableDynamicLoading</span><span class="br0">&#40;</span>DHXDynLoadingMode.<span class="me1">week</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Class <strong>DHXDynLoadingMode</strong> provides 3 possible modes:
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>year</em>;</div>
+</li>
+<li class="level1"><div class="li"> <em>month</em>;</div>
+</li>
+<li class="level1"><div class="li"> <em>week</em>;</div>
+</li>
+<li class="level1"><div class="li"> <em>day</em>. </div>
+</li>
+</ul>
+
+<p>
+
+For example, if you set the &#039;week&#039; mode, planner will request events just for the current week and load remaining data on demand. 
+</p>
+
+<p>
+Generated requests look like:
+</p>
+<pre class="code java">data.<span class="me1">jsp</span><span class="sy0">?</span>from<span class="sy0">=</span>DATAVALUE<span class="sy0">&amp;</span>to<span class="sy0">=</span>DATAVALUE</pre>
+
+<p>
+DATAVALUE is a valid date of the “yyyy-MM-dd”  format. 
+</p>
+
+<p>
+The <em>from</em> and <em>to</em> request parameters can be gotten with the help of <strong>DHXEventManager.getFilterFrom()</strong> and <strong>getFilterFrom.getFilterTo()</strong> methods as follows:
+
+</p>
+<pre class="code java"><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Adate+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Date</span></a> start <span class="sy0">=</span> getFilterFrom<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Adate+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Date</span></a> end <span class="sy0">=</span> getFilterTo<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+The methods can be useful while implementing the server-side filtering. See details in the related chapter - <a href="filtration.html#helper_methods_for_dynamic_loading" class="wikilink1" title="filtration">&#039;Filtering: Helper methods for dynamic loading&#039;</a>.
+</p>
+
+</div>
+
+<h2><a name="static_loading" id="static_loading">Static loading</a></h2>
+<div class="level2">
+
+<p>
+To load data statically (parse a data set), you should use the <strong>DHXPlanner.parse(Iterable&lt;DHXEv&gt; <em>events_list</em>)</strong> method:
+</p>
+<pre class="code java"><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> getJava Planner <span class="br0">&#40;</span>HttpServletRequest request<span class="br0">&#41;</span> <span class="kw1">throws</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Exception</span></a> <span class="br0">&#123;</span>
+	<span class="co1">// creates and configures planner instance</span>
+	DHXPlanner s <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="co1">// sets events set</span>
+	CustomEventsManager evs <span class="sy0">=</span> <span class="kw1">new</span> CustomEventsManager<span class="br0">&#40;</span>request<span class="br0">&#41;</span><span class="sy0">;</span>
+	s.<span class="me1">parse</span><span class="br0">&#40;</span>evs.<span class="me1">getEvents</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="kw1">return</span> s.<span class="me1">render</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h3><a name="data_requirements" id="data_requirements">Data requirements</a></h3>
+<div class="level3">
+
+<p>
+To be correctly processed, data for events must fit with some requirements.
+</p>
+
+<p>
+<strong>Mandatory properties</strong>
+</p>
+
+<p>
+Your data item must contain the following properties:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>id</strong> -  (<em>Integer, String and etc.</em>) the event id;</div>
+</li>
+<li class="level1"><div class="li"> <strong>start_date</strong> (<em>Date</em> or <em>String</em>)  - the date when a task is scheduled to begin. The default format - ”%m/%d/%Y %H:%i”. </div>
+</li>
+<li class="level1"><div class="li"> <strong>end_date</strong> (<em>Date</em> or <em>String</em>) - the date when a task is scheduled to be completed. The default format - ”%m/%d/%Y %H:%i”. </div>
+</li>
+<li class="level1"><div class="li"> <strong>text</strong> (<em>String</em>) - the text of a task.</div>
+</li>
+</ul>
+
+<p>
+
+<strong>Format string</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> Read chapter <a href="format_string.html" class="wikilink1" title="format_string">&#039;Format string&#039;</a> to find out what characters you can use while setting the format for dates.</div>
+</li>
+</ul>
+
+<p>
+
+<strong>Data format</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> Available data formats: JSON (default), <acronym title="Extensible Markup Language">XML</acronym>, ICal.</div>
+</li>
+<li class="level1"><div class="li"> Remember, the <strong>DHXEventsManager</strong> class generates data in the JSON format.</div>
+</li>
+</ul>
+
+</div>
+
+<h3><a name="sample_db_structure" id="sample_db_structure">Sample DB structure</a></h3>
+<div class="level3">
+
+<p>
+A basic db for storing planner events can be created as in:
+</p>
+<pre class="code">
+CREATE TABLE `events` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `text` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+</pre>
+
+<p>
+
+<img src="images/table_scheme.png" class="media" alt="" />
+</p>
+
+</div>
+
+<h2><a name="custom_date_format" id="custom_date_format">Custom date format</a></h2>
+<div class="level2">
+
+<p>
+Note, if you call <a href="dhxplanner.config.html#dhxplannerconfigsetxmldate_string_format" class="wikilink1" title="dhxplanner.config">DHXPlanner.config.setXmlDate(String format)</a> method to specify a custom date format, don&#039;t forget to set the same date format in your <strong>DHXEventsManager</strong> class while specifying the <strong>getEvents()</strong> method.
+</p>
+<pre class="code java"><span class="co1">//Sampleplanner.jsp</span>
+DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">config</span>.<span class="me1">setXmlDate</span><span class="br0">&#40;</span><span class="st0">&quot;%d/%m/%Y %H:%i&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+
+and
+
+</p>
+<pre class="code java"><span class="co1">//CustomEventsManager.java file</span>
+<span class="kw1">public</span> <span class="kw1">class</span> CustomEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+        ...
+        <span class="kw1">public</span> Iterable<span class="sy0">&lt;</span>DHXEv<span class="sy0">&gt;</span> getEvents<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        ...
+        <span class="me1">DHXEventsManager</span>.<span class="me1">date_format</span> <span class="sy0">=</span> <span class="st0">&quot;%d/%m/%Y %H:%i&quot;</span><span class="sy0">;</span>
+        <span class="kw1">return</span> evs<span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+ Read chapter <a href="format_string.html" class="wikilink1" title="format_string">&#039;Format string&#039;</a> to find out what characters you can use while setting the format for dates.
+</p>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Lightbox</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#lightbox" class="toc">Lightbox</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#how_to_add_a_control_to_the_lightbox" class="toc">How to add a control to the lightbox</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#dropdown_controls" class="toc">Dropdown controls</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#fully_custom_lightbox" class="toc">Fully Custom Lightbox</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#view_sample" class="toc">View sample</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#the_method_setexternallightboxform" class="toc">The method SetExternalLightboxForm()</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="lightbox" id="lightbox">Lightbox</a></h1>
+<div class="level1">
+
+<p>
+<img src="images/lightbox.png" class="media" alt="" />
+</p>
+
+<p>
+In this chapter you&#039;ll know how to:
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="lightbox.html#how_to_add_a_control_to_lightbox" class="wikilink1" title="lightbox">Add a control to the lightbox</a></span>;</div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="lightbox.html#fully_custom_lightbox" class="wikilink1" title="lightbox">Create fully custom lightbox</a></span>.</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="how_to_add_a_control_to_the_lightbox" id="how_to_add_a_control_to_the_lightbox">How to add a control to the lightbox</a></h2>
+<div class="level2">
+
+<p>
+<img src="images/add_control_lightbox.png" class="media" alt="" />
+</p>
+
+<p>
+Generally, to add a control to the lightbox you should use method <strong>DHXPlanner.lightbox.add(DHXLightboxItem <em>control</em>, Integer <em>index</em>)</strong>:
+
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">DHXLightboxSelect</span> select <span class="sy0">=</span> <span class="kw1">new</span> DHXLightboxSelect<span class="br0">&#40;</span><span class="st0">&quot;event_type&quot;</span>, <span class="st0">&quot;Event type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">lightbox</span>.<span class="me1">add</span><span class="br0">&#40;</span>seleсt,1<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+The library provides the following controls classes:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong><em>DHXLightboxMiniCalendar</em></strong> - a date input with popup calendar;</div>
+</li>
+<li class="level1"><div class="li"> <strong><em>DHXLightboxCheckbox</em></strong> - a check box;</div>
+</li>
+<li class="level1"><div class="li"> <strong><em>DHXLightboxMultiselect</em></strong> - a multi-select list box;</div>
+<ul>
+<li class="level2"><div class="li"> <strong><em>DHXLightboxSelectOption</em></strong> - a select option of the list box.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong><em>DHXLightboxRadio</em></strong> - a set of radio buttons;</div>
+<ul>
+<li class="level2"><div class="li"> <strong><em>DHXLightboxSelectOption</em></strong> - a single radio button.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong><em>DHXLightboxSelect</em></strong> - a dropdown list;</div>
+<ul>
+<li class="level2"><div class="li"> <strong><em>DHXLightboxSelectOption</em></strong> - a select option of the dropdown list.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong><em>DHXLightboxText</em></strong> - a text input;</div>
+</li>
+<li class="level1"><div class="li"> <strong><em>DHXLightboxTime</em></strong> - a control area containing 2 date inputs for setting start and end times;</div>
+</li>
+<li class="level1"><div class="li"> <strong><em>DHXLightboxReccuringBlock</em></strong> - a control area used to set values for reccuring events.</div>
+</li>
+</ul>
+<pre class="code java">DHXLightboxCheckbox check <span class="sy0">=</span> <span class="kw1">new</span> DHXLightboxCheckbox<span class="br0">&#40;</span><span class="st0">&quot;highlighting&quot;</span>, <span class="st0">&quot;Important&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+check.<span class="me1">setMapTo</span><span class="br0">&#40;</span><span class="st0">&quot;textColor&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+check.<span class="me1">setCheckedValue</span><span class="br0">&#40;</span><span class="st0">&quot;red&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+planner.<span class="me1">lightbox</span>.<span class="me1">add</span><span class="br0">&#40;</span>check<span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">lightbox</span>.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXLightboxText<span class="br0">&#40;</span><span class="st0">&quot;text&quot;</span>, <span class="st0">&quot;Description&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+By default, the planner contains 2 controls:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>time</strong> - (<em>DHXLightboxTime</em>) the start (when an event is scheduled to begin) and end (when an event is planner to be completed) times.</div>
+</li>
+<li class="level1"><div class="li"> <strong>text</strong> - (<em>DHXLightboxText</em>) the text of an event.</div>
+</li>
+</ul>
+
+<p>
+
+Beware, as soon as you add some custom control, the default controls will be removed. To add some new control and hold the default ones, add the following code to the action:
+
+</p>
+<pre class="code java">planner.<span class="me1">lightbox</span>.<span class="me1">addDefaults</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h3><a name="dropdown_controls" id="dropdown_controls">Dropdown controls</a></h3>
+<div class="level3">
+
+<p>
+Here is a common technique for adding select(multiselect, radio) controls to the lightbox:
+</p>
+<pre class="code java">DHXLightboxSelect select <span class="sy0">=</span> <span class="kw1">new</span> DHXLightboxSelect<span class="br0">&#40;</span><span class="st0">&quot;textColor&quot;</span>, <span class="st0">&quot;Priority&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+select.<span class="me1">setServerList</span><span class="br0">&#40;</span><span class="st0">&quot;textColor&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">lightbox</span>.<span class="me1">add</span><span class="br0">&#40;</span>select<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+
+or 
+
+</p>
+<pre class="code java">DHXLightboxSelect select <span class="sy0">=</span> <span class="kw1">new</span> DHXLightboxSelect<span class="br0">&#40;</span><span class="st0">&quot;textColor&quot;</span>, <span class="st0">&quot;Priority&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+select.<span class="me1">addOption</span><span class="br0">&#40;</span><span class="st0">&quot;gray&quot;</span>, <span class="st0">&quot;Low&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+select.<span class="me1">addOption</span><span class="br0">&#40;</span><span class="st0">&quot;blue&quot;</span>, <span class="st0">&quot;Medium&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+select.<span class="me1">addOption</span><span class="br0">&#40;</span><span class="st0">&quot;red&quot;</span>, <span class="st0">&quot;High&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+planner.<span class="me1">lightbox</span>.<span class="me1">add</span><span class="br0">&#40;</span>select<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+
+Note, options take 2 properties: <strong>key</strong> (the id of an option) and <strong>label</strong> ( the text label of an option).
+</p>
+
+</div>
+
+<h2><a name="fully_custom_lightbox" id="fully_custom_lightbox">Fully Custom Lightbox</a></h2>
+<div class="level2">
+
+<p>
+<img src="images/fully_custom_lightbox.png" class="media" alt="" />
+</p>
+
+<p>
+To define a custom lightbox you should apply 2 steps:
+</p>
+<ol>
+<li class="level1"><div class="li"> <span class="curid"><a href="lightbox.html#view_sample" class="wikilink1" title="lightbox">Create a view containing a form with the desired controls</a></span>;</div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="lightbox.html#the_method_setexternallightboxform" class="wikilink1" title="lightbox">With method DHXPlanner.lightbox.SetExternalLightboxForm(String viewName), &#039;load&#039; the view into an iframe inside the lightbox popup</a></span>.<br/>
+<br/>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...			
+<span class="me1">DHXExternalLightboxForm</span> box <span class="sy0">=</span> 
+         planner.<span class="me1">lightbox</span>.<span class="me1">setExternalLightboxForm</span><span class="br0">&#40;</span><span class="st0">&quot;./custom_editor.jsp&quot;</span>, 296, 140<span class="br0">&#41;</span><span class="sy0">;</span>   
+&nbsp;
+box.<span class="me1">setClassName</span><span class="br0">&#40;</span><span class="st0">&quot;custom_lightbox&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+</ol>
+
+</div>
+
+<h3><a name="view_sample" id="view_sample">View sample</a></h3>
+<div class="level3">
+
+<p>
+Note, you should define 2 methods for you custom form:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>setValues</strong>(object) - takes an event object and sets values for the controls. the planner calls the method (after the view is loaded) and passes an edited event to it.<br/>
+</div>
+</li>
+<li class="level1"><div class="li"> object <strong>getValues()</strong> - takes values from the inputs (controls) and returns an event object. the planner calls the method to get an event object, update view data and send updated data to the server.</div>
+</li>
+</ul>
+<pre class="code csharp"><span class="co1">//custom_editor.jsp</span>
+<span class="sy0">&lt;</span>style<span class="sy0">&gt;</span>
+<span class="co2">#form1 {</span>
+	font<span class="sy0">-</span>family<span class="sy0">:</span> Tahoma<span class="sy0">;</span>
+	font<span class="sy0">-</span>size<span class="sy0">:</span> 10pt<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="co2">#form1 label {</span>
+	width<span class="sy0">:</span> 100px<span class="sy0">;</span>
+	display<span class="sy0">:</span> inline<span class="sy0">-</span>block<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="sy0">&lt;/</span>style<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>div<span class="sy0">&gt;</span>
+	<span class="sy0">&lt;</span>form id<span class="sy0">=</span><span class="st0">'form1'</span><span class="sy0">&gt;</span>
+		<span class="sy0">&lt;</span>label form<span class="sy0">=</span><span class="st0">&quot;event_text&quot;</span><span class="sy0">&gt;</span>Text<span class="sy0">&lt;/</span>label<span class="sy0">&gt;</span>
+                <span class="sy0">&lt;</span>input id<span class="sy0">=</span><span class="st0">&quot;event_text&quot;</span> name<span class="sy0">=</span><span class="st0">&quot;text&quot;</span> type<span class="sy0">=</span><span class="st0">&quot;text&quot;</span><span class="sy0">/&gt;&lt;</span>br <span class="sy0">/&gt;</span>
+		<span class="sy0">&lt;</span>label <span class="kw1">for</span><span class="sy0">=</span><span class="st0">&quot;event_start_date&quot;</span><span class="sy0">&gt;</span>From<span class="sy0">&lt;/</span>label<span class="sy0">&gt;</span>
+                <span class="sy0">&lt;</span>input id<span class="sy0">=</span><span class="st0">&quot;event_start_date&quot;</span> name<span class="sy0">=</span><span class="st0">&quot;start_date&quot;</span>  type<span class="sy0">=</span><span class="st0">&quot;text&quot;</span><span class="sy0">/&gt;&lt;</span>br <span class="sy0">/&gt;</span>
+		<span class="sy0">&lt;</span>label <span class="kw1">for</span><span class="sy0">=</span><span class="st0">&quot;event_end_date&quot;</span><span class="sy0">&gt;</span>To<span class="sy0">&lt;/</span>label<span class="sy0">&gt;</span>
+                <span class="sy0">&lt;</span>input id<span class="sy0">=</span><span class="st0">&quot;event_end_date&quot;</span> name<span class="sy0">=</span><span class="st0">&quot;end_date&quot;</span> type<span class="sy0">=</span><span class="st0">&quot;text&quot;</span><span class="sy0">/&gt;&lt;</span>br <span class="sy0">/&gt;</span>
+		<span class="sy0">&lt;</span>input id<span class="sy0">=</span><span class="st0">&quot;Hidden1&quot;</span> name<span class="sy0">=</span><span class="st0">&quot;id&quot;</span> type<span class="sy0">=</span><span class="st0">&quot;hidden&quot;</span><span class="sy0">/&gt;</span>
+	<span class="sy0">&lt;/</span>form<span class="sy0">&gt;</span>
+	<span class="sy0">&lt;</span>div<span class="sy0">&gt;</span>
+		<span class="sy0">&lt;</span>input type<span class="sy0">=</span><span class="st0">&quot;button&quot;</span> value<span class="sy0">=</span><span class="st0">&quot;Save&quot;</span> onclick<span class="sy0">=</span><span class="st0">&quot;lightbox.save()&quot;</span> <span class="sy0">/&gt;</span>
+		<span class="sy0">&lt;</span>input type<span class="sy0">=</span><span class="st0">&quot;button&quot;</span> value<span class="sy0">=</span><span class="st0">&quot;Cancel&quot;</span> onclick<span class="sy0">=</span><span class="st0">&quot;lightbox.close()&quot;</span> <span class="sy0">/&gt;</span>
+		<span class="sy0">&lt;</span>input style<span class="sy0">=</span><span class="st0">&quot;margin-left:86px&quot;</span> type<span class="sy0">=</span><span class="st0">&quot;button&quot;</span> value<span class="sy0">=</span><span class="st0">&quot;Delete&quot;</span> onclick<span class="sy0">=</span><span class="st0">&quot;lightbox.remove()&quot;</span><span class="sy0">/&gt;</span>
+	<span class="sy0">&lt;/</span>div<span class="sy0">&gt;</span>
+<span class="sy0">&lt;/</span>div<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+	getValues <span class="sy0">=</span> function <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		var ev <span class="sy0">=</span> <span class="br0">&#123;</span><span class="br0">&#125;</span><span class="sy0">;</span>
+		var inputs <span class="sy0">=</span> document.<span class="me1">body</span>.<span class="me1">getElementsByTagName</span><span class="br0">&#40;</span><span class="st0">'input'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+		<span class="kw1">for</span> <span class="br0">&#40;</span>var i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> inputs.<span class="me1">length</span><span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+			<span class="kw1">if</span> <span class="br0">&#40;</span>inputs<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">type</span> <span class="sy0">==</span> <span class="st0">&quot;button&quot;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+				continue<span class="sy0">;</span>
+			<span class="br0">&#125;</span>
+			var name <span class="sy0">=</span> inputs<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">getAttribute</span><span class="br0">&#40;</span><span class="st0">'name'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			<span class="kw1">if</span> <span class="br0">&#40;</span>name <span class="sy0">==</span> <span class="st0">&quot;start_date&quot;</span> <span class="sy0">||</span> name <span class="sy0">==</span> <span class="st0">&quot;end_date&quot;</span><span class="br0">&#41;</span>
+				ev<span class="br0">&#91;</span>name<span class="br0">&#93;</span> <span class="sy0">=</span> parent.<span class="me1">planner</span>.<span class="me1">templates</span>.<span class="me1">api_date</span><span class="br0">&#40;</span>inputs<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">value</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			<span class="kw1">else</span>
+				ev<span class="br0">&#91;</span>name<span class="br0">&#93;</span> <span class="sy0">=</span> inputs<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">value</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span>
+		<span class="kw1">return</span> ev<span class="sy0">;</span>
+	<span class="br0">&#125;</span><span class="sy0">;</span>
+&nbsp;
+	setValues <span class="sy0">=</span> function <span class="br0">&#40;</span>obj<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		var inputs <span class="sy0">=</span> document.<span class="me1">body</span>.<span class="me1">getElementsByTagName</span><span class="br0">&#40;</span><span class="st0">'input'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="kw1">for</span> <span class="br0">&#40;</span>var i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> inputs.<span class="me1">length</span><span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span>
+			<span class="kw1">if</span> <span class="br0">&#40;</span>inputs<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">type</span> <span class="sy0">!=</span> <span class="st0">&quot;button&quot;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+				var name <span class="sy0">=</span> inputs<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">getAttribute</span><span class="br0">&#40;</span><span class="st0">'name'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				<span class="kw1">if</span> <span class="br0">&#40;</span>name <span class="sy0">==</span> <span class="st0">&quot;start_date&quot;</span> <span class="sy0">||</span> name <span class="sy0">==</span> <span class="st0">&quot;end_date&quot;</span><span class="br0">&#41;</span>
+					inputs<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">value</span> <span class="sy0">=</span> parent.<span class="me1">planner</span>.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span>parent.<span class="me1">planner</span>.
+                                        <span class="me1">config</span>.<span class="me1">api_date</span><span class="br0">&#41;</span><span class="br0">&#40;</span>obj<span class="br0">&#91;</span>name<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				<span class="kw1">else</span>
+					inputs<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">value</span> <span class="sy0">=</span> obj<span class="br0">&#91;</span>name<span class="br0">&#93;</span><span class="sy0">;</span>
+			<span class="br0">&#125;</span>
+	<span class="br0">&#125;</span><span class="sy0">;</span>
+&nbsp;
+<span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<ul>
+<li class="level1"><div class="li"> <strong>parent.planner.templates.api_date</strong> - the function converts a specified string to a date object.</div>
+</li>
+<li class="level1"><div class="li"> <strong>parent.planner.date.date_to_str(parent.planner.config.api_date)</strong> - converts a date object to a string of the format supported by the planner.</div>
+</li>
+</ul>
+
+</div>
+
+<h3><a name="the_method_setexternallightboxform" id="the_method_setexternallightboxform">The method SetExternalLightboxForm()</a></h3>
+<div class="level3">
+
+<p>
+Method <strong>DHXPlanner.lightbox.setExternalLightboxForm(String <em>viewName</em>)</strong> can be called in 3 ways with a different number of parameters:
+</p>
+<pre class="code java">DHXExternalLightboxForm box <span class="sy0">=</span> planner.<span class="me1">lightbox</span>.<span class="me1">setExternalLightboxForm</span><span class="br0">&#40;</span><span class="st0">&quot;./custom_editor.jsp&quot;</span>, 296, 140<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+<ul>
+<li class="level1"><div class="li"> the path to a view that you want to load;</div>
+</li>
+<li class="level1"><div class="li"> the width of the lightbox;</div>
+</li>
+<li class="level1"><div class="li"> the height of the lightbox.<br/>
+<br/>
+</div>
+</li>
+</ul>
+<pre class="code java">DHXExternalLightboxForm box <span class="sy0">=</span> planner.<span class="me1">lightbox</span>.<span class="me1">setExternalLightboxForm</span><span class="br0">&#40;</span><span class="st0">&quot;./custom_editor.jsp&quot;</span>,<span class="st0">&quot;classname&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+<ul>
+<li class="level1"><div class="li"> the path to a view that you want to load;</div>
+</li>
+<li class="level1"><div class="li"> the css class that will be applied to the lightbox.<br/>
+<br/>
+</div>
+</li>
+</ul>
+<pre class="code java">DHXExternalLightboxForm box <span class="sy0">=</span> planner.<span class="me1">lightbox</span>.<span class="me1">setExternalLightboxForm</span><span class="br0">&#40;</span><span class="st0">&quot;./custom_editor.jsp&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+<ul>
+<li class="level1"><div class="li"> the path to a view that you want to load.</div>
+</li>
+</ul>
+
+<p>
+<br/>
+
+</p>
+
+<p>
+The method returns an <strong>DHXExternalLightboxForm</strong> object that has the following methods:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>DHXExternalLightboxForm.setWidth</strong>(Integer <em>width</em>) / <strong>getWidth()</strong> - sets/gets the width of the lightbox;</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXExternalLightboxForm.setHeight</strong>(Integer <em>height</em>) / <strong>getHeight()</strong> - sets/gets the height of the lightbox;</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXExternalLightboxForm.setClassName</strong>(String <em>className</em>) / <strong>getClassName()</strong> - sets/gets the name of a css class that will be applied to the lightbox;</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXExternalLightboxForm.setView</strong>(String <em>path</em>) / <strong>getView</strong> - sets/gets the path to a view that you want to load.</div>
+</li>
+</ul>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

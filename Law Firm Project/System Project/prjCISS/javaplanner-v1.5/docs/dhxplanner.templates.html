@@ -1,0 +1,363 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;<a href="options_and_templates.html" class="wikilink1" title="options_and_templates">Configuration options and templates</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;DHXPlanner.templates</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#dhxplannertemplates" class="toc">DHXPlanner.templates</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#common" class="toc">Common</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#views-specific_templates" class="toc">Views-specific templates</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#javascript_templates_definitions" class="toc">JavaScript templates definitions</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#referring_to_event_properties" class="toc">Referring to event properties</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#setting_the_date_format" class="toc">Setting the date format</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#how_is_it_used" class="toc">How is it used?</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="dhxplannertemplates" id="dhxplannertemplates">DHXPlanner.templates</a></h1>
+<div class="level1">
+
+<p>
+The library allows you to specify different templates. They can be used to change displaying dates and titles in the planner.
+</p>
+
+</div>
+
+<h2><a name="common" id="common">Common</a></h2>
+<div class="level2">
+
+<p>
+To define the desired template, write it as it&#039;s stated in this documentation below, just changing <em>DHXPlanner</em> to the name of your <em>DHXPlanner instance</em>.
+
+</p>
+<pre class="code csharp">DHXPlanner planner <span class="sy0">=</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">templates</span>.<span class="me1">setEventText</span><span class="br0">&#40;</span><span class="st0">&quot;Subject: {text}&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+
+As a result of this, a generated <acronym title="HyperText Markup Language">HTML</acronym> page will contain the following code:
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">event_text</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+   <span class="kw1">return</span> <span class="st0">'Subject: '</span> <span class="sy0">+</span> ev.<span class="me1">text</span> <span class="sy0">+</span> <span class="st0">''</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+<p>
+
+<img src="images/common.png" class="media" alt="" />
+</p>
+
+</div>
+
+<h2><a name="views-specific_templates" id="views-specific_templates">Views-specific templates</a></h2>
+<div class="level2">
+
+<p>
+Follow the link of a view to see templates supported by it. 
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>Default views</strong></div>
+<ul>
+<li class="level2"><div class="li"> <a href="day_view_templates.html" class="wikilink1" title="day_view_templates">Day view</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="month_view_templates.html" class="wikilink1" title="month_view_templates">Month view</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="week_view_templates.html" class="wikilink1" title="week_view_templates">Week view</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>Extra views</strong></div>
+<ul>
+<li class="level2"><div class="li"> <a href="agenda_view_templates.html" class="wikilink1" title="agenda_view_templates">Agenda view</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="map_view_templates.html" class="wikilink1" title="map_view_templates">Map view</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="timeline_view_templates.html" class="wikilink1" title="timeline_view_templates">Timeline view</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="weekagenda_view_templates.html" class="wikilink1" title="weekagenda_view_templates">WeekAgenda view</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="units_view_templates.html" class="wikilink1" title="units_view_templates">Units view</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="year_view_templates.html" class="wikilink1" title="year_view_templates">Year view</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>Common for all views</strong> </div>
+<ul>
+<li class="level2"><div class="li"> <a href="common_templates.html#lightbox" class="wikilink1" title="common_templates">Lightbox</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="common_templates.html#tooltips" class="wikilink1" title="common_templates">Tooltips</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="common_templates.html#api_templates" class="wikilink1" title="common_templates">API templates</a></div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="javascript_templates_definitions" id="javascript_templates_definitions">JavaScript templates definitions</a></h2>
+<div class="level2">
+
+<p>
+The library allows you to set a string value for templates. But in most cases it isn&#039;t enough and you may need to specify more complex definition. A value other than a string  can be set on the client-side. Below you can find default Javascript definitions for all the supported templates. 
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong><a href="default_definitions_template.html" class="wikilink1" title="default_definitions_template">Default Javascript definitions</a></strong></div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="referring_to_event_properties" id="referring_to_event_properties">Referring to event properties</a></h2>
+<div class="level2">
+
+<p>
+Note, within templates you can refer to the event properties as:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>start_date</strong> - <em>start</em>;</div>
+</li>
+<li class="level1"><div class="li"> <strong>end_date</strong> - <em>end</em>;</div>
+</li>
+<li class="level1"><div class="li"> <strong>text</strong> - <em>text</em>.</div>
+</li>
+</ul>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">templates</span>.<span class="me1">setEventBarText</span><span class="br0">&#40;</span><span class="st0">&quot;{start:date(%d.%m.%Y)} - {end:date(%d.%m.%Y)}: {text}&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="setting_the_date_format" id="setting_the_date_format">Setting the date format</a></h2>
+<div class="level2">
+
+<p>
+You can use templates to set the desired format for the displayable dates. 
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">templates</span>.<span class="me1">setDayScaleDate</span><span class="br0">&#40;</span><span class="st0">&quot;{date:date(%d.%m.%Y)}&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+The available format characters and combinations you can see <a href="format_string.html" class="wikilink1" title="format_string">here</a>.
+</p>
+
+</div>
+
+<h3><a name="how_is_it_used" id="how_is_it_used">How is it used?</a></h3>
+<div class="level3">
+
+<p>
+
+Generally, the format for a date is set as in: 
+</p>
+<pre class="code">
+DHXPlanner.templates.set[templateName](&quot;propertyName:date(someFormat)&quot;);
+</pre>
+
+<p>
+To know properties that a certain template disposes, check the input parameters of the <a href="default_definitions_template.html" class="wikilink1" title="default_definitions_template">related JavaScript function</a>. 
+</p>
+
+<p>
+
+For example, you want to change the format of the date in the sub-header of the Day view:
+</p>
+
+<p>
+<img src="images/how-is-it-used.png" class="media" alt="" />
+</p>
+
+<p>
+Your actions:
+</p>
+<ul>
+<li class="level1"><div class="li"> First of all, you look up the desired template in the <span class="curid"><a href="dhxplanner.templates.html" class="wikilink1" title="dhxplanner.templates">templates</a></span> chapter.<br/>
+You go <span class="curid"><a href="dhxplanner.templates.html" class="wikilink1" title="dhxplanner.templates">templates</a></span> → <span class="curid"><a href="dhxplanner.templates.html#views-specific_templates" class="wikilink1" title="dhxplanner.templates">Views-specific templates</a></span> → <a href="day_view_templates.html" class="wikilink1" title="day_view_templates">Day view</a> and find - <a href="templatetypes.date.html#dhxplannertemplatesday_scale_date" class="wikilink1" title="templatetypes.date">DHXPlanner.templates.setDayScaleDate(String format)</a>. </div>
+</li>
+<li class="level1"><div class="li"> Then,  you follow the <a href="templatetypes.date.html#dhxplannertemplatesday_scale_date" class="wikilink1" title="templatetypes.date">related link</a> of the template and here it is, the default JavaScript definition:<br/>
+<br/>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">day_scale_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span>planner.<span class="me1">config</span>.<span class="me1">default_date</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> You see that the function takes a parameter with the name <strong>date</strong>. So, you write:<br/>
+<br/>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...       
+<span class="me1">planner</span>.<span class="me1">templates</span>.<span class="me1">setDayScaleDate</span><span class="br0">&#40;</span><span class="st0">&quot;{date:date(%d.%m.%Y)}&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+</ul>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

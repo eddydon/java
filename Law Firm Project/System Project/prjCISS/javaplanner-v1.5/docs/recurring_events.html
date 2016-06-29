@@ -1,0 +1,364 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Recurring events</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#recurring_events" class="toc">Recurring events</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#data_items" class="toc">Data items</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#jsp_page" class="toc">JSP page</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#managing_crud_operations" class="toc">Managing CRUD operations</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#events_class" class="toc">Events&#039; class</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#excluding_past_days_from_events_with_the_weekly_recurrence" class="toc">Excluding past days from events with the &#039;weekly&#039; recurrence</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="recurring_events" id="recurring_events">Recurring events</a></h1>
+<div class="level1">
+
+<p>
+<img src="images/recuring_events.png" class="media" alt="" />
+</p>
+
+<p>
+Initially, planner doesn&#039;t maintain recurring events and to provide support for such events you should a little bit alter your existing code.
+</p>
+
+</div>
+
+<h2><a name="data_items" id="data_items">Data items</a></h2>
+<div class="level2">
+
+<p>
+Let&#039;s start from data items.
+</p>
+
+<p>
+You need to have 3 extra fields in the database, which are:
+
+</p>
+<ol>
+<li class="level1"><div class="li"> <strong>event_length</strong> - (<em>bigint</em>) the length of an event in seconds;</div>
+</li>
+<li class="level1"><div class="li"> <strong>event_pid</strong> - (<em>int</em>) the parent id of a series of events;</div>
+</li>
+<li class="level1"><div class="li"> <strong>rec_type</strong> - (<em>varchar(64)</em>) planner fills in this field automatically.</div>
+</li>
+</ol>
+
+</div>
+
+<h2><a name="jsp_page" id="jsp_page">JSP page</a></h2>
+<div class="level2">
+
+<p>
+In your .jsp file you must activate the extension as follows:
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...			
+<span class="me1">planner</span>.<span class="me1">extensions</span>.<span class="me1">add</span><span class="br0">&#40;</span>DHXExtension.<span class="me1">RECURRING</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="managing_crud_operations" id="managing_crud_operations">Managing CRUD operations</a></h2>
+<div class="level2">
+
+<p>
+A common technique for managing CRUD operations you can see in chapter of the same name - <a href="managing_crud_operations.html" class="wikilink1" title="managing_crud_operations">Managing CRUD operations</a>. 
+</p>
+
+<p>
+Recurring events have its specificity and require providing a special logic.<br/>
+
+Detail information concerning requirements that are brought to recurring events you can read in the documentation of dhtmlxScheduler - <a href="http://docs.dhtmlx.com/doku.php?id=dhtmlxscheduler:recurring_events#server_side_integration" class="urlextern" title="http://docs.dhtmlx.com/doku.php?id=dhtmlxscheduler:recurring_events#server_side_integration"  rel="nofollow">&#039;Recurring events. Server side integration&#039;</a>.
+</p>
+<pre class="code java"><span class="co1">//CustomEventsRecManager.java</span>
+<span class="kw1">public</span> <span class="kw1">class</span> CustomRecEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+        ...
+	@Override
+	<span class="kw1">public</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Ainteger+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Integer</span></a> saveEvent<span class="br0">&#40;</span>DHXEv event, DHXStatus status<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		java.<span class="me1">sql</span>.<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aconnection+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Connection</span></a> conn <span class="sy0">=</span> DatabaseConnection.<span class="me1">getConnection</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		java.<span class="me1">sql</span>.<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Apreparedstatement+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">PreparedStatement</span></a> ps <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
+		java.<span class="me1">sql</span>.<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aresultset+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">ResultSet</span></a> result <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
+&nbsp;
+		EventRec e <span class="sy0">=</span> <span class="br0">&#40;</span>EventRec<span class="br0">&#41;</span> event<span class="sy0">;</span>
+		<span class="kw1">try</span> <span class="br0">&#123;</span>
+			<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> query <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
+			<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> start_date <span class="sy0">=</span> <span class="kw1">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asimpledateformat+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SimpleDateFormat</span></a><span class="br0">&#40;</span><span class="st0">&quot;yyyy-MM-dd HH:mm:ss&quot;</span><span class="br0">&#41;</span>.
+                                            <span class="me1">format</span><span class="br0">&#40;</span>e.<span class="me1">getStart_date</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> end_date <span class="sy0">=</span> <span class="kw1">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asimpledateformat+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SimpleDateFormat</span></a><span class="br0">&#40;</span><span class="st0">&quot;yyyy-MM-dd HH:mm:ss&quot;</span><span class="br0">&#41;</span>.
+                                          <span class="me1">format</span><span class="br0">&#40;</span>e.<span class="me1">getEnd_date</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			<span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">UPDATE</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+				query <span class="sy0">=</span> <span class="st0">&quot;UPDATE events_rec SET text=?, start_date=?, end_date=?,&quot;</span><span class="sy0">+</span>
+<span class="st0">&quot; rec_type=?, event_length=?, event_pid=? WHERE event_id=?&quot;</span><span class="sy0">;</span>
+				ps <span class="sy0">=</span> conn.<span class="me1">prepareStatement</span><span class="br0">&#40;</span>query, <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astatement+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Statement</span></a>.<span class="me1">RETURN_GENERATED_KEYS</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setString</span><span class="br0">&#40;</span>1, e.<span class="me1">getText</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setString</span><span class="br0">&#40;</span>2, start_date<span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setString</span><span class="br0">&#40;</span>3, end_date<span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setString</span><span class="br0">&#40;</span>4, e.<span class="me1">getRec_type</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setInt</span><span class="br0">&#40;</span>5, e.<span class="me1">getEvent_length</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setInt</span><span class="br0">&#40;</span>6, e.<span class="me1">getEvent_pid</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setInt</span><span class="br0">&#40;</span>7, e.<span class="me1">getId</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+			<span class="br0">&#125;</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">INSERT</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+				query <span class="sy0">=</span> <span class="st0">&quot;INSERT INTO events_rec (event_id, text, start_date, end_date,&quot;</span><span class="sy0">+</span>
+<span class="st0">&quot; rec_type, event_length, event_pid) VALUES (null, ?, ?, ?, ?, ?, ?)&quot;</span><span class="sy0">;</span>
+				ps <span class="sy0">=</span> conn.<span class="me1">prepareStatement</span><span class="br0">&#40;</span>query, <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astatement+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Statement</span></a>.<span class="me1">RETURN_GENERATED_KEYS</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setString</span><span class="br0">&#40;</span>1, e.<span class="me1">getText</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setString</span><span class="br0">&#40;</span>2, start_date<span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setString</span><span class="br0">&#40;</span>3, end_date<span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setString</span><span class="br0">&#40;</span>4, e.<span class="me1">getRec_type</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setInt</span><span class="br0">&#40;</span>5, e.<span class="me1">getEvent_length</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setInt</span><span class="br0">&#40;</span>6, e.<span class="me1">getEvent_pid</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+			<span class="br0">&#125;</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">DELETE</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+				query <span class="sy0">=</span> <span class="st0">&quot;DELETE FROM events_rec WHERE event_id=? LIMIT 1&quot;</span><span class="sy0">;</span>
+				ps <span class="sy0">=</span> conn.<span class="me1">prepareStatement</span><span class="br0">&#40;</span>query, <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astatement+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Statement</span></a>.<span class="me1">RETURN_GENERATED_KEYS</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setInt</span><span class="br0">&#40;</span>1, event.<span class="me1">getId</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			<span class="br0">&#125;</span>
+&nbsp;
+			<span class="kw1">if</span> <span class="br0">&#40;</span>ps<span class="sy0">!=</span><span class="kw2">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+				ps.<span class="me1">executeUpdate</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				result <span class="sy0">=</span> ps.<span class="me1">getGeneratedKeys</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				<span class="kw1">if</span> <span class="br0">&#40;</span>result.<span class="me1">next</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+					event.<span class="me1">setId</span><span class="br0">&#40;</span>result.<span class="me1">getInt</span><span class="br0">&#40;</span>1<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				<span class="br0">&#125;</span>
+			<span class="br0">&#125;</span>
+&nbsp;
+			<span class="co3">/** we should delete all sub-events from series
+			 *  http://docs.dhtmlx.com/doku.php?id=dhtmlxscheduler:recurring_events#
+                            editing_deleting_a_certain_occurrence_in_the_series
+			 */</span>
+			<span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">DELETE</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+				query <span class="sy0">=</span> <span class="st0">&quot;DELETE FROM events_rec WHERE event_pid=? LIMIT 1&quot;</span><span class="sy0">;</span>
+				ps <span class="sy0">=</span> conn.<span class="me1">prepareStatement</span><span class="br0">&#40;</span>query<span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">setInt</span><span class="br0">&#40;</span>1, event.<span class="me1">getId</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+				ps.<span class="me1">executeUpdate</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			<span class="br0">&#125;</span>
+&nbsp;
+		<span class="br0">&#125;</span> <span class="kw1">catch</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asqlexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SQLException</span></a> e1<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+			e1.<span class="me1">printStackTrace</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span> <span class="kw1">finally</span> <span class="br0">&#123;</span>
+	        <span class="kw1">if</span> <span class="br0">&#40;</span>result <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">&#41;</span> <span class="kw1">try</span> <span class="br0">&#123;</span> result.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="br0">&#125;</span> <span class="kw1">catch</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asqlexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SQLException</span></a> e1<span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span>
+	        <span class="kw1">if</span> <span class="br0">&#40;</span>ps <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">&#41;</span> <span class="kw1">try</span> <span class="br0">&#123;</span> ps.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="br0">&#125;</span> <span class="kw1">catch</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asqlexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SQLException</span></a> e1<span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span>
+	        <span class="kw1">if</span> <span class="br0">&#40;</span>conn <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">&#41;</span> <span class="kw1">try</span> <span class="br0">&#123;</span> conn.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="br0">&#125;</span> <span class="kw1">catch</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asqlexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SQLException</span></a> e1<span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span>
+	    <span class="br0">&#125;</span>
+&nbsp;
+		<span class="kw1">return</span> event.<span class="me1">getId</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h2><a name="events_class" id="events_class">Events&#039; class</a></h2>
+<div class="level2">
+
+<p>
+By default, when the user creates a new event, the planner creates an instance of <strong>DHXEvent</strong> class (see details <a href="managing_crud_operations.html" class="wikilink1" title="managing_crud_operations">here</a>). 
+</p>
+
+<p>
+For recurring events, the library provides special class <strong>DHXEventRec</strong> and the <strong>createEvent()</strong> method should be redefined as in:
+</p>
+<pre class="code java"><span class="co1">//EventRec.java</span>
+<span class="kw1">package</span> <span class="co2">demoapp</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">com.DHTMLX.Planner.DHXEventRec</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">class</span> EventRec <span class="kw1">extends</span> DHXEventRec <span class="br0">&#123;</span>
+     ...
+<span class="br0">&#125;</span></pre>
+<pre class="code java"><span class="co1">//CustomEventsRecManager.java</span>
+<span class="kw1">public</span> <span class="kw1">class</span> CustomRecEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+        ...
+	@Override
+	<span class="kw1">public</span> DHXEv createEvent<span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> id, DHXStatus status<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		<span class="kw1">return</span> <span class="kw1">new</span> EventRec<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h2><a name="excluding_past_days_from_events_with_the_weekly_recurrence" id="excluding_past_days_from_events_with_the_weekly_recurrence">Excluding past days from events with the &#039;weekly&#039; recurrence</a></h2>
+<div class="level2">
+
+<p>
+Generally, when the user creates a recurring event, it contains occurrences starting from the first day of the week it has been created.<br/>
+
+This behaviour can result in including past days into the recurrence (days that are already gone). 
+</p>
+
+<p>
+For instance, an event created on Saturday with &#039;weekly&#039; repetition on Monday and Tuesday, will contain the occurrences of the current 
+week (i.e. past Monday and Tuesday), even though they are gone. 
+</p>
+
+<p>
+Starting from version 1.5, the library provides the <a href="dhxplanner.config.html#dhxplannerconfigsetrepeatprecise_boolean_excludepastdays" class="wikilink1" title="dhxplanner.config">DHXPlanner.config.setRepeatPrecise</a> method to correct such behaviour. Call the method with the <em>true</em> value and the start date of a recurring event will be the date of the first real occurrence.
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">config</span>.<span class="me1">setRepeatPrecise</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

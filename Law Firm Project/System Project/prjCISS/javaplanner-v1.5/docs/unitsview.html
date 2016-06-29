@@ -1,0 +1,302 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;<a href="fields_and_views.html" class="wikilink1" title="fields_and_views">Views</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Units view</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#units_view" class="toc">Units view</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#initialization" class="toc">Initialization</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#main_methods" class="toc">Main methods</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#data_for_x-axis" class="toc">Data for X-Axis</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="units_view" id="units_view">Units view</a></h1>
+<div class="level1">
+
+<p>
+<img src="images/units_view.png" class="media" alt="" />
+</p>
+
+</div>
+
+<h2><a name="initialization" id="initialization">Initialization</a></h2>
+<div class="level2">
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">DHXUnitsView</span> view <span class="sy0">=</span> <span class="kw1">new</span> DHXUnitsView<span class="br0">&#40;</span><span class="st0">&quot;type&quot;</span>, <span class="st0">&quot;event_type&quot;</span>, <span class="st0">&quot;Type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+view.<span class="me1">setServerListLink</span><span class="br0">&#40;</span><span class="st0">&quot;event_type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">views</span>.<span class="me1">add</span><span class="br0">&#40;</span>view<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+
+where
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong><em>type</em></strong> - the name of the view.<br/>
+<em>The constructor requires the &#039;name&#039; cause the view can exist in the planner in several instances.</em></div>
+</li>
+<li class="level1"><div class="li"> <strong><em>event_type</em></strong> - the name of a data property that will be used as the id of units.<br/>
+<em>Optional. If the parameter isn&#039;t specified, it takes value of the first parameter.</em></div>
+</li>
+<li class="level1"><div class="li"> <strong><em>Type</em></strong> - the text label of the view tab.<br/>
+<em>Optional. If the parameter isn&#039;t specified, it takes value of the first parameter.</em></div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="main_methods" id="main_methods">Main methods</a></h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.addOption</strong>(DHXUnit <em>unit</em>) - sets values for Y-Axis.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.setFilter</strong>(DHXFilter <em>filter</em>) / <strong>getFilter()</strong> - defines filter for the view/gets the filter set for the view.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.setLabel</strong>(String <em>label</em>) / <strong>getLabel()</strong> - sets/gets the text label. The default value  - <em>&#039;Units&#039;</em>.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.setName</strong>(String <em>name</em>) / <strong>getName()</strong> - sets/gets the name of the view. Most applicable to the Units and Timeline views cause they can be presented in the planner in several instances. For other views &#039;name&#039; is taken by default.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.setProperty</strong>(String <em>property</em>) / <strong>getProperty()</strong> - sets/gets the name of a property by which events are divided to units. </div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.setServerListLink</strong>(String <em>list</em>) / <strong>getServerListLink()</strong> - specifies/gets the <em>ArrayList&lt;DHXCollection&gt;</em> object that is used to set values for Y-Axis. </div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.setSize</strong>(Integer <em>units</em>) / <strong>getSize()</strong> - sets/gets the number of units to be displaying on the screen at a time.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.setSkipIncorrect</strong>(Boolean <em>skipIncorrect</em>) / <strong>getSkipIncorrect()</strong> - skips (doesn&#039;t display) events which belong to none of the defined units. If the method is called with the <em>false</em> value, such events are presented in the first unit. The default value - <em>false</em>. </div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.setStep</strong>(Integer <em>step</em>) / <strong>getStep()</strong> - sets/gets the scroll step.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.setTabClass</strong>(String <em>className</em>) / <strong>getTabClass()</strong> - specifies/gets the name of a css class that will be applied to the tab.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.setTabPosition</strong>(Integer <em>offset</em>) / <strong>getTabPosition()</strong> - sets/gets the right offset of the view tab in the tabbar. By default, tabs go right-to-left in the order of addition to the planner.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.setTabStyle</strong>(String <em>style</em>) / <strong>getTabStyle()</strong> - specifies/gets the style that will be applied to the tab.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.setTabWidth</strong>(Integer <em>width</em>) / <strong>getTabWidth()</strong> - specifies/gets the width of the tab.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXUnitsView.getViewType()</strong> - gets the type of the view. </div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="data_for_x-axis" id="data_for_x-axis">Data for X-Axis</a></h2>
+<div class="level2">
+
+<p>
+There are 2 ways, you can set values for Y-Axis:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> With method <strong>DHXUnitsView.addOption(DHXUnit <em>unit</em>)</strong>:<br/>
+<br/>
+<pre class="code java">DHXUnitsView view <span class="sy0">=</span> <span class="kw1">new</span> DHXUnitsView<span class="br0">&#40;</span><span class="st0">&quot;type&quot;</span>, <span class="st0">&quot;event_type&quot;</span>, <span class="st0">&quot;Type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">view</span>.<span class="me1">addOption</span><span class="br0">&#40;</span> <span class="kw1">new</span> DHXUnit<span class="br0">&#40;</span><span class="st0">&quot;1&quot;</span>, <span class="st0">&quot;Department 1&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> With method <strong>DHXUnitsView.setServerListLink(String <em>list</em>)</strong><br/>
+<br/>
+<pre class="code java">DHXUnitsView view <span class="sy0">=</span> <span class="kw1">new</span> DHXUnitsView<span class="br0">&#40;</span><span class="st0">&quot;type&quot;</span>, <span class="st0">&quot;event_type&quot;</span>, <span class="st0">&quot;Type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">view</span>.<span class="me1">setServerListLink</span><span class="br0">&#40;</span><span class="st0">&quot;event_type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+ where “event_type” is <em>ArrayList&lt;DHXCollection&gt;</em> specified in the java file that answers for loading data:<br/>
+
+</p>
+<pre class="code java"><span class="co1">//CustomEventsManager.java</span>
+<span class="kw1">public</span> <span class="kw1">class</span> CustomUnitsEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+        ...
+        @Override
+	<span class="kw1">public</span> HashMap<span class="sy0">&lt;</span>String, Iterable<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;&gt;</span> getCollections<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		ArrayList<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;</span> event_type <span class="sy0">=</span> <span class="kw1">new</span> ArrayList<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		event_type.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXCollection<span class="br0">&#40;</span><span class="st0">&quot;1&quot;</span>, <span class="st0">&quot;Simple&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		event_type.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXCollection<span class="br0">&#40;</span><span class="st0">&quot;2&quot;</span>, <span class="st0">&quot;Complex&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		event_type.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXCollection<span class="br0">&#40;</span><span class="st0">&quot;3&quot;</span>, <span class="st0">&quot;Other&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+		HashMap<span class="sy0">&lt;</span>String,Iterable<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;&gt;</span> c <span class="sy0">=</span> 
+                        <span class="kw1">new</span> HashMap<span class="sy0">&lt;</span>String,Iterable<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		c.<span class="me1">put</span><span class="br0">&#40;</span><span class="st0">&quot;event_type&quot;</span>, event_type<span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="kw1">return</span> c<span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+</ul>
+
+<p>
+Note, to be correctly processed data items must have 2 mandatory properties:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>key</strong> - the id of an item;</div>
+</li>
+<li class="level2"><div class="li"> <strong>label</strong> - the text label of an item.</div>
+</li>
+</ul>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

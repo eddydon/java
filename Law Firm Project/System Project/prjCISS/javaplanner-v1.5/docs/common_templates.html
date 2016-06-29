@@ -1,0 +1,283 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;<a href="options_and_templates.html" class="wikilink1" title="options_and_templates">Configuration options and templates</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;<a href="dhxplanner.templates.html" class="wikilink1" title="dhxplanner.templates">DHXPlanner.templates</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Common templates</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#common_templates" class="toc">Common templates</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#lightbox" class="toc">Lightbox</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#tooltips" class="toc">Tooltips</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#touch_support" class="toc">Touch support</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#api_templates" class="toc">API templates</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="common_templates" id="common_templates">Common templates</a></h1>
+<div class="level1">
+
+</div>
+
+<h2><a name="lightbox" id="lightbox">Lightbox</a></h2>
+<div class="level2">
+
+<p>
+<br/>
+
+<strong>Available templates:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="templatetypes.event.html#dhxplannertemplateslightbox_header" class="wikilink1" title="templatetypes.event">DHXPlanner.templates.setLightboxHeader</a>(String <em>value</em>) - the header of the lightbox.</div>
+</li>
+<li class="level1"><div class="li"> <a href="templatetypes.date.html#dhxplannertemplatestime_picker" class="wikilink1" title="templatetypes.date">DHXPlanner.templates.setTimePicker</a>(String <em>value</em>) - the drop-down time selector in the lightbox.</div>
+</li>
+</ul>
+
+<p>
+
+<img src="images/templates_lightbox.png" class="media" alt="" />
+</p>
+
+<p>
+
+Note, if the <strong>DHXPlanner.templates.setLightboxHeader(String <em>value</em>)</strong> template function isn&#039;t called, the date part of the header will be set according to <strong>DHXPlanner.templates.setEventHeader(String <em>value</em>)</strong> (<em><em class="u">04:00 - 04:05</em></em> in the picture above). 
+</p>
+
+</div>
+
+<h2><a name="tooltips" id="tooltips">Tooltips</a></h2>
+<div class="level2">
+
+<p>
+You have the possibility to create tooltips over events regardless of the type of a view. This could be used to display additional event information without the need of &#039;opening&#039; the event.
+</p>
+
+<p>
+<img src="images/templates_tooltips.png" class="media" alt="" />
+</p>
+
+<p>
+To take the possibility you should activate the related extension:<br/>
+<br/>
+
+</p>
+<pre class="code java"><span class="sy0">&lt;%</span>@ page <span class="kw1">import</span><span class="sy0">=</span><span class="st0">&quot;com.DHTMLX.Planner.extensions.Tooltip&quot;</span> <span class="sy0">%&gt;</span></pre>
+
+<p>
+
+After performing this step, tooltips will be displayed with the default settings. To set a custom look - use the <strong>DHXPlanner.templates.setTooltipText(String <em>text</em>)</strong> template function.
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="templatetypes.event.html#dhxplannertemplatestooltip_text" class="wikilink1" title="templatetypes.event">DHXPlanner.templates.setTooltipText</a>(String <em>text</em>) - the text of tooltips.</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="touch_support" id="touch_support">Touch support</a></h2>
+<div class="level2">
+
+<p>
+Java Planner provides a special extension &#039;Quick Info&#039; to enable touch support for its applications. You can read more on the topic in the related chapter - <a href="touch_support.html" class="wikilink1" title="touch_support">&#039;Touch support in Java Planner&#039;</a>.
+</p>
+
+<p>
+The extension supplies 3 templates: 
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="templatetypes.event.html#dhxplannertemplatesquick_info_content" class="wikilink1" title="templatetypes.event">DHXPlanner.templates.setQuickInfoContent</a>(String <em>content</em>) - the content of the pop-up edit form;</div>
+</li>
+<li class="level1"><div class="li"> <a href="templatetypes.event.html#dhxplannertemplatesquick_info_date" class="wikilink1" title="templatetypes.event">DHXPlanner.templates.setQuickInfoDate</a>(String <em>format</em>) - the date of the pop-up edit form;</div>
+</li>
+<li class="level1"><div class="li"> <a href="templatetypes.event.html#dhxplannertemplatesquick_info_title" class="wikilink1" title="templatetypes.event">DHXPlanner.templates.setQuickInfoTitle</a>(String <em>title</em>) - the title of the pop-up edit form.</div>
+</li>
+</ul>
+
+<p>
+
+<img src="images/edit_form.png" class="media" alt="" />
+</p>
+
+</div>
+
+<h2><a name="api_templates" id="api_templates">API templates</a></h2>
+<div class="level2">
+
+<p>
+<br/>
+
+<strong>Available templates:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="templatetypes.date.html#dhxplannertemplatesapi_date" class="wikilink1" title="templatetypes.date">DHXPlanner.templates.setApiDate</a>(String <em>value</em>) - the format for dates that are set by means of <acronym title="Application Programming Interface">API</acronym> methods. Used to parse incoming dates. </div>
+</li>
+<li class="level1"><div class="li"> <a href="templatetypes.date.html#dhxplannertemplatesxml_date" class="wikilink1" title="templatetypes.date">DHXPlanner.templates.setXmlDate</a>(String <em>value</em>) - a string from an <acronym title="Extensible Markup Language">XML</acronym> file is converted into a date object in conformity with this template.</div>
+</li>
+<li class="level1"><div class="li"> <a href="templatetypes.date.html#dhxplannertemplatesxml_format" class="wikilink1" title="templatetypes.date">DHXPlanner.templates.setXmlFormat</a>(String <em>value</em>) - a date object is converted into a string in conformity with this template. Used to send data back to the server.</div>
+</li>
+</ul>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

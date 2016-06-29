@@ -1,0 +1,584 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;<a href="fields_and_views.html" class="wikilink1" title="fields_and_views">Views</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Timeline view</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#timeline_view" class="toc">Timeline view</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#initialization" class="toc">Initialization</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#main_methods_of_the_dhxtimelineview_class" class="toc">Main methods of the DHXTimelineView class</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#second_x-axis" class="toc">Second X-Axis</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#modes" class="toc">Modes</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#data_for_y-axis" class="toc">Data for Y-Axis</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#bar_and_cell_modes" class="toc">&#039;Bar&#039; and &#039;Cell&#039; modes</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#tree_mode" class="toc">&#039;Tree&#039; mode</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="timeline_view" id="timeline_view">Timeline view</a></h1>
+<div class="level1">
+
+<p>
+<img src="images/timeline_view.png" class="media" alt="" />
+</p>
+
+</div>
+
+<h2><a name="initialization" id="initialization">Initialization</a></h2>
+<div class="level2">
+<pre class="code java">DHXTimelineView view <span class="sy0">=</span> <span class="kw1">new</span> DHXTimelineView<span class="br0">&#40;</span><span class="st0">&quot;type&quot;</span>, <span class="st0">&quot;event_type&quot;</span>, <span class="st0">&quot;Type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//initializes the view</span>
+view.<span class="me1">setRenderMode</span><span class="br0">&#40;</span>DHXTimelineView.<span class="me1">RenderModes</span>.<span class="me1">BAR</span><span class="br0">&#41;</span><span class="sy0">;</span>
+view.<span class="me1">setXScaleUnit</span><span class="br0">&#40;</span>DHXTimelineView.<span class="me1">XScaleUnits</span>.<span class="me1">MINUTE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+view.<span class="me1">setServerList</span><span class="br0">&#40;</span><span class="st0">&quot;event_type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//defines Y-Axis items. </span>
+...
+<span class="me1">planner</span>.<span class="me1">views</span>.<span class="me1">add</span><span class="br0">&#40;</span>view<span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//adds the view to the planner</span></pre>
+
+<p>
+
+where
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong><em>type</em></strong> - the name of the view.<br/>
+<em>The constructor requires the &#039;name&#039; cause the view can exist in the planner in several instances.</em></div>
+</li>
+<li class="level1"><div class="li"> <strong><em>event_type</em></strong> - the name of a data property that will be used as the id of units.<br/>
+<em>Optional. If the parameter isn&#039;t specified, it takes value of the first parameter.</em></div>
+</li>
+<li class="level1"><div class="li"> <strong><em>Type</em></strong> - the text label of the view tab.<br/>
+<em>Optional. If the parameter isn&#039;t specified, it takes value of the first parameter.</em></div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="main_methods_of_the_dhxtimelineview_class" id="main_methods_of_the_dhxtimelineview_class">Main methods of the DHXTimelineView class</a></h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <strong>setDy</strong>(Integer <em>height</em>) / <strong>getDy()</strong>  - sets/gets the minimal height of cells (if the <strong>SectionAutoheight</strong> parameter has value &#039;<em>false</em>&#039;, the height of cells will be equal to <strong>Dy</strong>. Otherwise, the height will be increased to fill all free space). </div>
+</li>
+<li class="level1"><div class="li"> <strong>setDx</strong>(Integer <em>width</em>) / <strong>getDx()</strong>  - sets/gets the width of the first column (that contains names of units). </div>
+</li>
+<li class="level1"><div class="li"> <strong>setEventDy</strong>(Integer <em>height</em>) / <strong>getEventDy()</strong>  - sets/gets the height of the event box.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setEventMinDy</strong>(Integer <em>height</em>) / <strong>getEventMinDy()</strong> -  sets/gets the minimum height of the event box.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setFilter</strong>(DHXFilter <em>filter</em>) / <strong>getFilter()</strong> - defines filter for the view/gets the filter set for the view.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setFullEventDy</strong>(Boolean <em>occupyAllSpace</em>) / <strong>getEventMinDy()</strong>  - specifies whether the event must occupy the entire cell (ignores the value set by <strong>setEventDy(Integer <em>height</em>)</strong>)</div>
+</li>
+<li class="level1"><div class="li"> <strong>setFitEvents</strong>(Boolean <em>isHeightFlexible</em>) / <strong>getFitEvents()</strong> -  defines whether the height of cells should be flexible or fixed (<strong>setDy(Integer <em>height</em>)</strong> method). The default value - <em>true</em>.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setFolderDy</strong>(Integer <em>height</em>) / <strong>getFolderDy()</strong> - sets/gets the height of folders in pixels (non-applicable to cells with folder names).</div>
+</li>
+<li class="level1"><div class="li"> <strong>setFolderEventsAvailable</strong>(Boolean <em>createEventForGroup</em>) / <strong>getFolderEventsAvailable()</strong> - call the method with the <em>true</em> value if you want to have the possibility to specify events not only for an individual holder but also for the whole folder (any level). Used for the &#039;Tree&#039; mode.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setLabel</strong>(String <em>label</em>) / <strong>getLabel()</strong> - sets/gets the text label. The default value  - <em>&#039;Timeline&#039;</em>.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setName</strong>(String <em>name</em>) / <strong>getName()</strong> - sets/gets the name of the view. Most applicable to the Units and Timeline views cause they can be presented in the planner in several instances. For other views &#039;name&#039; is taken by default.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setYProperty</strong>(String <em>property</em>) / <strong>getYProperty()</strong> - sets/gets the name of a property by which events are divided to units.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setRenderMode</strong>(RenderModes <em>mode</em>) / <strong>getRenderMode()</strong> - sets/gets the mode of the view.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setResizeEvents</strong>(Boolean <em>fitSection</em>) / <strong>getResizeEvents()</strong> - specifies whether the height of events must be decreased to fit the section height. By default - <em>true</em>.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setSectionAutoheight</strong>(Boolean <em>cellAutoSection</em>) / <strong>getSectionAutoheight()</strong> - allows you to set automatic height adjustment for cells. </div>
+</li>
+<li class="level1"><div class="li"> <strong>setSkipIncorrect</strong> - (<em>boolean</em>) skips (doesn&#039;t display) events which belong to none of the defined units. If the parameter is set to <em>false</em>, such events are presented in the first unit. The default value - <em>false</em>. </div>
+</li>
+<li class="level1"><div class="li"> <strong>setTabPosition</strong>(Integer <em>offset</em>) / <strong>getTabPosition()</strong> - sets/gets the right offset of the view tab in the tabbar. By default, tabs go right-to-left in the order of addition to the planner.</div>
+</li>
+<li class="level1"><div class="li"> <strong>getViewType()</strong> - gets the type of the view.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setXDate</strong>(String <em>format</em>) /  <strong>getXDate()</strong> - sets/gets the date format of the X-Axis. See available variations of the format string <a href="format_string.html" class="wikilink1" title="format_string">here</a>. </div>
+</li>
+<li class="level1"><div class="li"> <strong>setXLength</strong>(Integer <em>steps</em>) / <strong>getXLength</strong> - sets/gets a number of <strong>&#039;XStep&#039;</strong>s needed to fill the whole day.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setXSize</strong>(Integer <em>minInterval</em>) / <strong>getXSize()</strong> - sets/gets the minimum scale interval calculated in <strong>&#039;XUnit&#039;</strong>s.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setXStart</strong>(Integer <em>minValue</em>) / <strong>getXStart()</strong> - sets/gets the minimal value of the scale.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setXStep</strong>(Integer <em>steps</em>) / <strong>getXStep()</strong> - sets/gets the number of <strong>&#039;XStep&#039;</strong>s needed to display on the screen.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setXScaleUnit</strong>(XScaleUnits <em>unit</em>) / <strong>getXScaleUnit()</strong> - (<em>minute, hour, day, week, month, year </em>) the scale unit.</div>
+</li>
+<li class="level1"><div class="li"> <strong>setYProperty</strong>(String <em>name</em>) / <strong>getYProperty()</strong> -  the event property that will be used as a template for Y-Axis items.</div>
+</li>
+</ul>
+<pre class="code java">DHXTimelineView view <span class="sy0">=</span> <span class="kw1">new</span> DHXTimelineView<span class="br0">&#40;</span><span class="st0">&quot;type&quot;</span>, <span class="st0">&quot;event_type&quot;</span>, <span class="st0">&quot;Type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+view.<span class="me1">setRenderMode</span><span class="br0">&#40;</span>DHXTimelineView.<span class="me1">RenderModes</span>.<span class="me1">BAR</span><span class="br0">&#41;</span><span class="sy0">;</span>
+view.<span class="me1">setXScaleUnit</span><span class="br0">&#40;</span>DHXTimelineView.<span class="me1">XScaleUnits</span>.<span class="me1">HOUR</span><span class="br0">&#41;</span><span class="sy0">;</span>
+view.<span class="me1">setXStep</span><span class="br0">&#40;</span>30<span class="br0">&#41;</span><span class="sy0">;</span>
+view.<span class="me1">setXSize</span><span class="br0">&#40;</span>24<span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// (8PM - 8AM)/30min</span>
+view.<span class="me1">setXStart</span><span class="br0">&#40;</span>16<span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// 8AM/30min</span>
+view.<span class="me1">setXLength</span><span class="br0">&#40;</span>48<span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// 24/30min</span>
+view.<span class="me1">setServerList</span><span class="br0">&#40;</span><span class="st0">&quot;event_type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">views</span>.<span class="me1">add</span><span class="br0">&#40;</span>view<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="second_x-axis" id="second_x-axis">Second X-Axis</a></h2>
+<div class="level2">
+
+<p>
+The second X_Axis is placed in the top of the default one and serves to group time intervals of the original scale. 
+</p>
+
+<p>
+<img src="images/second_x-axis_timeline_view.png" class="media" alt="" />
+</p>
+
+<p>
+You can add it with method <strong>AddSecondScale(XScaleUnits <em>x_unit</em>, String <em>x_date</em>)</strong>.
+</p>
+
+<p>
+
+The method takes 2 parameters:
+</p>
+<ol>
+<li class="level1"><div class="li"> The scale unit. Possible values are <em>minute, hour, day, week, month, year</em>.</div>
+</li>
+<li class="level1"><div class="li"> The date format. See available variations of the format string <a href="format_string.html" class="wikilink1" title="format_string">here</a>.  </div>
+</li>
+</ol>
+<pre class="code java">DHXTimelineView view <span class="sy0">=</span> <span class="kw1">new</span> DHXTimelineView<span class="br0">&#40;</span><span class="st0">&quot;type&quot;</span>, <span class="st0">&quot;event_type&quot;</span>, <span class="st0">&quot;Type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+view.<span class="me1">addSecondScale</span><span class="br0">&#40;</span>DHXTimelineView.<span class="me1">XScaleUnits</span>.<span class="me1">DAY</span>,<span class="st0">&quot;%F %d&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="modes" id="modes">Modes</a></h2>
+<div class="level2">
+
+<p>
+The view can be used in 3 modes:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong><em class="u">Bar</em></strong><br/>
+<img src="images/bar_timeline_view.png" class="media" alt="" /></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong><em class="u">Cell</em></strong> (default value)<br/>
+<img src="images/cell_timeline_view.png" class="media" alt="" /></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong><em class="u">Tree</em></strong><br/>
+<img src="images/tree_timeline_view.png" class="media" alt="" /></div>
+</li>
+</ul>
+
+<p>
+
+The desired mode is set by calling method <strong>view.setRenderMode(RenderModes <em>mode</em>)</strong>.
+
+</p>
+<pre class="code java">DHXTimelineView view <span class="sy0">=</span> <span class="kw1">new</span> DHXTimelineView<span class="br0">&#40;</span><span class="st0">&quot;type&quot;</span>, <span class="st0">&quot;event_type&quot;</span>, <span class="st0">&quot;Type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+view.<span class="me1">setRenderMode</span><span class="br0">&#40;</span>DHXTimelineView.<span class="me1">RenderModes</span>.<span class="me1">BAR</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="data_for_y-axis" id="data_for_y-axis">Data for Y-Axis</a></h2>
+<div class="level2">
+
+</div>
+
+<h3><a name="bar_and_cell_modes" id="bar_and_cell_modes">&#039;Bar&#039; and &#039;Cell&#039; modes</a></h3>
+<div class="level3">
+
+<p>
+There are 2 ways, you can set values for Y-Axis in the &#039;Bar&#039; and &#039;Cell&#039; modes:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> With method <strong>DHXTimelineView.addOption(DHXTimelineUnit <em>unit</em>)</strong>:<br/>
+<br/>
+<pre class="code java">DHXTimelineView view <span class="sy0">=</span> <span class="kw1">new</span> DHXTimelineView<span class="br0">&#40;</span><span class="st0">&quot;type&quot;</span>, <span class="st0">&quot;event_type&quot;</span>, <span class="st0">&quot;Type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">view</span>.<span class="me1">addOption</span><span class="br0">&#40;</span> <span class="kw1">new</span> DHXTimelineUnit<span class="br0">&#40;</span><span class="st0">&quot;1&quot;</span>, <span class="st0">&quot;Department 1&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> With method <strong>DHXTimelineView.setServerList(String <em>list</em>)</strong>:<br/>
+<br/>
+<pre class="code java">DHXTimelineView view <span class="sy0">=</span> <span class="kw1">new</span> DHXTimelineView<span class="br0">&#40;</span><span class="st0">&quot;type&quot;</span>, <span class="st0">&quot;event_type&quot;</span>,  <span class="st0">&quot;Type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">view</span>.<span class="me1">setServerList</span><span class="br0">&#40;</span><span class="st0">&quot;event_type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+ where “event_type” is <em>ArrayList&lt;DHXCollection&gt;</em> specified in the java file that answers for loading data:<br/>
+
+</p>
+<pre class="code java"><span class="co1">//CustomEventsManager.java</span>
+<span class="kw1">public</span> <span class="kw1">class</span> CustomUnitsEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+        ...
+        @Override
+	<span class="kw1">public</span> HashMap<span class="sy0">&lt;</span>String, Iterable<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;&gt;</span> getCollections<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		ArrayList<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;</span> event_type <span class="sy0">=</span> <span class="kw1">new</span> ArrayList<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		event_type.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXCollection<span class="br0">&#40;</span><span class="st0">&quot;1&quot;</span>, <span class="st0">&quot;Simple&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		event_type.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXCollection<span class="br0">&#40;</span><span class="st0">&quot;2&quot;</span>, <span class="st0">&quot;Complex&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		event_type.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXCollection<span class="br0">&#40;</span><span class="st0">&quot;3&quot;</span>, <span class="st0">&quot;Other&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+		HashMap<span class="sy0">&lt;</span>String,Iterable<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;&gt;</span> c <span class="sy0">=</span> 
+                          <span class="kw1">new</span> HashMap<span class="sy0">&lt;</span>String,Iterable<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		c.<span class="me1">put</span><span class="br0">&#40;</span><span class="st0">&quot;event_type&quot;</span>, event_type<span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="kw1">return</span> c<span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+</ul>
+
+<p>
+Note, to be correctly processed data items must have 2 mandatory properties:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>key</strong> - the id of an item;</div>
+</li>
+<li class="level1"><div class="li"> <strong>label</strong> - the text label of an item.</div>
+</li>
+</ul>
+
+</div>
+
+<h3><a name="tree_mode" id="tree_mode">&#039;Tree&#039; mode</a></h3>
+<div class="level3">
+
+<p>
+The &#039;Tree&#039; mode allows you to present hierarchical structures and show data in expandable groups.
+</p>
+
+<p>
+There are 2 ways, you can set values for Y-Axis in the &#039;Tree&#039; modes.
+
+</p>
+<ol>
+<li class="level1"><div class="li"> <span class="curid"><a href="timelineview.html#using_the_dhxtimelineviewaddoption_dhxtimelineunit_unit" class="wikilink1" title="timelineview">With method DHXTimelineView.addOption(DHXTimelineUnit unit)</a></span></div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="timelineview.html#using_the_dhxtimelineviewsetserverlist_string_list_method" class="wikilink1" title="timelineview">With method DHXTimelineView.setServerList(String list)</a></span></div>
+</li>
+</ol>
+
+</div>
+
+<h4><a name="using_the_dhxtimelineviewaddoption_dhxtimelineunit_unit" id="using_the_dhxtimelineviewaddoption_dhxtimelineunit_unit">Using the DHXTimelineView.addOption(DHXTimelineUnit unit)</a></h4>
+<div class="level4">
+
+<p>
+While using the <strong>DHXTimelineView.addOption(DHXTimelineUnit <em>unit</em>)</strong> you have 2 variants to choose from:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>To set each scale item individually</strong>.<br/>
+<br/>
+<pre class="code csharp">var timeline <span class="sy0">=</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> TimelineView<span class="br0">&#40;</span><span class="st0">&quot;timeline&quot;</span>, <span class="st0">&quot;room_id&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+timeline.<span class="me1">RenderMode</span> <span class="sy0">=</span> TimelineView.<span class="me1">RenderModes</span>.<span class="me1">Tree</span><span class="sy0">;</span>
+&nbsp;
+var section <span class="sy0">=</span> timeline.<span class="me1">AddOption</span><span class="br0">&#40;</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> TimelineUnit<span class="br0">&#40;</span><span class="st0">&quot;1&quot;</span>, <span class="st0">&quot;Department 1&quot;</span>, <span class="kw1">true</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//adds folder to the axis          </span>
+section.<span class="me1">AddOption</span><span class="br0">&#40;</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> TimelineUnit<span class="br0">&#40;</span><span class="st0">&quot;2&quot;</span>, <span class="st0">&quot;Room 1&quot;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// defines the items of the folder</span>
+section.<span class="me1">AddOption</span><span class="br0">&#40;</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> TimelineUnit<span class="br0">&#40;</span><span class="st0">&quot;3&quot;</span>, <span class="st0">&quot;Room 2&quot;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+var section2 <span class="sy0">=</span> timeline.<span class="me1">AddOption</span><span class="br0">&#40;</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> TimelineUnit<span class="br0">&#40;</span><span class="st0">&quot;4&quot;</span>, <span class="st0">&quot;Department 2&quot;</span>, <span class="kw1">true</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+section2.<span class="me1">AddOption</span><span class="br0">&#40;</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> TimelineUnit<span class="br0">&#40;</span><span class="st0">&quot;5&quot;</span>, <span class="st0">&quot;Room 1&quot;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy0">;</span>
+section2.<span class="me1">AddOption</span><span class="br0">&#40;</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> TimelineUnit<span class="br0">&#40;</span><span class="st0">&quot;6&quot;</span>, <span class="st0">&quot;Room 2&quot;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+ where the <strong><em>TimelineUnit</em></strong> constructor takes 3 parameters:
+</p>
+</div>
+<ul>
+<li class="level3"><div class="li"> The id of a folder;</div>
+</li>
+<li class="level3"><div class="li"> The text label of a folder;</div>
+</li>
+<li class="level3"><div class="li"> Defines whether a folder will be opened initially (optional).<br/>
+<br/>
+</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>To set all items at once.</strong> <br/>
+<br/>
+<pre class="code csharp">var context <span class="sy0">=</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> DHXPlannerDataContext<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+var timeline <span class="sy0">=</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> TimelineView<span class="br0">&#40;</span><span class="st0">&quot;timeline&quot;</span>, <span class="st0">&quot;room_id&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+timeline.<span class="me1">FolderEventsAvailable</span> <span class="sy0">=</span> false<span class="sy0">;</span>
+timeline.<span class="me1">RenderMode</span> <span class="sy0">=</span> TimelineView.<span class="me1">RenderModes</span>.<span class="me1">Tree</span><span class="sy0">;</span>
+<span class="kw1">foreach</span> <span class="br0">&#40;</span>var department <span class="kw1">in</span> context.<span class="me1">Departments</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+        TimelineUnit section <span class="sy0">=</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> TimelineUnit<span class="br0">&#40;</span>department.<span class="me1">Id</span>, department.<span class="me1">Title</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// defines the header of the folder</span>
+        timeline.<span class="me1">AddOption</span><span class="br0">&#40;</span>section<span class="br0">&#41;</span><span class="sy0">;</span>
+        section.<span class="me1">AddOptions</span><span class="br0">&#40;</span> department.<span class="me1">Rooms</span> <span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//'Rooms' in the name of model data table</span>
+<span class="br0">&#125;</span>
+planner.<span class="me1">Views</span>.<span class="me1">Add</span><span class="br0">&#40;</span>timeline<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+  Note, data items have 2 mandatory properties (the same as for the  <strong>Bar</strong> and <strong>Cell</strong> modes): <em><strong>key</strong></em> and <em><strong>label</strong></em>.
+</p>
+</div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="using_the_dhxtimelineviewsetserverlist_string_list_method" id="using_the_dhxtimelineviewsetserverlist_string_list_method">Using the DHXTimelineView.setServerList(String list) method</a></h4>
+<div class="level4">
+
+<p>
+<strong>Here you should remember an important thing:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> Sub-items are specified through the <strong>children</strong> property. As, by default, the <strong>DHXCollection</strong> class doesn&#039;t allow to retrieve such a property, you should extend the <strong>DHXCollection</strong> class. Your custom  class may look like this:<br/>
+<br/>
+<pre class="code java"><span class="kw1">public</span> <span class="kw1">class</span> Table <span class="kw1">extends</span> DHXCollection <span class="br0">&#123;</span>
+&nbsp;
+    <span class="kw1">public</span> ArrayList<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;</span> children <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
+    <span class="kw1">public</span> Iterable<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;</span> getChildren<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> children<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> setChildren<span class="br0">&#40;</span>ArrayList<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;</span> children<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">this</span>.<span class="me1">children</span> <span class="sy0">=</span> children<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> addChild<span class="br0">&#40;</span>DHXCollection child<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+      <span class="kw1">if</span> <span class="br0">&#40;</span>children <span class="sy0">==</span> <span class="kw2">null</span><span class="br0">&#41;</span>
+          children <span class="sy0">=</span> <span class="kw1">new</span> ArrayList<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+          children.<span class="me1">add</span><span class="br0">&#40;</span>child<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+<span class="br0">&#125;</span></pre>
+
+<p>
+ <em>Actually, by redefining the <strong>DHXCollection</strong> class you can retrieve any extra properties from the server, e.g. some user data.</em>
+</p>
+</div>
+</li>
+</ul>
+
+<p>
+<br/>
+
+<br/>
+
+</p>
+<pre class="code java">DHXTimelineView view <span class="sy0">=</span> <span class="kw1">new</span> DHXTimelineView<span class="br0">&#40;</span><span class="st0">&quot;type&quot;</span>, <span class="st0">&quot;table_id&quot;</span>,  <span class="st0">&quot;Type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">view</span>.<span class="me1">setServerList</span><span class="br0">&#40;</span><span class="st0">&quot;tables_tree&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+ where “tables_tree” is <em>ArrayList&lt;DHXCollection&gt;</em> specified in the java file that answers for loading data:<br/>
+
+</p>
+<pre class="code java"><span class="co1">//CustomEventsManager.java</span>
+<span class="kw1">public</span> <span class="kw1">class</span> CustomUnitsEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+        ...
+        @Override
+	<span class="kw1">public</span> HashMap<span class="sy0">&lt;</span>String, Iterable<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;&gt;</span> getCollections<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		ArrayList<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;</span> tables_tree <span class="sy0">=</span> <span class="kw1">new</span> ArrayList<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+                Table c1 <span class="sy0">=</span> <span class="kw1">new</span> Table<span class="br0">&#40;</span><span class="st0">&quot;1-2&quot;</span>, <span class="st0">&quot;1-2 people&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                Table c2 <span class="sy0">=</span> <span class="kw1">new</span> Table<span class="br0">&#40;</span><span class="st0">&quot;3-6&quot;</span>, <span class="st0">&quot;3-6 people&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                c1.<span class="me1">addChild</span><span class="br0">&#40;</span><span class="kw1">new</span> Table<span class="br0">&#40;</span><span class="st0">&quot;table1&quot;</span>, <span class="st0">&quot;Table 1&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                c1.<span class="me1">addChild</span><span class="br0">&#40;</span><span class="kw1">new</span> Table<span class="br0">&#40;</span><span class="st0">&quot;table2&quot;</span>, <span class="st0">&quot;Table 2&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                c2.<span class="me1">addChild</span><span class="br0">&#40;</span><span class="kw1">new</span> Table<span class="br0">&#40;</span><span class="st0">&quot;table5&quot;</span>, <span class="st0">&quot;Table 5&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                c2.<span class="me1">addChild</span><span class="br0">&#40;</span><span class="kw1">new</span> Table<span class="br0">&#40;</span><span class="st0">&quot;table6&quot;</span>, <span class="st0">&quot;Table 6&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+                tables_tree.<span class="me1">add</span><span class="br0">&#40;</span>c1<span class="br0">&#41;</span><span class="sy0">;</span>
+                tables_tree.<span class="me1">add</span><span class="br0">&#40;</span>c2<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+		HashMap<span class="sy0">&lt;</span>String,Iterable<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;&gt;</span> c <span class="sy0">=</span> 
+                          <span class="kw1">new</span> HashMap<span class="sy0">&lt;</span>String,Iterable<span class="sy0">&lt;</span>DHXCollection<span class="sy0">&gt;&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		c.<span class="me1">put</span><span class="br0">&#40;</span><span class="st0">&quot;tables_tree&quot;</span>, tables_tree<span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="kw1">return</span> c<span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Generated JSON will look like this:
+
+</p>
+<pre class="code json">{
+   data: [ ],
+   collections: {
+      tables_tree: [
+        {
+            value: &quot;1-2&quot;,
+            label: &quot;1-2 people (2 people, smoking)&quot;,
+            children: [
+                { value: &quot;table1&quot;, label: &quot;Table 1 (2 people, smoking)&quot;},
+                { value: &quot;table2&quot;, label: &quot;Table 2 (2 people, smoking)&quot;}
+        ]},
+        {
+             value: &quot;3-6&quot;,
+             label: &quot;3-6 people (5 people, smoking)&quot;,
+             children: [
+                 { value: &quot;table5&quot;, label: &quot;Table 5 (4 people, smoking)&quot; },
+                 { value: &quot;table6&quot;, label: &quot;Table 6 (4 people, smoking)&quot; }
+             ]
+        }
+   ]}
+}</pre>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

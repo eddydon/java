@@ -1,0 +1,511 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Creating a Web Event Calendar Using the Grails Framework</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#creating_a_web_event_calendar_using_the_grails_framework" class="toc">Creating a Web Event Calendar Using the Grails Framework</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#step_1_new_project" class="toc">Step 1. New project</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_2_required_code_files" class="toc">Step 2. Required code files</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_3_data_to_load" class="toc">Step 3.  Data to load</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_4_configuring_a_data_source" class="toc">Step 4. Configuring a data source</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_5_a_domain_class" class="toc">Step 5. A domain class</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_6_loading_and_storing_data" class="toc">Step 6. Loading and storing data</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_7_a_controller" class="toc">Step 7. A controller</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_8_a_view" class="toc">Step 8. A view</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_9_mapping_the_controller_to_the_view" class="toc">Step 9. Mapping the controller to the view</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="creating_a_web_event_calendar_using_the_grails_framework" id="creating_a_web_event_calendar_using_the_grails_framework">Creating a Web Event Calendar Using the Grails Framework</a></h1>
+<div class="level1">
+
+<p>
+
+<img src="images/java-calendar.png" class="media" alt="" />
+</p>
+
+<p>
+In this tutorial you will learn how to create a web calendar with JavaPlanner using the Grails framework; you will see how to initialize the calendar control, populate it with data and provide client-server logic to save changes made in the app to the server.
+</p>
+
+<p>
+The tutorial is one of the trilogy devoted to using JavaPlanner with popular Java frameworks. If you’re interested in finding out more about using JavaPlanner with the Spring framework, flip to the tutorial <a href="using_javaplanner_with_the_spring_framework.html" class="wikilink1" title="using_javaplanner_with_the_spring_framework">&#039;Using JavaPlanner with the Spring framework&#039;</a>. To learn more about using JavaPlanner with the Struts framework, flip to the tutorial <a href="using_javaplanner_with_the_struts_framework.html" class="wikilink1" title="using_javaplanner_with_the_struts_framework">&#039;Using JavaPlanner with the Struts framework&#039;</a>.
+</p>
+
+<p>
+
+The tutorial is intended for developers who have already been familiar with the Grails framework and the JavaPlanner library. If you haven’t, please follow the links below to get the needed information:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="http://www.javaplanner.com/docs/index.html" class="urlextern" title="http://www.javaplanner.com/docs/index.html"  rel="nofollow">www.javaplanner.com/docs/index.html</a> - the JavaPlanner documentation;</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://www.grails.org/Documentation" class="urlextern" title="http://www.grails.org/Documentation"  rel="nofollow">http://www.grails.org/Documentation</a> - the framework documentation</div>
+</li>
+</ul>
+
+<p>
+
+All files related to the tutorial you can download <a href="http://javaplanner.com/download/demoapp_grails.zip" class="urlextern" title="http://javaplanner.com/download/demoapp_grails.zip"  rel="nofollow">here</a>.
+</p>
+
+</div>
+
+<h2><a name="step_1_new_project" id="step_1_new_project">Step 1. New project</a></h2>
+<div class="level2">
+
+<p>
+
+As your first step, create a new project and name it ‘demoapp’.
+</p>
+
+</div>
+
+<h2><a name="step_2_required_code_files" id="step_2_required_code_files">Step 2. Required code files</a></h2>
+<div class="level2">
+
+<p>
+Then, add the required code files to your project. They are:
+</p>
+<ul>
+<li class="level1"><div class="li"> dhtmlxScheduler library files (it’s a client-side library that provides creating JavaPlanner on the page);</div>
+</li>
+<li class="level1"><div class="li"> javaplanner.jar (you can download it <a href="http://javaplanner.com/javaplanner.zip" class="urlextern" title="http://javaplanner.com/javaplanner.zip"  rel="nofollow">here</a>);</div>
+</li>
+<li class="level1"><div class="li"> mysql-connector-java-5.1.17-bin.jar.</div>
+</li>
+</ul>
+
+<p>
+
+The <strong>dhtmlxScheduler files</strong> must reside in the &#039;<em>web-app/codebase</em>&#039; folder, the <strong>javaplanner.jar</strong> and <strong>mysql-connector-java-5.1.17-bin.jar</strong> files  - in the &#039;<em>lib</em>&#039; folder.
+</p>
+
+<p>
+You can find all the mentioned files in the <a href="http://javaplanner.com/download/demoapp_grails.zip" class="urlextern" title="http://javaplanner.com/download/demoapp_grails.zip"  rel="nofollow">supplied package</a>.
+</p>
+
+</div>
+
+<h2><a name="step_3_data_to_load" id="step_3_data_to_load">Step 3.  Data to load</a></h2>
+<div class="level2">
+
+<p>
+Before continuing, let’s specify what  data we will load to the calendar. You can use any database available or import an <acronym title="Structured Query Language">SQL</acronym> dump file <strong>demoapp_grails.sql</strong> (resided in the root folder of the <a href="http://javaplanner.com/download/demoapp_grails.zip" class="urlextern" title="http://javaplanner.com/download/demoapp_grails.zip"  rel="nofollow">supplied package</a>) for creating a local database copy. 
+</p>
+
+<p>
+Watch out! If you decide to use your own database instead of <strong>demoapp_grails.sql</strong> you will need to adapt the stated in the tutorial code by yourself.
+</p>
+
+</div>
+
+<h2><a name="step_4_configuring_a_data_source" id="step_4_configuring_a_data_source">Step 4. Configuring a data source</a></h2>
+<div class="level2">
+
+<p>
+As establishing connection to a MySQL database is a common practice and you are probably familiar with it, we won’t describe this technique in depth, just some tips.<br/>
+
+But if you’re interested in finding out more on the topic, you can refer to the <a href="http://grails.org/Quick+Start#Configure a Data Source (Optional)" class="urlextern" title="http://grails.org/Quick+Start#Configure a Data Source (Optional)"  rel="nofollow">Quick start</a> article in the Grails documentation.
+</p>
+
+<p>
+<strong>Tips!</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> Connection is configured in the <strong>grails-app/conf/DataSource.groovy</strong> file;</div>
+</li>
+<li class="level1"><div class="li"> If you&#039;d like to use the existing database, set <strong>dbCreate = “update”</strong> to prevent loosing the DB data.<br/>
+The <strong>dbCreate</strong> parameter can also take the <em>&#039;create&#039;</em> value which recreates the database according to the structure specified in the model. Note, if you set the <em>&#039;create&#039;</em> value for the parameter, the DB restored from the dump file will be cleared.</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="step_5_a_domain_class" id="step_5_a_domain_class">Step 5. A domain class</a></h2>
+<div class="level2">
+
+<p>
+The base of a Grails application is the domain model presenting the persistent data of the app. Let’s create it. 
+</p>
+<ul>
+<li class="level1"><div class="li"> in the  <em>&#039;domain/demoapp&#039;</em> folder of your project directory, create a file - <strong>Event.groovy</strong> and add the following code there:</div>
+</li>
+</ul>
+<pre class="code java"><span class="kw1">package</span> <span class="co2">demoapp</span>
+&nbsp;
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.DHXEvent</span>
+&nbsp;
+<span class="kw1">class</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aevent+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Event</span></a> <span class="kw1">extends</span> DHXEvent<span class="br0">&#123;</span>
+&nbsp;
+	<span class="kw1">static</span> mapping <span class="sy0">=</span> <span class="br0">&#123;</span>
+		table <span class="st0">'events'</span>
+		id column<span class="sy0">:</span> <span class="st0">'event_id'</span>
+		text column<span class="sy0">:</span> <span class="st0">'event_name'</span>
+	<span class="br0">&#125;</span>
+&nbsp;
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h2><a name="step_6_loading_and_storing_data" id="step_6_loading_and_storing_data">Step 6. Loading and storing data</a></h2>
+<div class="level2">
+
+<p>
+JavaPlanner provides a special class to manage data - <strong>DHXEventsManager</strong>. It’s used to  define the client-side logic and render the response for the calendar.
+So, to provide the desired behaviour for data loading and processing you should create a new class and extend it from <strong>DHXEventsManager</strong>. Let’s do this.
+</p>
+<ul>
+<li class="level1"><div class="li"> In the <em>&#039;src/java/demoapp&#039;</em> folder of your project, create a file - <strong>CustomEventsManager.groovy</strong> with the following code inside: </div>
+</li>
+</ul>
+<pre class="code java"><span class="kw1">package</span> <span class="co2">demoapp</span>
+&nbsp;
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.DHXEv</span>
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.DHXEventsManager</span>
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.DHXStatus</span>
+<span class="kw1">import</span> <span class="co2">demoapp.Event</span>
+&nbsp;
+&nbsp;
+<span class="kw1">class</span> CustomEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+&nbsp;
+	def CustomEventsManager<span class="br0">&#40;</span>request<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		<span class="kw1">super</span><span class="br0">&#40;</span>request<span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+&nbsp;
+	@Override
+	def Iterable<span class="sy0">&lt;</span>Event<span class="sy0">&gt;</span> getEvents<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		<span class="kw1">return</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aevent+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Event</span></a>.<span class="me1">list</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+&nbsp;
+	@Override
+	def <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Ainteger+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Integer</span></a> saveEvent<span class="br0">&#40;</span>DHXEv event, DHXStatus status<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		def ev <span class="sy0">=</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aevent+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Event</span></a><span class="br0">&#41;</span> event<span class="sy0">;</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">UPDATE</span><span class="br0">&#41;</span>
+			event.<span class="me1">save</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">DELETE</span><span class="br0">&#41;</span>
+			event.<span class="me1">delete</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">INSERT</span><span class="br0">&#41;</span>
+			event.<span class="me1">save</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+		<span class="kw1">return</span> event.<span class="me1">getId</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+&nbsp;
+	@Override
+	def DHXEv createEvent<span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> id, DHXStatus status<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">INSERT</span><span class="br0">&#41;</span>
+			<span class="kw1">return</span> <span class="kw1">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aevent+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Event</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="kw1">else</span>
+			<span class="kw1">return</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aevent+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Event</span></a>.<span class="me1">get</span><span class="br0">&#40;</span>id<span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+&nbsp;
+<span class="br0">&#125;</span></pre>
+<ul>
+<li class="level1"><div class="li"> in the class we use a domain model created on the previous step (<em>import demoapp.Event</em>);</div>
+</li>
+<li class="level1"><div class="li"> <strong>getEvents()</strong> method  answers for data loading;</div>
+</li>
+<li class="level1"><div class="li"> <strong>saveEvent()</strong> method manages the update/insert/delete operations;</div>
+</li>
+<li class="level1"><div class="li"> <strong>createEvent()</strong> method provide creating new events in the planer.</div>
+</li>
+</ul>
+
+<p>
+
+For a deeper learning of loading and processing data in the web calendar, read: 
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="loading_data.html" class="wikilink1" title="loading_data">Loading data</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="managing_crud_operations.html" class="wikilink1" title="managing_crud_operations">Managing CRUD operations</a></div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="step_7_a_controller" id="step_7_a_controller">Step 7. A controller</a></h2>
+<div class="level2">
+
+<p>
+Controller in a Grails object is responsible for handling web requests.<br/>
+
+Let’s create a controller that will initialize JavaPlanner on the page and treat the data model created in the step above.
+</p>
+<ul>
+<li class="level1"><div class="li"> In the <em>&#039;controllers/demoapp&#039;</em> folder of your project directory, create a file - <strong>LoadingController.java</strong> with the following code inside:</div>
+</li>
+</ul>
+<pre class="code java"><span class="kw1">package</span> <span class="co2">demoapp</span>
+&nbsp;
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.DHXPlanner</span>
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.DHXSkin</span>
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.data.DHXDataFormat</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.extensions.DHXExtension</span>
+&nbsp;
+&nbsp;
+<span class="kw1">class</span> LoadingController <span class="br0">&#123;</span>
+&nbsp;
+	def initializing<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		DHXPlanner p <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">'./codebase/'</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		p.<span class="me1">setWidth</span><span class="br0">&#40;</span>900<span class="br0">&#41;</span><span class="sy0">;</span>
+		p.<span class="me1">setHeight</span><span class="br0">&#40;</span>700<span class="br0">&#41;</span><span class="sy0">;</span>
+		p.<span class="me1">setInitialDate</span><span class="br0">&#40;</span>2013, 1, 7<span class="br0">&#41;</span><span class="sy0">;</span>
+		p.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;events&quot;</span>, DHXDataFormat.<span class="me1">JSON</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//sets the function that will provide loading  data to the planner in the specified format.</span>
+&nbsp;
+        	def map <span class="sy0">=</span> <span class="br0">&#91;</span>
+			planner<span class="sy0">:</span> p.<span class="me1">render</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,
+		<span class="br0">&#93;</span>
+		render<span class="br0">&#40;</span>view<span class="sy0">:</span> <span class="st0">&quot;/shared/article&quot;</span>, model<span class="sy0">:</span> map<span class="br0">&#41;</span>
+	<span class="br0">&#125;</span>
+&nbsp;
+	def events<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		def evs <span class="sy0">=</span> <span class="kw1">new</span> CustomEventsManager<span class="br0">&#40;</span>request<span class="br0">&#41;</span><span class="sy0">;</span>
+		render evs.<span class="me1">run</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+<ul>
+<li class="level1"><div class="li"> In the <strong>initializing()</strong> function we use a standard code initializing JavaPlanner. </div>
+</li>
+<li class="level1"><div class="li"> The <strong>events()</strong> function instantiates the <strong>CustomEventsManager</strong> class and retrieve data.</div>
+</li>
+</ul>
+
+<p>
+
+If you doubt what one or another method makes, refer to the following documentation:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="http://javaplanner.com/blog/creating-a-simple-java-event-calendar" class="urlextern" title="http://javaplanner.com/blog/creating-a-simple-java-event-calendar"  rel="nofollow">Creating a Simple Java Event Calendar</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="loading_data.html" class="wikilink1" title="loading_data">Loading data</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="managing_crud_operations.html" class="wikilink1" title="managing_crud_operations">Managing CRUD operations</a></div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="step_8_a_view" id="step_8_a_view">Step 8. A view</a></h2>
+<div class="level2">
+
+<p>
+ In the controller file, we refer to ‘article’ as the view for our scheduler. Let’s create such a file (<strong>article.gsp</strong>) in the <em>&#039;views/shared&#039;</em> folder of the project directory.
+</p>
+<pre class="code java"><span class="sy0">&lt;!</span>DOCTYPE html<span class="sy0">&gt;</span>
+<span class="sy0">&lt;%</span>@ taglib prefix<span class="sy0">=</span><span class="st0">&quot;c&quot;</span> uri<span class="sy0">=</span><span class="st0">&quot;http://java.sun.com/jsp/jstl/core&quot;</span> <span class="sy0">%&gt;</span>
+<span class="sy0">&lt;</span>html<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>head<span class="sy0">&gt;</span>
+	<span class="sy0">&lt;</span>style<span class="sy0">&gt;</span>
+        html, body <span class="br0">&#123;</span>
+            height<span class="sy0">:</span> 100<span class="sy0">%;</span>
+            width<span class="sy0">:</span> 100<span class="sy0">%;</span>
+        <span class="br0">&#125;</span>
+        #content <span class="br0">&#123;</span>
+            width<span class="sy0">:</span> 900px<span class="sy0">;</span>
+            height<span class="sy0">:</span> 700px<span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+        <span class="sy0">&lt;/</span>style<span class="sy0">&gt;</span>
+<span class="sy0">&lt;/</span>head<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>body<span class="sy0">&gt;</span>
+	<span class="sy0">&lt;</span>div <span class="kw1">class</span><span class="sy0">=</span><span class="st0">&quot;content&quot;</span> id<span class="sy0">=</span><span class="st0">&quot;content&quot;</span><span class="sy0">&gt;</span>
+		<span class="sy0">&lt;</span>div id<span class="sy0">=</span><span class="st0">&quot;planner&quot;</span><span class="sy0">&gt;</span>$<span class="br0">&#123;</span>planner<span class="br0">&#125;</span><span class="sy0">&lt;/</span>div<span class="sy0">&gt;</span>
+	<span class="sy0">&lt;/</span>div<span class="sy0">&gt;</span>
+<span class="sy0">&lt;/</span>body<span class="sy0">&gt;</span>
+<span class="sy0">&lt;/</span>html<span class="sy0">&gt;</span></pre>
+
+</div>
+
+<h2><a name="step_9_mapping_the_controller_to_the_view" id="step_9_mapping_the_controller_to_the_view">Step 9. Mapping the controller to the view</a></h2>
+<div class="level2">
+
+<p>
+To tie the controller and the view together, we need a mapping. Open and modify configuration file <strong>UrlMappings.groovy</strong> to make the content look like:
+</p>
+<pre class="code java"><span class="kw1">class</span> UrlMappings <span class="br0">&#123;</span>
+	<span class="kw1">static</span> mappings <span class="sy0">=</span> <span class="br0">&#123;</span>
+		<span class="st0">&quot;/initializing&quot;</span><span class="br0">&#40;</span>controller<span class="sy0">:</span> <span class="st0">&quot;Loading&quot;</span>, action<span class="sy0">:</span> <span class="st0">&quot;initializing&quot;</span><span class="br0">&#41;</span>
+		<span class="st0">&quot;/events&quot;</span><span class="br0">&#40;</span>controller<span class="sy0">:</span> <span class="st0">&quot;Loading&quot;</span>, action<span class="sy0">:</span> <span class="st0">&quot;events&quot;</span><span class="br0">&#41;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+
+<br/>
+
+<br/>
+
+Congratulations! You’ve created a web calendar application using the Grails framework.<br/>
+
+The tutorial has demonstrated how easy it is to integrate JavaPlanner with Java frameworks. The built application can be a good start point for creating your custom scheduling web applications. 
+</p>
+
+<p>
+<strong>All related file can be downloaded</strong> <a href="http://javaplanner.com/download/demoapp_grails.zip" class="urlextern" title="http://javaplanner.com/download/demoapp_grails.zip"  rel="nofollow">here</a>.
+
+</p>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

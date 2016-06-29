@@ -1,0 +1,564 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Creating a Web Event Calendar Using the Spring Framework</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#creating_a_web_event_calendar_using_the_spring_framework" class="toc">Creating a Web Event Calendar Using the Spring Framework</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#step_1_new_project" class="toc">Step 1. New project</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_2_required_code_files" class="toc">Step 2. Required code files</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_3_spring_servlet_declaration_and_configuration" class="toc">Step 3. Spring servlet declaration and configuration</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_4_data_to_load" class="toc">Step 4. Data to load</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_5_the_mapping_file" class="toc">Step 5. The mapping file</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_6_configuring_hibernate" class="toc">Step 6. Configuring Hibernate</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_7_the_hibernateutil_helper_class" class="toc">Step 7. The HibernateUtil Helper Class</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_8_loading_and_storing_data" class="toc">Step 8. Loading and storing data</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_9_a_controller_file" class="toc">Step 9. A controller file</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#step_10_a_view_file" class="toc">Step 10. A view file</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="creating_a_web_event_calendar_using_the_spring_framework" id="creating_a_web_event_calendar_using_the_spring_framework">Creating a Web Event Calendar Using the Spring Framework</a></h1>
+<div class="level1">
+
+<p>
+<img src="images/java-calendar.png" class="media" alt="" />
+</p>
+
+<p>
+In this tutorial we’d like to show you how how to use the JavaPlanner library with the Spring framework. You will create a simple web application with the planner populated with data from a database and able to save changes back on the server.
+</p>
+
+<p>
+This is the first of the tutorials trilogy describing using JavaPlanner with the Java frameworks:
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="using_javaplanner_with_the_spring_framework.html" class="wikilink1" title="using_javaplanner_with_the_spring_framework">Using JavaPlanner with the Spring framework</a></span>;</div>
+</li>
+<li class="level1"><div class="li"> <a href="using_javaplanner_with_the_struts_framework.html" class="wikilink1" title="using_javaplanner_with_the_struts_framework">Using JavaPlanner with the Struts framework</a>;</div>
+</li>
+<li class="level1"><div class="li"> <a href="using_javaplanner_with_the_grails_framework.html" class="wikilink1" title="using_javaplanner_with_the_grails_framework">Using JavaPlanner with the Grails framework</a>.</div>
+</li>
+</ul>
+
+<p>
+
+The tutorial assumes that you have previous knowledge of the Spring framework and the JavaPlanner library. If you haven’t, please follow the links below to get the required information:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="http://www.javaplanner.com/docs/index.html" class="urlextern" title="http://www.javaplanner.com/docs/index.html"  rel="nofollow">www.javaplanner.com/docs/index.html</a> - the JavaPlanner documentation</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://www.springsource.org" class="urlextern" title="http://www.springsource.org"  rel="nofollow">www.springsource.org</a>  - the framework site</div>
+</li>
+</ul>
+
+<p>
+
+All files related to the tutorial can be downloaded <a href="http://javaplanner.com/download/demoapp_spring.war" class="urlextern" title="http://javaplanner.com/download/demoapp_spring.war"  rel="nofollow">here</a>.
+</p>
+
+</div>
+
+<h2><a name="step_1_new_project" id="step_1_new_project">Step 1. New project</a></h2>
+<div class="level2">
+
+<p>
+Create a new dynamic project and name it &#039;demoapp&#039;.
+</p>
+
+</div>
+
+<h2><a name="step_2_required_code_files" id="step_2_required_code_files">Step 2. Required code files</a></h2>
+<div class="level2">
+
+<p>
+After setting up a new project, add the required code files into build path. They are:
+</p>
+<ul>
+<li class="level1"><div class="li"> Spring framework <em>jar</em> files;</div>
+</li>
+<li class="level1"><div class="li"> Hibernate <em>jar</em> files;</div>
+</li>
+<li class="level1"><div class="li"> dhtmlxScheduler library files (it’s a client-side library that provides creating JavaPlanner on the page);</div>
+</li>
+<li class="level1"><div class="li"> javaplanner.jar file (you can download it <a href="http://javaplanner.com/javaplanner.zip" class="urlextern" title="http://javaplanner.com/javaplanner.zip"  rel="nofollow">here</a>).  </div>
+</li>
+</ul>
+
+<p>
+
+You can find all the mentioned files in the <a href="http://javaplanner.com/download/demoapp_spring.war" class="urlextern" title="http://javaplanner.com/download/demoapp_spring.war"  rel="nofollow">supplied package</a>.
+</p>
+
+</div>
+
+<h2><a name="step_3_spring_servlet_declaration_and_configuration" id="step_3_spring_servlet_declaration_and_configuration">Step 3. Spring servlet declaration and configuration</a></h2>
+<div class="level2">
+
+<p>
+On this step we should declare the Dispatcher Servlet and configure it.<br/>
+
+The Dispatcher Servlet dispatches client requests to controllers. It&#039;s declared in the <em>web.xml</em> file of your application and maps requests using <acronym title="Uniform Resource Locator">URL</acronym> mapping. 
+
+</p>
+<ul>
+<li class="level1"><div class="li"> Alter the content of a <strong>web.xml</strong> file to configure the dispatcher;</div>
+</li>
+<li class="level1"><div class="li"> Create a <strong>demoapp-servlet.xml</strong> file  and define configurations required for handling user requests there.</div>
+</li>
+</ul>
+
+<p>
+As the aforementioned actions are a common practice, we won&#039;t describe them in depth.<br/>
+
+To see the files definitions,  check out <strong>web.xml</strong> and <strong>demoapp-servlet.xml</strong> in the <a href="http://javaplanner.com/download/demoapp_spring.war" class="urlextern" title="http://javaplanner.com/download/demoapp_spring.war"  rel="nofollow">supplied package</a> (<em>demoapp/WebContent/WEB-INF</em>):
+</p>
+
+</div>
+
+<h2><a name="step_4_data_to_load" id="step_4_data_to_load">Step 4. Data to load</a></h2>
+<div class="level2">
+
+<p>
+In the tutorials we will use data from the <strong>demoapp_spring.sql</strong> dump file (the file resides in the root folder of the supplied package). You can create a local copy of this database by importing an <strong>demoapp_spring.sql</strong> dump file or use any available database. But note, if you use a custom database you will need to adapt the code stated in the tutorial by yourself.
+</p>
+
+</div>
+
+<h2><a name="step_5_the_mapping_file" id="step_5_the_mapping_file">Step 5. The mapping file</a></h2>
+<div class="level2">
+
+<p>
+In our app we will use the Hibernate library  to store and retrieve data from the server. <br/>
+
+And as the next step, we will create a hibernate mapping file. This file defines how a Java class is mapped with the database table and acts like a bridge between Java types and database data types.
+</p>
+<ul>
+<li class="level1"><div class="li"> In the &#039;<em>src</em>&#039; folder of your project directory, create an <strong>Event.hbm.xml</strong> file with the following content:</div>
+</li>
+</ul>
+<pre class="code java"><span class="sy0">&lt;?</span>xml version<span class="sy0">=</span><span class="st0">&quot;1.0&quot;</span> encoding<span class="sy0">=</span><span class="st0">&quot;UTF-8&quot;</span><span class="sy0">?&gt;</span>
+<span class="sy0">&lt;!</span>DOCTYPE hibernate<span class="sy0">-</span>mapping <span class="kw1">PUBLIC</span>
+        <span class="st0">&quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span>
+        <span class="st0">&quot;http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd&quot;</span><span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>hibernate<span class="sy0">-</span>mapping<span class="sy0">&gt;</span> 
+        <span class="sy0">&lt;</span>class name<span class="sy0">=</span><span class="st0">&quot;com.dhtmlx.planner.DHXEvent&quot;</span> table<span class="sy0">=</span><span class="st0">&quot;events&quot;</span><span class="sy0">&gt;</span>
+                <span class="sy0">&lt;</span>id column<span class="sy0">=</span><span class="st0">&quot;event_id&quot;</span> name<span class="sy0">=</span><span class="st0">&quot;id&quot;</span> type<span class="sy0">=</span><span class="st0">&quot;java.lang.Integer&quot;</span><span class="sy0">&gt;</span>
+                        <span class="sy0">&lt;</span>generator <span class="kw1">class</span><span class="sy0">=</span><span class="st0">&quot;increment&quot;</span><span class="sy0">/&gt;</span>
+                <span class="sy0">&lt;/</span>id<span class="sy0">&gt;</span>
+                <span class="sy0">&lt;</span>property column<span class="sy0">=</span><span class="st0">&quot;start_date&quot;</span> name<span class="sy0">=</span><span class="st0">&quot;start_date&quot;</span> type<span class="sy0">=</span><span class="st0">&quot;timestamp&quot;</span><span class="sy0">/&gt;</span>
+                <span class="sy0">&lt;</span>property column<span class="sy0">=</span><span class="st0">&quot;end_date&quot;</span> name<span class="sy0">=</span><span class="st0">&quot;end_date&quot;</span> type<span class="sy0">=</span><span class="st0">&quot;timestamp&quot;</span><span class="sy0">/&gt;</span>
+                <span class="sy0">&lt;</span>property column<span class="sy0">=</span><span class="st0">&quot;event_name&quot;</span> name<span class="sy0">=</span><span class="st0">&quot;text&quot;</span> type<span class="sy0">=</span><span class="st0">&quot;java.lang.String&quot;</span><span class="sy0">/&gt;</span>
+        <span class="sy0">&lt;/</span>class<span class="sy0">&gt;</span>
+<span class="sy0">&lt;/</span>hibernate<span class="sy0">-</span>mapping<span class="sy0">&gt;</span></pre>
+
+</div>
+
+<h2><a name="step_6_configuring_hibernate" id="step_6_configuring_hibernate">Step 6. Configuring Hibernate</a></h2>
+<div class="level2">
+
+<p>
+As Hibernate is not the subject of our tutorial we won’t detail using this library and assume that you know how to configure Hibernate.
+</p>
+
+<p>
+If you’re not, please refer to the Hibernate documentation at <a href="http://www.hibernate.org/docs" class="urlextern" title="http://www.hibernate.org/docs"  rel="nofollow">http://www.hibernate.org/docs</a> or check out the <strong>hibernate.cfg.xml</strong> file (<em>demoapp_spring/src/hibernate.cfg.xml</em>) in the <a href="http://javaplanner.com/download/demoapp_spring.war" class="urlextern" title="http://javaplanner.com/download/demoapp_spring.war"  rel="nofollow">supplied package</a>.
+</p>
+
+</div>
+
+<h2><a name="step_7_the_hibernateutil_helper_class" id="step_7_the_hibernateutil_helper_class">Step 7. The HibernateUtil Helper Class</a></h2>
+<div class="level2">
+
+<p>
+This helper class is required to get Hibernate up and running. 
+</p>
+<ul>
+<li class="level1"><div class="li"> Create the <strong>com.dhtmlx.demoapp.controller</strong> package;</div>
+</li>
+<li class="level1"><div class="li"> In the newly-created package, create a <strong>HibernateUtil.java</strong> file with the following code:</div>
+</li>
+</ul>
+<pre class="code java"><span class="kw1">package</span> <span class="co2">com.dhtmlx.demoapp.controller</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">import</span> <span class="co2">org.hibernate.SessionFactory</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.hibernate.cfg.Configuration</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">public</span> <span class="kw1">class</span> HibernateUtil <span class="br0">&#123;</span>
+	<span class="kw1">private</span> <span class="kw1">static</span> <span class="kw1">final</span> SessionFactory sessionFactory <span class="sy0">=</span> buildSessionFactory<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	@SuppressWarnings<span class="br0">&#40;</span><span class="st0">&quot;deprecation&quot;</span><span class="br0">&#41;</span>
+	<span class="kw1">private</span> <span class="kw1">static</span> SessionFactory buildSessionFactory<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		<span class="kw1">try</span> <span class="br0">&#123;</span>
+			<span class="kw1">return</span> <span class="kw1">new</span> Configuration<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">configure</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">buildSessionFactory</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span>
+		<span class="kw1">catch</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Athrowable+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Throwable</span></a> ex<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+			<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asystem+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">System</span></a>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;Initial SessionFactory creation failed.&quot;</span> <span class="sy0">+</span> ex<span class="br0">&#41;</span><span class="sy0">;</span>
+			<span class="kw1">throw</span> <span class="kw1">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aexceptionininitializererror+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">ExceptionInInitializerError</span></a><span class="br0">&#40;</span>ex<span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span>
+	<span class="br0">&#125;</span>
+&nbsp;
+	<span class="kw1">public</span> <span class="kw1">static</span> SessionFactory getSessionFactory<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		<span class="kw1">return</span> sessionFactory<span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h2><a name="step_8_loading_and_storing_data" id="step_8_loading_and_storing_data">Step 8. Loading and storing data</a></h2>
+<div class="level2">
+
+<p>
+As Hibernate files for our application have been completed, it’s time to create a class that will handle  all the Hibernate facilities. In JavaPlanner there is a special class for managing data, it’s <strong>DHXEventsManager</strong>. It defines logic for data loading and processing.
+</p>
+<ul>
+<li class="level1"><div class="li"> In the <strong>controller</strong> folder of your project directory, create a <strong>CustomEventsManager.java</strong> file and extend it from <strong>DHXEventsManager</strong> as in:</div>
+</li>
+</ul>
+<pre class="code java"><span class="kw1">package</span> <span class="co2">com.dhtmlx.demoapp.controller</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletRequest</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.hibernate.Session</span><span class="sy0">;</span>
+&nbsp;
+&nbsp;
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.DHXStatus</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.DHXEv</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.DHXEventsManager</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">import</span> <span class="co2">java.util.ArrayList</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">java.util.List</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">public</span> <span class="kw1">class</span> CustomEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+&nbsp;
+	<span class="kw1">public</span> CustomEventsManager<span class="br0">&#40;</span>HttpServletRequest request<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		<span class="kw1">super</span><span class="br0">&#40;</span>request<span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+&nbsp;
+	<span class="kw1">public</span> Iterable<span class="sy0">&lt;</span>DHXEv<span class="sy0">&gt;</span> getEvents<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		Session session <span class="sy0">=</span> HibernateUtil.<span class="me1">getSessionFactory</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">openSession</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		List<span class="sy0">&lt;</span>DHXEv<span class="sy0">&gt;</span> evs <span class="sy0">=</span> <span class="kw1">new</span> ArrayList<span class="sy0">&lt;</span>DHXEv<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="kw1">try</span> <span class="br0">&#123;</span>
+			session <span class="sy0">=</span> HibernateUtil.<span class="me1">getSessionFactory</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">openSession</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			evs <span class="sy0">=</span> session.<span class="me1">createCriteria</span><span class="br0">&#40;</span>DHXEvent.<span class="kw1">class</span><span class="br0">&#41;</span>.<span class="me1">list</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span> <span class="kw1">catch</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aruntimeexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">RuntimeException</span></a> e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+			e.<span class="me1">printStackTrace</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span> <span class="kw1">finally</span><span class="br0">&#123;</span>
+			session.<span class="me1">flush</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			session.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span>
+&nbsp;
+    	<span class="kw1">return</span> evs<span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+&nbsp;
+	@Override
+	<span class="kw1">public</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Ainteger+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Integer</span></a> saveEvent<span class="br0">&#40;</span>DHXEv event, DHXStatus status<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		Session session <span class="sy0">=</span> HibernateUtil.<span class="me1">getSessionFactory</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">openSession</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="kw1">try</span> <span class="br0">&#123;</span>
+			session <span class="sy0">=</span> HibernateUtil.<span class="me1">getSessionFactory</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">openSession</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			session.<span class="me1">beginTransaction</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+			<span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">UPDATE</span><span class="br0">&#41;</span>
+				session.<span class="me1">update</span><span class="br0">&#40;</span>event<span class="br0">&#41;</span><span class="sy0">;</span>
+			<span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">DELETE</span><span class="br0">&#41;</span>
+				session.<span class="me1">delete</span><span class="br0">&#40;</span>event<span class="br0">&#41;</span><span class="sy0">;</span>
+			<span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">INSERT</span><span class="br0">&#41;</span>
+				session.<span class="me1">save</span><span class="br0">&#40;</span>event<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+			session.<span class="me1">getTransaction</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">commit</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span> <span class="kw1">catch</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aruntimeexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">RuntimeException</span></a> e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+			e.<span class="me1">printStackTrace</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span> <span class="kw1">finally</span><span class="br0">&#123;</span>
+			session.<span class="me1">flush</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			session.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span>
+		<span class="kw1">return</span> event.<span class="me1">getId</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+&nbsp;
+	@Override
+	<span class="kw1">public</span> DHXEv createEvent<span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> id, DHXStatus status<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		<span class="kw1">return</span> <span class="kw1">new</span> DHXEvent<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+<ul>
+<li class="level1"><div class="li"> <strong>getEvents()</strong> method  answers for data loading;</div>
+</li>
+<li class="level1"><div class="li"> <strong>saveEvent()</strong> method manages the update/insert/delete operations;</div>
+</li>
+<li class="level1"><div class="li"> <strong>createEvent()</strong> method provide creating new events in the planer.</div>
+</li>
+</ul>
+
+<p>
+
+To learn more on loading and processing data in the planner, read: 
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="loading_data.html" class="wikilink1" title="loading_data">Loading data</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="managing_crud_operations.html" class="wikilink1" title="managing_crud_operations">Managing CRUD operations</a></div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="step_9_a_controller_file" id="step_9_a_controller_file">Step 9. A controller file</a></h2>
+<div class="level2">
+
+<p>
+Now, let’s create a controller class that will define actions for initializing the planner and loading data to it.
+</p>
+<ul>
+<li class="level1"><div class="li"> In the controller folder of your project directory, create a <strong>LoadingController.java</strong> file with the following code:</div>
+</li>
+</ul>
+<pre class="code java"><span class="kw1">package</span> <span class="co2">com.dhtmlx.demoapp.controller</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletRequest</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">import</span> <span class="co2">org.springframework.stereotype.Controller</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.springframework.web.bind.annotation.RequestMapping</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.springframework.web.bind.annotation.ResponseBody</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.springframework.web.servlet.ModelAndView</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.DHXPlanner</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.DHXSkin</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">com.dhtmlx.planner.data.DHXDataFormat</span><span class="sy0">;</span>
+&nbsp;
+@Controller
+<span class="kw1">public</span> <span class="kw1">class</span> LoadingController <span class="br0">&#123;</span>
+&nbsp;
+        @RequestMapping<span class="br0">&#40;</span><span class="st0">&quot;/myplanner.html&quot;</span><span class="br0">&#41;</span>
+        <span class="kw1">public</span> ModelAndView planner<span class="br0">&#40;</span>HttpServletRequest request<span class="br0">&#41;</span> <span class="kw1">throws</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Exception</span></a> <span class="br0">&#123;</span>
+                DHXPlanner p <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./codebase/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                p.<span class="me1">setInitialDate</span><span class="br0">&#40;</span>2013, 1, 7<span class="br0">&#41;</span><span class="sy0">;</span>
+                p.<span class="me1">config</span>.<span class="me1">setScrollHour</span><span class="br0">&#40;</span>music<span class="br0">&#41;</span><span class="sy0">;</span>
+                p.<span class="me1">setWidth</span><span class="br0">&#40;</span>900<span class="br0">&#41;</span><span class="sy0">;</span>
+                p.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;events&quot;</span>, DHXDataFormat.<span class="me1">JSON</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+                ModelAndView mnv <span class="sy0">=</span> <span class="kw1">new</span> ModelAndView<span class="br0">&#40;</span><span class="st0">&quot;article&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                mnv.<span class="me1">addObject</span><span class="br0">&#40;</span><span class="st0">&quot;body&quot;</span>, p.<span class="me1">render</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                <span class="kw1">return</span> mnv<span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+&nbsp;
+        @RequestMapping<span class="br0">&#40;</span><span class="st0">&quot;/events&quot;</span><span class="br0">&#41;</span>
+        @ResponseBody <span class="kw1">public</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> events<span class="br0">&#40;</span>HttpServletRequest request<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                CustomEventsManager evs <span class="sy0">=</span> <span class="kw1">new</span> CustomEventsManager<span class="br0">&#40;</span>request<span class="br0">&#41;</span><span class="sy0">;</span>
+                <span class="kw1">return</span> evs.<span class="me1">run</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+<ul>
+<li class="level1"><div class="li"> In the <strong>initializing()</strong> function we use a standard code initializing JavaPlanner. </div>
+</li>
+<li class="level1"><div class="li"> The <strong>events()</strong> function instantiates the <strong>CustomEventsManager</strong> class and retrieve data.</div>
+</li>
+</ul>
+
+<p>
+
+If you doubt what one or another method makes, refer to the following documentation:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="loading_data.html" class="wikilink1" title="loading_data">Loading data</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="managing_crud_operations.html" class="wikilink1" title="managing_crud_operations">Managing CRUD operations</a></div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="step_10_a_view_file" id="step_10_a_view_file">Step 10. A view file</a></h2>
+<div class="level2">
+
+<p>
+In the controller, we named our view file as ‘article’. 
+</p>
+<ul>
+<li class="level1"><div class="li"> In the &#039;<em>WebContent/WEB-INF/jsp</em>&#039; folder of your project directory, create an <strong>article.jsp</strong> file with the following code:</div>
+</li>
+</ul>
+<pre class="code java"><span class="sy0">&lt;</span>html<span class="sy0">&gt;</span>
+    <span class="sy0">&lt;</span>body<span class="sy0">&gt;</span>
+        <span class="sy0">&lt;</span>div <span class="kw1">class</span><span class="sy0">=</span><span class="st0">&quot;content&quot;</span> id<span class="sy0">=</span><span class="st0">&quot;content&quot;</span><span class="sy0">&gt;</span>
+           <span class="sy0">&lt;</span>div id<span class="sy0">=</span><span class="st0">&quot;scheduler&quot;</span><span class="sy0">&gt;</span>$<span class="br0">&#123;</span>body<span class="br0">&#125;</span><span class="sy0">&lt;/</span>div<span class="sy0">&gt;</span>
+        <span class="sy0">&lt;/</span>div<span class="sy0">&gt;</span>
+    <span class="sy0">&lt;/</span>body<span class="sy0">&gt;</span>
+<span class="sy0">&lt;/</span>html<span class="sy0">&gt;</span></pre>
+
+<p>
+
+<br/>
+
+<br/>
+
+That’s it. Our tutorial came to the end. We have created an attractive planner application with the help of the Spring framework and JavaPlanner library. If you decide to continue developing and customize the application, this is a good point to start it. Good luck and see you soon!
+</p>
+
+<p>
+<strong>All the related files you can download</strong> <a href="http://javaplanner.com/download/demoapp_spring.war" class="urlextern" title="http://javaplanner.com/download/demoapp_spring.war"  rel="nofollow">here</a>.
+
+</p>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

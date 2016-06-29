@@ -1,0 +1,310 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Date Picker (mini calendar)</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#date_picker_mini_calendar" class="toc">Date Picker (mini calendar)</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#initialization" class="toc">Initialization</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#mini_calendar_in_the_header" class="toc">Mini calendar in the header</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#mini_calendar_in_the_lightbox" class="toc">Mini calendar in the lightbox</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#mini_calendar_outside_the_planner" class="toc">Mini calendar outside the planner</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#methods" class="toc">Methods</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="date_picker_mini_calendar" id="date_picker_mini_calendar">Date Picker (mini calendar)</a></h1>
+<div class="level1">
+
+<p>
+MiniCalendar provides ability to render a small month view in any html container on a page. 
+</p>
+
+<p>
+<strong>MiniCalendar can be put into 3 places</strong> (each place &#039;requires&#039; its specific code):
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong><span class="curid"><a href="minicalendar.html#mini_calendar_in_the_header" class="wikilink1" title="minicalendar">in the planner header</a></span></strong><br/>
+<br/>
+<pre class="code java">planner.<span class="me1">calendars</span>.<span class="me1">attachMiniCalendar</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+ <img src="images/calendar_in_header.png" class="media" alt="" />
+</p>
+</div>
+</li>
+<li class="level1"><div class="li"> <strong><span class="curid"><a href="minicalendar.html#mini_calendar_in_the_lightbox" class="wikilink1" title="minicalendar">in the lightbox</a></span></strong><br/>
+<br/>
+<pre class="code java">planner.<span class="me1">lightbox</span>.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXLightboxMiniCalendar<span class="br0">&#40;</span><span class="st0">&quot;cal&quot;</span>, <span class="st0">&quot;Time period&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+<img src="images/calendar_lightbox.png" class="media" alt="" />
+</p>
+</div>
+</li>
+<li class="level1"><div class="li"> <strong><span class="curid"><a href="minicalendar.html#mini_calendar_outside_the_planner" class="wikilink1" title="minicalendar">in any html container outside the planner</a></span></strong><br/>
+<br/>
+<pre class="code java">DHXMiniCalendar cal <span class="sy0">=</span> <span class="kw1">new</span> DHXMiniCalendar<span class="br0">&#40;</span><span class="st0">&quot;container_id&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+cal.<span class="me1">setNavigation</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">calendars</span>.<span class="me1">add</span><span class="br0">&#40;</span>cal<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+<img src="images/calendar_div.png" class="media" alt="" />
+</p>
+</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="initialization" id="initialization">Initialization</a></h2>
+<div class="level2">
+
+</div>
+
+<h3><a name="mini_calendar_in_the_header" id="mini_calendar_in_the_header">Mini calendar in the header</a></h3>
+<div class="level3">
+
+<p>
+To add miniCalendar to the header, call method <strong>DHXPlanner.calendars.attachMiniCalendar()</strong>:
+
+</p>
+<pre class="code csharp">DHXPlanner planner <span class="sy0">=</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">calendars</span>.<span class="me1">attachMiniCalendar</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+
+The method returns a <strong>DHXMiniCalendar</strong> object that can be used for further calendar configuration.
+
+</p>
+<pre class="code java">DHXMiniCalendar cal <span class="sy0">=</span> planner.<span class="me1">Calendars</span>.<span class="me1">AttachMiniCalendar</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+cal.<span class="me1">setNavigation</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h3><a name="mini_calendar_in_the_lightbox" id="mini_calendar_in_the_lightbox">Mini calendar in the lightbox</a></h3>
+<div class="level3">
+
+<p>
+If you want to use the mini calendar in the details form for start and end dates selection, just add the appropriate control - a <strong>DHXLightboxMiniCalendar</strong> object:
+
+</p>
+<pre class="code csharp">DHXPlanner planner <span class="sy0">=</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">lightbox</span>.<span class="me1">add</span><span class="br0">&#40;</span><a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> DHXLightboxMiniCalendar<span class="br0">&#40;</span><span class="st0">&quot;name&quot;</span>, <span class="st0">&quot;label&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h3><a name="mini_calendar_outside_the_planner" id="mini_calendar_outside_the_planner">Mini calendar outside the planner</a></h3>
+<div class="level3">
+
+<p>
+To append the mini calendar to an html container outside the planner, you should use the following code:
+
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">DHXMiniCalendar</span> cal <span class="sy0">=</span> <span class="kw1">new</span> DHXMiniCalendar<span class="br0">&#40;</span><span class="st0">&quot;container_id&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// initialization</span>
+cal.<span class="me1">setNavigation</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// configuration</span>
+planner.<span class="me1">calendars</span>.<span class="me1">add</span><span class="br0">&#40;</span>cal<span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// adding to the page</span></pre>
+
+<p>
+Note, the container for the mini calendar can be specified in 2 ways:
+</p>
+<ol>
+<li class="level1"><div class="li"> Directly in the constructor (as shown in the example above);</div>
+</li>
+<li class="level1"><div class="li"> After initialization (through the <strong>DHXMiniCalendar.setContainer(String <em>container</em>)</strong> method):<br/>
+<br/>
+<pre class="code java">DHXMiniCalendar cal <span class="sy0">=</span> <span class="kw1">new</span> DHXMiniCalendar<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+cal.<span class="me1">setContainer</span><span class="br0">&#40;</span><span class="st0">&quot;container_id&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">calendars</span>.<span class="me1">add</span><span class="br0">&#40;</span>cal<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+</ol>
+
+</div>
+
+<h2><a name="methods" id="methods">Methods</a></h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <strong>DHXMiniCalendar.setContainer(String <em>containerId</em>)</strong> - the id of a <acronym title="Document Object Model">DOM</acronym> element that  the mini calendar will be placed to.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMiniCalendar.setDate(Calendar <em>initialDate</em>)</strong> - the initially selected date.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMiniCalendar.isAttachedToHeader(Boolean <em>isAttached</em>)</strong> - checks whether the mini calendar is attached to the planner or another <acronym title="Document Object Model">DOM</acronym> element.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMiniCalendar.setNavigation(Boolean <em>isScrolled</em>)</strong> - allows mouse scrolling.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXMiniCalendar.setPosition(String <em>className</em>)</strong> - the css class name of the element that the mini calendar will be attached to. The method is used to set the position of the calendar in the planner. Specify the desired html element through its css class and anytime you click on this element, the mini calendar will appear.</div>
+</li>
+</ul>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

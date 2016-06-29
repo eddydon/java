@@ -1,0 +1,348 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Calendar Language Localization</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#calendar_language_localization" class="toc">Calendar Language Localization</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#locale_activation" class="toc">Locale activation</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#recurring_events" class="toc">Recurring events</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#included_locales" class="toc">Included locales</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#custom_locale" class="toc">Custom locale</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="calendar_language_localization" id="calendar_language_localization">Calendar Language Localization</a></h1>
+<div class="level1">
+
+<p>
+The library allows you to specify a Java calendar locale for a certain region by setting the required language for the user interface.
+</p>
+
+</div>
+
+<h2><a name="locale_activation" id="locale_activation">Locale activation</a></h2>
+<div class="level2">
+
+<p>
+To set the necessary locale, you should call the <strong>DHXPlanner.localizations.set(DHXLocalization <em>locale</em>)</strong> method:
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...			
+<span class="me1">planner</span>.<span class="me1">localizations</span>.<span class="me1">set</span><span class="br0">&#40;</span>DHXLocalization.<span class="me1">Spanish</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+<ul>
+<li class="level1"><div class="li"> By default, locales reside in the directory <strong>path_to_planner_sources/locale</strong>.<br/>
+<em>The path to the Java calendar sources are specified as the first parameter of the calendar constructor, e.g. in case of the constructor specified in the code snippet above, the path will be - <strong> ./static/locale/some_locale.js</strong>.</em></div>
+</li>
+<li class="level1"><div class="li"> As you call the <strong>DHXPlanner.localizations.set(DHXLocalization <em>locale</em>)</strong> method, 2 new script files are included to your page automatically (one for classic events and the other - for recurring):<br/>
+<br/>
+<pre class="code java"><span class="sy0">&lt;</span>script src<span class="sy0">=</span><span class="st0">&quot;./static/locale/locale_[languageName].js&quot;</span> type<span class="sy0">=</span><span class="st0">&quot;text/javascript&quot;</span><span class="sy0">&gt;&lt;/</span>script<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>script src<span class="sy0">=</span><span class="st0">&quot;./static/locale/locale_recurring_[languageName].js&quot;</span> type<span class="sy0">=</span><span class="st0">&quot;text/javascript&quot;</span><span class="sy0">&gt;&lt;/</span>script<span class="sy0">&gt;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> Method <strong>set()</strong> can be also called as <strong>DHXPlanner.localizations.set(String <em>locale</em>)</strong> where <em>locale</em> is a short name of the locale (generally, it&#039;s an official two-letter code of the country), e.g. &#039;en&#039; or &#039;ru&#039;.</div>
+</li>
+</ul>
+
+</div>
+
+<h3><a name="recurring_events" id="recurring_events">Recurring events</a></h3>
+<div class="level3">
+
+<p>
+Note, if you aren&#039;t going to use recurring events in the Java calendar, you can pass the second parameter <em>false</em> to the <strong>DHXPlanner.localizations.set(DHXLocalization <em>locale</em>)</strong> method. 
+In this case, just the <em>locale_[languageName].js</em> script file will be included to the page. 
+
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...			
+<span class="me1">planner</span>.<span class="me1">localizations</span>.<span class="me1">set</span><span class="br0">&#40;</span>DHXLocalization.<span class="me1">Spanish</span>, <span class="kw2">false</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="included_locales" id="included_locales">Included locales</a></h2>
+<div class="level2">
+
+<p>
+All the locales can be accessed through class <strong>DHXLocalization</strong> and they are:
+
+</p>
+<table class="columns-plugin" style="width:950px">
+<tr><td class="first" style="width:15%;vertical-align:top;">
+<ul>
+<li class="level1"><div class="li"> Arabic </div>
+</li>
+<li class="level1"><div class="li"> Catalan</div>
+</li>
+<li class="level1"><div class="li"> Chinese </div>
+</li>
+<li class="level1"><div class="li"> Czech</div>
+</li>
+<li class="level1"><div class="li"> Danish</div>
+</li>
+<li class="level1"><div class="li"> Dutch </div>
+</li>
+<li class="level1"><div class="li"> English(default) </div>
+</li>
+<li class="level1"><div class="li"> Finnish</div>
+</li>
+<li class="level1"><div class="li"> Belarusian</div>
+</li>
+</ul>
+</td><td style="width:15%;">
+<ul>
+<li class="level1"><div class="li"> French </div>
+</li>
+<li class="level1"><div class="li"> German 	</div>
+</li>
+<li class="level1"><div class="li"> Greek </div>
+</li>
+<li class="level1"><div class="li"> Hebrew 	</div>
+</li>
+<li class="level1"><div class="li"> Hungarian 	</div>
+</li>
+<li class="level1"><div class="li"> Indonesia 	</div>
+</li>
+<li class="level1"><div class="li"> Italian 	</div>
+</li>
+<li class="level1"><div class="li"> Japanese </div>
+</li>
+<li class="level1"><div class="li"> Slovak</div>
+</li>
+</ul>
+</td><td style="width:15%;">
+<ul>
+<li class="level1"><div class="li"> Norwegian </div>
+</li>
+<li class="level1"><div class="li"> Polish 	</div>
+</li>
+<li class="level1"><div class="li"> Portuguese </div>
+</li>
+<li class="level1"><div class="li"> Russian 	</div>
+</li>
+<li class="level1"><div class="li"> Slovenian </div>
+</li>
+<li class="level1"><div class="li"> Spanish 	</div>
+</li>
+<li class="level1"><div class="li"> Swedish 	</div>
+</li>
+<li class="level1"><div class="li"> Turkish 	</div>
+</li>
+<li class="level1"><div class="li"> Ukrainian </div>
+</li>
+<li class="level1"><div class="li"> Romanian</div>
+</li>
+</ul>
+</td><td class="last" style="width:55%;">
+</td></tr></table>
+
+</div>
+
+<h2><a name="custom_locale" id="custom_locale">Custom locale</a></h2>
+<div class="level2">
+
+<p>
+If the <strong>DHXLocalization</strong> class doesn&#039;t contain the required locale, you can create a new one.<br/>
+Note, a locale file must be written in JavaScript. Detail information about creating custom locales you can read in the related chapter of the dhtmlxScheduler documentation - <a href="http://docs.dhtmlx.com/doku.php?id=dhtmlxscheduler:localization#creating_custom_locale" class="urlextern" title="http://docs.dhtmlx.com/doku.php?id=dhtmlxscheduler:localization#creating_custom_locale"  rel="nofollow">Localization. Creating custom locale</a>.
+</p>
+
+<p>
+To apply a custom locale to the calendar control, you should specify its short name in the <strong>DHXPlanner.localizations.set(String <em>locale</em>)</strong> method: 
+
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...			
+<span class="me1">planner</span>.<span class="me1">localizations</span>.<span class="me1">set</span><span class="br0">&#40;</span><span class="st0">&quot;languageName&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Note, if you aren&#039;t going to use recurring events in the Java calendar, you can pass <em>false</em> as the second parameter to the <strong>DHXPlanner.localizations.set(DHXLocalization <em>locale</em>)</strong> method. 
+</p>
+
+<p>
+<strong>Let&#039;s assume, you have created a new locale for the Lettish language.</strong> To apply it to the calendar you should call:
+
+</p>
+<pre class="code java">planner.<span class="me1">localizations</span>.<span class="me1">set</span><span class="br0">&#40;</span><span class="st0">&quot;lv&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+
+Automatically, files <strong><em>locale_lv.js</em></strong> and <strong><em>locale_recurring_lv.js</em></strong> will be included to the page. 
+</p>
+
+<p>
+<br/>
+
+The <strong>DHXPlanner.localization</strong> class provides an important method:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>setDirectory(String <em>path</em>)</strong> - sets the path to the locale files relative to the <em>codebase</em> directory.</div>
+</li>
+</ul>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

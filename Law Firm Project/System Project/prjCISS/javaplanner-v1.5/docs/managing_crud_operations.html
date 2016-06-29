@@ -1,0 +1,405 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Managing CRUD operations</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#managing_crud_operations" class="toc">Managing CRUD operations</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#common_implementation_technique" class="toc">Common implementation technique</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#adding_custom_attributes_to_the_response" class="toc">Adding custom attributes to the response</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="managing_crud_operations" id="managing_crud_operations">Managing CRUD operations</a></h1>
+<div class="level1">
+
+<p>
+The library doesn&#039;t provide automatic processing of create/update/delete operations but provides class <strong>DHXEventsManager</strong> that should be used to define the desired logic and render the response for the planner.
+</p>
+
+<p>
+<em class="u">A short synopsis of the <strong>DHXEventsManager</strong> class</em>.
+</p>
+
+<p>
+The class contain 3 methods to manage data:
+</p>
+<ol>
+<li class="level1"><div class="li"> <strong>getEvents()</strong></div>
+<ul>
+<li class="level2"><div class="li"> Answers for data loading;</div>
+</li>
+<li class="level2"><div class="li"> By default, does nothing and wait for you to treat it;</div>
+</li>
+<li class="level2"><div class="li"> Details about the use of the method are in chapter <a href="loading_data.html#ajax_loading_common_use_case" class="wikilink1" title="loading_data">Loading data</a>;</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>saveEvent(DHXEv <em>event</em>, DHXStatus <em>status</em>)</strong> </div>
+<ul>
+<li class="level2"><div class="li"> Manages the update/insert/delete operations. </div>
+</li>
+<li class="level2"><div class="li"> By default, does nothing and wait for you to treat it;</div>
+</li>
+<li class="level2"><div class="li"> <strong>DHXEvent</strong> class specifies standard events with fixed properties(id, text, start and end dates);</div>
+</li>
+<li class="level2"><div class="li"> <strong>DHXStatus</strong> class defines the type of an action. Available values are:</div>
+<ul>
+<li class="level3"><div class="li"> <em>INSERT</em>;</div>
+</li>
+<li class="level3"><div class="li"> <em>DELETE</em>;</div>
+</li>
+<li class="level3"><div class="li"> <em>UPDATE</em>;</div>
+</li>
+<li class="level3"><div class="li"> <em>ERROR</em>.</div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> Details about the use of the method are <span class="curid"><a href="managing_crud_operations.html#common_implementation_technique" class="wikilink1" title="managing_crud_operations">below</a></span>;</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>createEvent(String id, DHXStatus status)</strong> </div>
+<ul>
+<li class="level2"><div class="li"> Provides creating new events in the planner (<strong>DHXEvent</strong> instances).</div>
+</li>
+<li class="level2"><div class="li"> The first input parameter is the id of a new <strong>DHXEvent</strong> instance.</div>
+</li>
+<li class="level2"><div class="li"> Generally, you don&#039;t need to &#039;touch&#039; this method. Redefinition is required in cases when you use a custom events class instead of <strong>DHXEvent</strong>.</div>
+</li>
+</ul>
+</li>
+</ol>
+
+</div>
+
+<h2><a name="common_implementation_technique" id="common_implementation_technique">Common implementation technique</a></h2>
+<div class="level2">
+
+<p>
+Let&#039;s consider  common technique for implementing CRUD logic:
+
+</p>
+<ol>
+<li class="level1"><div class="li"> Create a new class (let&#039;s name it as <em>CustomEventsManager</em>) and extend it from the <strong>DHXEventsManager</strong> class:<br/>
+<br/>
+<pre class="code java"><span class="co1">//CustomEventsManager.java </span>
+<span class="kw1">public</span> <span class="kw1">class</span> CustomEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+        ...
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> (<em>optional</em>) Redefine the <strong>getEvents()</strong> method to specify the &#039;loading&#039; logic (see details in chapter <a href="loading_data.html#ajax_loading_common_use_case" class="wikilink1" title="loading_data">Loading data</a>):<br/>
+<br/>
+<pre class="code java"><span class="co1">//CustomEventsManager.java </span>
+<span class="kw1">public</span> Iterable<span class="sy0">&lt;</span>DHXEv<span class="sy0">&gt;</span> getEvents<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    ...
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> Redefine the <strong>saveEvent()</strong> method to specify the CRUD logic:<br/>
+<br/>
+<pre class="code java"><span class="co1">//CustomEventsManager.java </span>
+@Override
+<span class="kw1">public</span> DHXStatus saveEvent<span class="br0">&#40;</span>DHXEv event, DHXStatus status<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+	java.<span class="me1">sql</span>.<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aconnection+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Connection</span></a> conn <span class="sy0">=</span> DatabaseConnection.<span class="me1">getConnection</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	java.<span class="me1">sql</span>.<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Apreparedstatement+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">PreparedStatement</span></a> ps <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
+	java.<span class="me1">sql</span>.<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aresultset+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">ResultSet</span></a> result <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
+	<span class="kw1">try</span> <span class="br0">&#123;</span>
+		<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> query <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
+		<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> start_date <span class="sy0">=</span> <span class="kw1">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asimpledateformat+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SimpleDateFormat</span></a><span class="br0">&#40;</span><span class="st0">&quot;yyyy-MM-dd HH:mm:ss&quot;</span><span class="br0">&#41;</span>.
+                                    <span class="me1">format</span><span class="br0">&#40;</span>event.<span class="me1">getStart_date</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> end_date <span class="sy0">=</span> <span class="kw1">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asimpledateformat+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SimpleDateFormat</span></a><span class="br0">&#40;</span><span class="st0">&quot;yyyy-MM-dd HH:mm:ss&quot;</span><span class="br0">&#41;</span>.
+                                  <span class="me1">format</span><span class="br0">&#40;</span>event.<span class="me1">getEnd_date</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">UPDATE</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+			query <span class="sy0">=</span> <span class="st0">&quot;UPDATE events SET event_name=?, start_date=?, end_date=?&quot;</span><span class="sy0">+</span> 
+<span class="st0">&quot;WHERE event_id=?&quot;</span><span class="sy0">;</span>
+			ps <span class="sy0">=</span> conn.<span class="me1">prepareStatement</span><span class="br0">&#40;</span>query, <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astatement+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Statement</span></a>.<span class="me1">RETURN_GENERATED_KEYS</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			ps.<span class="me1">setString</span><span class="br0">&#40;</span>1, event.<span class="me1">getText</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			ps.<span class="me1">setString</span><span class="br0">&#40;</span>2, start_date<span class="br0">&#41;</span><span class="sy0">;</span>
+			ps.<span class="me1">setString</span><span class="br0">&#40;</span>3, end_date<span class="br0">&#41;</span><span class="sy0">;</span>
+			ps.<span class="me1">setInt</span><span class="br0">&#40;</span>4, event.<span class="me1">getId</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">INSERT</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+			query <span class="sy0">=</span> <span class="st0">&quot;INSERT INTO events (event_id, event_name, start_date, end_date)&quot;</span><span class="sy0">+</span> 
+<span class="st0">&quot;VALUES (null, ?, ?, ?)&quot;</span><span class="sy0">;</span>
+			ps <span class="sy0">=</span> conn.<span class="me1">prepareStatement</span><span class="br0">&#40;</span>query, <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astatement+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Statement</span></a>.<span class="me1">RETURN_GENERATED_KEYS</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			ps.<span class="me1">setString</span><span class="br0">&#40;</span>1, event.<span class="me1">getText</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			ps.<span class="me1">setString</span><span class="br0">&#40;</span>2, start_date<span class="br0">&#41;</span><span class="sy0">;</span>
+			ps.<span class="me1">setString</span><span class="br0">&#40;</span>3, end_date<span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">DELETE</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+			query <span class="sy0">=</span> <span class="st0">&quot;DELETE FROM events WHERE event_id=? LIMIT 1&quot;</span><span class="sy0">;</span>
+			ps <span class="sy0">=</span> conn.<span class="me1">prepareStatement</span><span class="br0">&#40;</span>query, <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astatement+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Statement</span></a>.<span class="me1">RETURN_GENERATED_KEYS</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			ps.<span class="me1">setInt</span><span class="br0">&#40;</span>1, event.<span class="me1">getId</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span>ps<span class="sy0">!=</span><span class="kw2">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+			ps.<span class="me1">executeUpdate</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			result <span class="sy0">=</span> ps.<span class="me1">getGeneratedKeys</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			<span class="kw1">if</span> <span class="br0">&#40;</span>result.<span class="me1">next</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+				event.<span class="me1">setId</span><span class="br0">&#40;</span>result.<span class="me1">getInt</span><span class="br0">&#40;</span>1<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+			<span class="br0">&#125;</span>
+		<span class="br0">&#125;</span>
+	<span class="br0">&#125;</span> <span class="kw1">catch</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asqlexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SQLException</span></a> e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		e.<span class="me1">printStackTrace</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span> <span class="kw1">finally</span> <span class="br0">&#123;</span>
+        	<span class="kw1">if</span> <span class="br0">&#40;</span>result <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">&#41;</span> <span class="kw1">try</span> <span class="br0">&#123;</span> result.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="br0">&#125;</span> <span class="kw1">catch</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asqlexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SQLException</span></a> e<span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span>
+        	<span class="kw1">if</span> <span class="br0">&#40;</span>ps <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">&#41;</span> <span class="kw1">try</span> <span class="br0">&#123;</span> ps.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="br0">&#125;</span> <span class="kw1">catch</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asqlexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SQLException</span></a> e<span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span>
+        	<span class="kw1">if</span> <span class="br0">&#40;</span>conn <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">&#41;</span> <span class="kw1">try</span> <span class="br0">&#123;</span> conn.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="br0">&#125;</span> <span class="kw1">catch</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asqlexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SQLException</span></a> e<span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span>
+	<span class="br0">&#125;</span>
+	<span class="kw1">return</span> event.<span class="me1">getId</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+</ol>
+<ul>
+<li class="level1"><div class="li"> Create a new .jsp file (let&#039;s name it as &#039;events.jsp&#039;) that will instantiate the <strong>CustomEventsManager</strong> class and retrieve data:<br/>
+<br/>
+<pre class="code java"><span class="co1">//events.jsp file</span>
+<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> getEvents<span class="br0">&#40;</span>HttpServletRequest request<span class="br0">&#41;</span> <span class="kw1">throws</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Exception</span></a> <span class="br0">&#123;</span>
+	CustomEventsManager evs <span class="sy0">=</span> <span class="kw1">new</span> CustomEventsManager<span class="br0">&#40;</span>request<span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="kw1">return</span> evs.<span class="me1">run</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> (<em>optional</em>) In the main .jsp file, call method <strong>load()</strong> to load data to the planner:<br/>
+<br/>
+<pre class="code java"><span class="co1">//Sampleplanner.jsp</span>
+<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> getJava Planner <span class="br0">&#40;</span>HttpServletRequest request<span class="br0">&#41;</span> <span class="kw1">throws</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Exception</span></a> <span class="br0">&#123;</span>
+	DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        ...
+        <span class="me1">planner</span>.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;events.jsp&quot;</span>, DHXDataFormat.<span class="me1">JSON</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// events.jsp - the name of the file created on the previous step</span>
+	<span class="kw1">return</span> planner.<span class="me1">render</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> In the main .jsp file, call the <strong>setURL(String <em>url</em>)</strong> method implemented in the <strong>DHXPlanner.data.dataprocessor</strong> class to have the ability to send requests to the server. As a parameter, the method takes the path to a file that realizes processing update/insert/delete operations on the server side:<br/>
+<br/>
+<pre class="code java"><span class="co1">//Sampleplanner.jsp</span>
+<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> getJava Planner <span class="br0">&#40;</span>HttpServletRequest request<span class="br0">&#41;</span> <span class="kw1">throws</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Exception</span></a> <span class="br0">&#123;</span>
+	DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        ...
+        <span class="me1">planner</span>.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;events.jsp&quot;</span>, DHXDataFormat.<span class="me1">JSON</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// events.jsp - the name of the file created on the previous step</span>
+        planner.<span class="me1">data</span>.<span class="me1">dataprocessor</span>.<span class="me1">setURL</span><span class="br0">&#40;</span><span class="st0">&quot;events.jsp&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// the same events.jsp file created recently</span>
+	<span class="kw1">return</span> planner.<span class="me1">render</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+ Some words about the <strong>DHXPlanner.data.dataprocessor</strong> class. It&#039;s a special class that lets you ‘communicate’ with the server. It monitors all data changes and automatically sends requests to the server for update/delete/insert actions. Note, by calling the <strong>DHXPlanner.data.dataprocessor.setURL(String <em>url</em>)</strong> you not only set the path to the file that will process requests but also automatically initialize a <strong>dataprocessor</strong> instance and enable the required DataProcessor&#039;s functionality.
+</p>
+</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="adding_custom_attributes_to_the_response" id="adding_custom_attributes_to_the_response">Adding custom attributes to the response</a></h2>
+<div class="level2">
+
+<p>
+Starting from version 1.5, the library provides the <strong>addResponseAttribute(String name, String value)</strong> method to let you add custom attributes to the response. You can use this method, for example, to update specific data property(es) on the client depending on the result of a server-side operation.
+</p>
+
+<p>
+For example, you want to show important events in different colors: events before the current date in gray, others - in red.
+
+</p>
+<ul>
+<li class="level1"><div class="li"> So, you add a custom attribute &#039;color&#039; and set it to &#039;gray&#039; or &#039;red&#039;  values (depending on the start date of the event):<br/>
+<br/>
+<pre class="code java"><span class="co1">//CustomEventsManager.java </span>
+@Override
+<span class="kw1">public</span> DHXStatus saveEvent<span class="br0">&#40;</span>DHXEv event, DHXStatus status<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        ...
+        <span class="me1">var</span> color <span class="sy0">=</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span>status <span class="sy0">==</span> DHXStatus.<span class="me1">UPDATE</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+               <span class="kw1">if</span> <span class="br0">&#40;</span>event.<span class="me1">getStart_date</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">&lt;</span> DateTime.<span class="me1">Now</span><span class="br0">&#41;</span>
+                     event.<span class="me1">addResponseAttribute</span><span class="br0">&#40;</span><span class="st0">&quot;color&quot;</span>, <span class="st0">&quot;gray&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+               <span class="kw1">else</span>
+                     event.<span class="me1">addResponseAttribute</span><span class="br0">&#40;</span><span class="st0">&quot;color&quot;</span>, <span class="st0">&quot;red&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+               ...
+        <span class="br0">&#125;</span>
+	<span class="kw1">return</span> event.<span class="me1">getId</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> then, catch this attribute on the client side and apply the required logic:<br/>
+<br/>
+<pre class="code javascript">dp.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onAfterUpdate&quot;</span><span class="sy0">,</span> <span class="kw2">function</span><span class="br0">&#40;</span>sid<span class="sy0">,</span> action<span class="sy0">,</span> tid<span class="sy0">,</span> tag<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw2">var</span> color <span class="sy0">=</span> tag.<span class="me1">getAttribute</span><span class="br0">&#40;</span><span class="st0">&quot;color&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    ...
+<span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+</ul>
+
+<p>
+
+The client response looks as in:
+</p>
+<pre class="code html4strict"><span class="sc2">&lt;?xml <span class="kw3">version</span><span class="sy0">=</span><span class="st0">&quot;1.0&quot;</span>?&gt;&lt;data&gt;&lt;action <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;update&quot;</span> sid<span class="sy0">=</span><span class="st0">&quot;newid&quot;</span> tid<span class="sy0">=</span><span class="st0">&quot;oldid&quot;</span> <span class="kw3">color</span><span class="sy0">=</span><span class="st0">&quot;gray&quot;</span> <span class="sy0">/</span>&gt;&lt;<span class="sy0">/</span>data&gt;</span>
+//or
+<span class="sc2">&lt;?xml <span class="kw3">version</span><span class="sy0">=</span><span class="st0">&quot;1.0&quot;</span>?&gt;&lt;data&gt;&lt;action <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;update&quot;</span> sid<span class="sy0">=</span><span class="st0">&quot;newid&quot;</span> tid<span class="sy0">=</span><span class="st0">&quot;oldid&quot;</span> <span class="kw3">color</span><span class="sy0">=</span><span class="st0">&quot;red&quot;</span> <span class="sy0">/</span>&gt;&lt;<span class="sy0">/</span>data&gt;</span></pre>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

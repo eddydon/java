@@ -1,0 +1,282 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Touch support in Java Planner</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#touch_support_in_java_planner" class="toc">Touch support in Java Planner</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#touch_configuration_options" class="toc">Touch configuration options</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#touch_gestures_in_the_scheduler" class="toc">Touch gestures in the scheduler</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#quick_info_extension" class="toc">&#039;Quick info&#039; extension</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="touch_support_in_java_planner" id="touch_support_in_java_planner">Touch support in Java Planner</a></h1>
+<div class="level1">
+
+<p>
+Java Planner provides support for touch devices, such as:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> iOS devices (iPad, iPhone, iPod);</div>
+</li>
+<li class="level1"><div class="li"> Windows 8-based tablets and touch screen monitors;</div>
+</li>
+<li class="level1"><div class="li"> Android-based devices.</div>
+</li>
+</ul>
+
+<p>
+
+<em>Technically, the scheduler will work on the latest smartphones as well, but due to the lack of screen space it&#039;s still not a good idea.</em>
+</p>
+
+<p>
+<strong>Important tips!</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> Touch support is enabled by default and provided in all modes of the scheduler.</div>
+</li>
+<li class="level1"><div class="li"> If your app is intended to be used on the touch devices, we strongly recommend to use the &#039;dhx_terrace&#039; skin as it provides reasonably big and easy-to-touch buttons.</div>
+</li>
+<li class="level1"><div class="li"> We recommend to add the meta tag on the page. It&#039;ll protect you from zooming on a touch device.<br/>
+ <pre class="code html4strict"><span class="sc2">&lt;<a href="http://december.com/html/4/element/meta.html"><span class="kw2">meta</span></a> <span class="kw3">name</span><span class="sy0">=</span><span class="st0">&quot;viewport&quot;</span> <span class="kw3">content</span><span class="sy0">=</span><span class="st0">&quot;width=device-width, initial-scale=1&quot;</span>&gt;</span></pre>
+</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="touch_configuration_options" id="touch_configuration_options">Touch configuration options</a></h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="dhxplanner.config.html#dhxplannerconfigsettouch_boolean_enabletouch" class="wikilink1" title="dhxplanner.config">DHXPlanner.config.setTouch</a>(Boolean <em>enableTouch</em>) - enables/disables the touch support in the scheduler (by default, <em>true</em>);</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhxplanner.config.html#dhxplannerconfigsettouchtip_boolean_enabletips" class="wikilink1" title="dhxplanner.config">DHXPlanner.config.setTouchTip</a>(Boolean <em>enableTips</em>) - enables/disables prompting messages in the right up corner of the screen (by default, <em>true</em>);</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhxplanner.config.html#dhxplannerconfigsettouchdrag_integer_time" class="wikilink1" title="dhxplanner.config">DHXPlanner.config.setTouchDrag</a>(Integer <em>time</em>) - defines the time period in milliseconds that is used to differ the long touch gesture from the scroll gesture (by default, <em>500</em>).</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="touch_gestures_in_the_scheduler" id="touch_gestures_in_the_scheduler">Touch gestures in the scheduler</a></h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <strong>Double tap</strong> -  works the same as double click in the normal scheduler (triggers event edition or creation);</div>
+</li>
+<li class="level1"><div class="li"> <strong>Long tap and drag</strong>  - moves or creates events;</div>
+</li>
+<li class="level1"><div class="li"> <strong>Swipe</strong> - switches view to the next|prev time span.</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="quick_info_extension" id="quick_info_extension">&#039;Quick info&#039; extension</a></h2>
+<div class="level2">
+
+<p>
+Specially for providing touch functionality, the library is extended with a new extension - “Quick Info”. The extension allows you to replace standard sidebar buttons and simplified edit form (which are quite small and hard-to-target on touch devices) with new ones, bigger and handier.
+</p>
+
+<p>
+<img src="images/quick_info_extension.png" class="media" alt="" />
+</p>
+
+<p>
+To enable the extension you just need to add the related extension file on the page:
+
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">extensions</span>.<span class="me1">add</span><span class="br0">&#40;</span>DHXExtension.<span class="me1">QUICK_INFO</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+
+The extension provides:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>3 templates</strong> (see details <a href="common_templates.html#touch_support" class="wikilink1" title="common_templates">here</a>)</div>
+<ul>
+<li class="level2"><div class="li"> <strong>DHXPlanner.templates.setQuickInfoTitle(String <em>title</em>)</strong> - specifies the title of the pop-up edit form;</div>
+</li>
+<li class="level2"><div class="li"> <strong>DHXPlanner.templates.setQuickInfoContent(String <em>content</em>)</strong> - specifies the content of the pop-up edit form;</div>
+</li>
+<li class="level2"><div class="li"> <strong>DHXPlanner.templates.setQuickInfoDate(String <em>format</em>)</strong> - specifies the date of the pop-up edit form.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>1 configuration option</strong></div>
+<ul>
+<li class="level2"><div class="li"> <strong>DHXPlanner.config.setQuickInfoDetached(Boolean <em>isDetached</em>)</strong> defines whether the edit form will appear from the left/right side of the screen(<em>false</em>) or near the edited event (<em>true</em>). By default, <em>true</em></div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

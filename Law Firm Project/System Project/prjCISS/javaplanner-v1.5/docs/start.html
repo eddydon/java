@@ -1,0 +1,258 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="Java Web Calendar Control">Java Web Calendar Control</a></div>
+    <div class="inner">
+        
+    
+    
+
+
+<h1><a name="java_web_calendar_control" id="java_web_calendar_control">Java Web Calendar Control</a></h1>
+<div class="level1">
+<ul>
+<li class="level1"><div class="li"> <a href="technical_requirements.html" class="wikilink1" title="technical_requirements">Technical Requirements</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="what_s_new.html" class="wikilink1" title="what_s_new">What&#039;s new?</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="compatibility.html" class="wikilink1" title="compatibility">Compatibility</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="faq.html" class="wikilink1" title="faq">FAQ</a></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong>GETTING STARTED</strong></div>
+<ul>
+<li class="level2"><div class="li"> <a href="downloading_the_package.html" class="wikilink1" title="downloading_the_package">Downloading the package</a> </div>
+</li>
+<li class="level2"><div class="li"> <a href="how_to_use_the_license_key.html" class="wikilink1" title="how_to_use_the_license_key">How to activate the license key?</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="http://javaplanner.com/blog/creating-a-simple-java-event-calendar" class="urlextern" title="http://javaplanner.com/blog/creating-a-simple-java-event-calendar"  rel="nofollow">Creating a Simple Java Event Calendar</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="http://javaplanner.com/blog/java-calendar-video-tutorial/" class="urlextern" title="http://javaplanner.com/blog/java-calendar-video-tutorial/"  rel="nofollow">Video Tutorial</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <a href="loading_data.html" class="wikilink1" title="loading_data">Loading data</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="data_collections.html" class="wikilink1" title="data_collections">Data collections</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="managing_crud_operations.html" class="wikilink1" title="managing_crud_operations">Managing CRUD operations</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="recurring_events.html" class="wikilink1" title="recurring_events">Recurring events</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="minicalendar.html" class="wikilink1" title="minicalendar">Date picker (mini calendar)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="localization.html" class="wikilink1" title="localization">Language localization</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="touch_support.html" class="wikilink1" title="touch_support">Touch support</a></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong>CONFIGURATION</strong></div>
+<ul>
+<li class="level2"><div class="li"> <a href="options_and_templates.html" class="wikilink1" title="options_and_templates">Configuration classes</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="fields_and_views.html" class="wikilink1" title="fields_and_views">Views</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="lightbox.html" class="wikilink1" title="lightbox">Lightbox</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="sizing.html" class="wikilink1" title="sizing">Sizing</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="custom_box.html" class="wikilink1" title="custom_box">Custom display for events</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="custom_color.html" class="wikilink1" title="custom_color">Custom events colors</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="skins.html" class="wikilink1" title="skins">Skins</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="multiple_planners.html" class="wikilink1" title="multiple_planners">Multiple planners on the page</a></div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong>USE-CASES</strong></div>
+<ul>
+<li class="level2"><div class="li"> <a href="blocking_and_marking.html" class="wikilink1" title="blocking_and_marking">Blocking, marking, highlighting dates</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="filtration.html" class="wikilink1" title="filtration">Filtering</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="read-only_mode.html" class="wikilink1" title="read-only_mode">Read-only mode</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="data_export.html" class="wikilink1" title="data_export">Data export</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="email_notifications.html" class="wikilink1" title="email_notifications">Email notifications for scheduled tasks</a></div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong>TUTORIALS</strong></div>
+<ul>
+<li class="level2"><div class="li"> <a href="using_javaplanner_with_the_spring_framework.html" class="wikilink1" title="using_javaplanner_with_the_spring_framework">Creating a Web Event Calendar Using the Spring Framework</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="using_javaplanner_with_the_struts_framework.html" class="wikilink1" title="using_javaplanner_with_the_struts_framework"> Creating a Web Event Calendar Using the Struts Framework</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="using_javaplanner_with_the_grails_framework.html" class="wikilink1" title="using_javaplanner_with_the_grails_framework">Creating a Web Event Calendar Using the Grails Framework</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="http://javaplanner.com/blog/creating-a-simple-java-event-calendar/" class="urlextern" title="http://javaplanner.com/blog/creating-a-simple-java-event-calendar/"  rel="nofollow">Creating a Simple Java Event Calendar</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="http://javaplanner.com/blog/job-scheduler-tutorial-in-java-struts/" class="urlextern" title="http://javaplanner.com/blog/job-scheduler-tutorial-in-java-struts/"  rel="nofollow">Job Scheduler Tutorial in Java Struts</a></div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

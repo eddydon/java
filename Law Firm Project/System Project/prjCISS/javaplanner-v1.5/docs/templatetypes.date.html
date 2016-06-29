@@ -1,0 +1,525 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;<a href="options_and_templates.html" class="wikilink1" title="options_and_templates">Configuration options and templates</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;<a href="dhxplanner.templates.html" class="wikilink1" title="dhxplanner.templates">DHXPlanner.templates</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;<a href="default_definitions_template.html" class="wikilink1" title="default_definitions_template">Default Javascript definitions</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Date</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#date" class="toc">Date</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesapi_date" class="toc">DHXPlanner.templates.api_date</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesday_date" class="toc">DHXPlanner.templates.day_date</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesday_scale_date" class="toc">DHXPlanner.templates.day_scale_date</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplateshour_scale" class="toc">DHXPlanner.templates.hour_scale</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesmonth_date" class="toc">DHXPlanner.templates.month_date</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesmonth_day" class="toc">DHXPlanner.templates.month_day</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesmonth_scale_date" class="toc">DHXPlanner.templates.month_scale_date</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesmarker_date" class="toc">DHXPlanner.templates.marker_date</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatestime_picker" class="toc">DHXPlanner.templates.time_picker</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatestimeline_scale_date" class="toc">DHXPlanner.templates.timeline_scale_date</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatestimeline_scalex_class" class="toc">DHXPlanner.templates.timeline_scalex_class</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatestimeline_second_scale_date" class="toc">DHXPlanner.templates.timeline_second_scale_date</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatestimeline_second_scalex_class" class="toc">DHXPlanner.templates.timeline_second_scalex_class</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesweek_scale_date" class="toc">DHXPlanner.templates.week_scale_date</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesxml_date" class="toc">DHXPlanner.templates.xml_date</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesxml_format" class="toc">DHXPlanner.templates.xml_format</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesyear_date" class="toc">DHXPlanner.templates.year_date</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesyear_month" class="toc">DHXPlanner.templates.year_month</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesyear_scale_date" class="toc">DHXPlanner.templates.year_scale_date</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="date" id="date">Date</a></h1>
+<div class="level1">
+
+<p>
+<em class="u"><strong><em>Parameters:</em></strong></em>
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>date</em> - the date which needs formatting.</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="dhxplannertemplatesapi_date" id="dhxplannertemplatesapi_date">DHXPlanner.templates.api_date</a></h2>
+<div class="level2">
+
+<p>
+The format for dates that are set by means of <acronym title="Application Programming Interface">API</acronym> methods. Used to parse incoming dates. 
+</p>
+
+<p>
+<strong>Applicable views:</strong> all views
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">api_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">str_to_date</span><span class="br0">&#40;</span>planner.<span class="me1">config</span>.<span class="me1">api_date</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesday_date" id="dhxplannertemplatesday_date">DHXPlanner.templates.day_date</a></h2>
+<div class="level2">
+
+<p>
+The date in the header of the view.
+</p>
+
+<p>
+<strong>Applicable views:</strong> day, units
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">day_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span>planner.<span class="me1">config</span>.<span class="me1">default_date</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesday_scale_date" id="dhxplannertemplatesday_scale_date">DHXPlanner.templates.day_scale_date</a></h2>
+<div class="level2">
+
+<p>
+The date in the sub-header  of the view.
+</p>
+
+<p>
+<strong>Applicable views:</strong> day
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">day_scale_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span>planner.<span class="me1">config</span>.<span class="me1">default_date</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplateshour_scale" id="dhxplannertemplateshour_scale">DHXPlanner.templates.hour_scale</a></h2>
+<div class="level2">
+
+<p>
+The items of the Y-Axis.
+</p>
+
+<p>
+<strong>Applicable views:</strong> day, week, units
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">hour_scale</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span>planner.<span class="me1">config</span>.<span class="me1">hour_date</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesmonth_date" id="dhxplannertemplatesmonth_date">DHXPlanner.templates.month_date</a></h2>
+<div class="level2">
+
+<p>
+The date in the header of the view.
+</p>
+
+<p>
+<strong>Applicable views:</strong> month
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">month_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span>planner.<span class="me1">config</span>.<span class="me1">month_date</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesmonth_day" id="dhxplannertemplatesmonth_day">DHXPlanner.templates.month_day</a></h2>
+<div class="level2">
+
+<p>
+The format for the day in a cell.
+</p>
+
+<p>
+<strong>Applicable views:</strong> month, year
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">month_day</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span>planner.<span class="me1">config</span>.<span class="me1">month_day</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesmonth_scale_date" id="dhxplannertemplatesmonth_scale_date">DHXPlanner.templates.month_scale_date</a></h2>
+<div class="level2">
+
+<p>
+The name of the day in the week header of the view.
+</p>
+
+<p>
+<strong>Applicable views:</strong> month
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">month_scale_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span>planner.<span class="me1">config</span>.<span class="me1">week_date</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesmarker_date" id="dhxplannertemplatesmarker_date">DHXPlanner.templates.marker_date</a></h2>
+<div class="level2">
+
+<p>
+
+The date of the event in the google maps popup marker.
+</p>
+
+<p>
+<strong>Applicable views:</strong> map
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">marker_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span><span class="st0">&quot;%Y-%m-%d %H:%i&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span> 
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatestime_picker" id="dhxplannertemplatestime_picker">DHXPlanner.templates.time_picker</a></h2>
+<div class="level2">
+
+<p>
+The drop-down time selector in the lightbox.
+</p>
+
+<p>
+<strong>Applicable views:</strong> all views
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">time_picker</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span>planner.<span class="me1">config</span>.<span class="me1">hour_date</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatestimeline_scale_date" id="dhxplannertemplatestimeline_scale_date">DHXPlanner.templates.timeline_scale_date</a></h2>
+<div class="level2">
+
+<p>
+The items of the X-Axis.
+</p>
+
+<p>
+<strong>Applicable views:</strong> timeline
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">timeline_scale_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span>obj.<span class="me1">x_date</span><span class="sy0">||</span>planner.<span class="me1">config</span>.<span class="me1">hour_date</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatestimeline_scalex_class" id="dhxplannertemplatestimeline_scalex_class">DHXPlanner.templates.timeline_scalex_class</a></h2>
+<div class="level2">
+
+<p>
+The css style for items of the X-Axis.
+</p>
+
+<p>
+<strong>Applicable views:</strong> timeline
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">timeline_scalex_class</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatestimeline_second_scale_date" id="dhxplannertemplatestimeline_second_scale_date">DHXPlanner.templates.timeline_second_scale_date</a></h2>
+<div class="level2">
+
+<p>
+The items of the second X-Axis.
+</p>
+
+<p>
+<strong>Applicable views:</strong> timeline
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">timeline_second_scale_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span><span class="br0">&#40;</span>obj.<span class="me1">second_scale</span> <span class="sy0">&amp;&amp;</span> obj.<span class="me1">second_scale</span>.<span class="me1">x_date</span><span class="br0">&#41;</span><span class="sy0">?</span>
+obj.<span class="me1">second_scale</span>.<span class="me1">x_date</span><span class="sy0">:</span>planner.<span class="me1">config</span>.<span class="me1">hour_date</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatestimeline_second_scalex_class" id="dhxplannertemplatestimeline_second_scalex_class">DHXPlanner.templates.timeline_second_scalex_class</a></h2>
+<div class="level2">
+
+<p>
+
+The css style for items of the second X-Axis.
+</p>
+
+<p>
+<strong>Applicable views:</strong> timeline
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">timeline_second_scalex_class</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesweek_scale_date" id="dhxplannertemplatesweek_scale_date">DHXPlanner.templates.week_scale_date</a></h2>
+<div class="level2">
+
+<p>
+The date in the sub-header of the view.
+</p>
+
+<p>
+<strong>Applicable views:</strong> week
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">week_scale_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span>planner.<span class="me1">config</span>.<span class="me1">day_date</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesxml_date" id="dhxplannertemplatesxml_date">DHXPlanner.templates.xml_date</a></h2>
+<div class="level2">
+
+<p>
+A string from an <acronym title="Extensible Markup Language">XML</acronym> file is converted into a date object in conformity with this template.
+</p>
+
+<p>
+<strong>Applicable views:</strong> all views
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">xml_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">str_to_date</span><span class="br0">&#40;</span>planner.<span class="me1">config</span>.<span class="me1">xml_date</span><span class="sy0">,</span>planner.<span class="me1">config</span>.<span class="me1">server_utc</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesxml_format" id="dhxplannertemplatesxml_format">DHXPlanner.templates.xml_format</a></h2>
+<div class="level2">
+
+<p>
+A date object is converted into a string in conformity with this template. Used to send data back to the server.
+</p>
+
+<p>
+<strong>Applicable views:</strong> all views
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">xml_format</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span>planner.<span class="me1">config</span>.<span class="me1">xml_date</span><span class="sy0">,</span>planner.<span class="me1">config</span>.<span class="me1">server_utc</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesyear_date" id="dhxplannertemplatesyear_date">DHXPlanner.templates.year_date</a></h2>
+<div class="level2">
+
+<p>
+The date in the header of the view. 
+</p>
+
+<p>
+<strong>Applicable views:</strong> year
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">year_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span>planner.<span class="me1">locale</span>.<span class="me1">labels</span>.<span class="me1">year_tab</span> <span class="sy0">+</span> <span class="st0">&quot; %Y&quot;</span><span class="br0">&#41;</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesyear_month" id="dhxplannertemplatesyear_month">DHXPlanner.templates.year_month</a></h2>
+<div class="level2">
+
+<p>
+The name of a month in the header of a month block of the view. 
+</p>
+
+<p>
+<strong>Applicable views:</strong> year
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">year_month</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span><span class="st0">&quot;%F&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesyear_scale_date" id="dhxplannertemplatesyear_scale_date">DHXPlanner.templates.year_scale_date</a></h2>
+<div class="level2">
+
+<p>
+
+The name of a day in the sub-header of a month block of the view. 
+</p>
+
+<p>
+<strong>Applicable views:</strong> year
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">year_scale_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span><span class="st0">&quot;%D&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

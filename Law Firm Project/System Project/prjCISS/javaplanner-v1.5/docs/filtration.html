@@ -1,0 +1,372 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Filtering</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#filtering" class="toc">Filtering</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#server-side_filtering" class="toc">Server-side filtering</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#helper_methods_for_dynamic_loading" class="toc">Helper methods for dynamic loading</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#client-side_filtering" class="toc">Client-side filtering</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="filtering" id="filtering">Filtering</a></h1>
+<div class="level1">
+
+</div>
+
+<h2><a name="server-side_filtering" id="server-side_filtering">Server-side filtering</a></h2>
+<div class="level2">
+
+<p>
+For any view  specified in the planner you can define server-side filter rules that will determine what events should be displayed in a certain view.
+</p>
+
+<p>
+
+<img src="images/filtering.png" class="media" alt="" />
+</p>
+
+<p>
+At first, you should add a control that will invoke filtering:
+</p>
+<pre class="code java"><span class="co1">//Sampleplanner.jsp</span>
+<span class="sy0">&lt;</span>select id<span class="sy0">=</span><span class="st0">&quot;departments&quot;</span> onchange<span class="sy0">=</span><span class="st0">&quot;reloadData()&quot;</span><span class="sy0">&gt;</span>
+    <span class="sy0">&lt;</span>option value<span class="sy0">=</span><span class="st0">&quot;1&quot;</span><span class="sy0">&gt;</span>Department <span class="nu0">1</span><span class="sy0">&lt;/</span>option<span class="sy0">&gt;</span>
+    <span class="sy0">&lt;</span>option value<span class="sy0">=</span><span class="st0">&quot;2&quot;</span><span class="sy0">&gt;</span>Department <span class="nu0">2</span><span class="sy0">&lt;/</span>option<span class="sy0">&gt;</span>
+    <span class="sy0">&lt;</span>option value<span class="sy0">=</span><span class="st0">&quot;3&quot;</span><span class="sy0">&gt;</span>Department <span class="nu0">3</span><span class="sy0">&lt;/</span>option<span class="sy0">&gt;</span>
+    <span class="sy0">&lt;</span>option value<span class="sy0">=</span><span class="st0">&quot;4&quot;</span><span class="sy0">&gt;</span>Department <span class="nu0">4</span><span class="sy0">&lt;/</span>option<span class="sy0">&gt;</span>
+<span class="sy0">&lt;/</span>select<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+    function reloadData<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="co1">//the reloadData() function clears the planner events and load new ones.</span>
+        planner.<span class="me1">clearAll</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        planner.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;events.jsp?room_id=&quot;</span> <span class="sy0">+</span> document.<span class="me1">getElementById</span><span class="br0">&#40;</span><span class="st0">&quot;departments&quot;</span><span class="br0">&#41;</span>.<span class="me1">value</span><span class="br0">&#41;</span><span class="sy0">;</span>         
+    <span class="br0">&#125;</span>
+<span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+
+<p>
+A filter criteria should be set in the <strong>getEvents()</strong> method of your custom <strong>EventManager</strong> class. Just that very method answers for data loading (<a href="loading_data.html" class="wikilink1" title="loading_data">get details</a>).
+
+</p>
+<pre class="code java"><span class="co1">//CustomEventsManager.java file</span>
+<span class="kw1">public</span> <span class="kw1">class</span> CustomEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+	...
+&nbsp;
+        <span class="kw1">public</span> Iterable<span class="sy0">&lt;</span>DHXEv<span class="sy0">&gt;</span> getEvents<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		DHXEventsManager.<span class="me1">date_format</span> <span class="sy0">=</span> <span class="st0">&quot;yyyy-MM-dd HH:mm:ss&quot;</span><span class="sy0">;</span>
+		List<span class="sy0">&lt;</span>DHXEv<span class="sy0">&gt;</span> evs <span class="sy0">=</span> <span class="kw1">new</span> ArrayList<span class="sy0">&lt;</span>DHXEv<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="kw1">try</span> <span class="br0">&#123;</span>
+			java.<span class="me1">sql</span>.<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aconnection+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Connection</span></a> conn <span class="sy0">=</span> DatabaseConnection.<span class="me1">getConnection</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	                java.<span class="me1">sql</span>.<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astatement+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Statement</span></a> statement <span class="sy0">=</span> conn.<span class="me1">createStatement</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> 
+&nbsp;
+                        <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> query <span class="sy0">=</span> <span class="st0">&quot;SELECT event_id, event_name, start_date, end_date FROM events&quot;</span><span class="sy0">;</span> 
+                        <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> room <span class="sy0">=</span> request.<span class="me1">getParameter</span><span class="br0">&#40;</span><span class="st0">&quot;departments&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                        <span class="kw1">if</span> <span class="br0">&#40;</span>room <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                                query <span class="sy0">+=</span> <span class="st0">&quot;WHERE room_id='&quot;</span> <span class="sy0">+</span> room <span class="sy0">+</span> <span class="st0">&quot;'&quot;</span><span class="sy0">;</span>
+                        <span class="br0">&#125;</span>
+	                <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aresultset+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">ResultSet</span></a> resultset <span class="sy0">=</span> statement.<span class="me1">executeQuery</span><span class="br0">&#40;</span>query<span class="br0">&#41;</span><span class="sy0">;</span> 
+&nbsp;
+	                <span class="kw1">while</span> <span class="br0">&#40;</span>resultset.<span class="me1">next</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> 
+	                    <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aevent+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Event</span></a> e <span class="sy0">=</span> <span class="kw1">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aevent+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Event</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	                    e.<span class="me1">setId</span><span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Ainteger+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Integer</span></a>.<span class="me1">parseInt</span><span class="br0">&#40;</span>resultset.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;event_id&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	                    e.<span class="me1">setText</span><span class="br0">&#40;</span>resultset.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;event_name&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	                    e.<span class="me1">setStart_date</span><span class="br0">&#40;</span>resultset.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;start_date&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	                    e.<span class="me1">setEnd_date</span><span class="br0">&#40;</span>resultset.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;end_date&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	                    evs.<span class="me1">add</span><span class="br0">&#40;</span>e<span class="br0">&#41;</span><span class="sy0">;</span> 
+                        <span class="br0">&#125;</span>
+	        <span class="br0">&#125;</span> 
+	        conn.<span class="me1">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span> <span class="kw1">catch</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asqlexception+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">SQLException</span></a> e1<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+			e1.<span class="me1">printStackTrace</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		<span class="br0">&#125;</span>
+		<span class="kw1">return</span> evs<span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+
+<div class='dhx_note'><div class='dhx_note_img'>&nbsp;</div>
+Don't forget to provide escaping incoming data.
+</div>
+</p>
+
+</div>
+
+<h2><a name="helper_methods_for_dynamic_loading" id="helper_methods_for_dynamic_loading">Helper methods for dynamic loading</a></h2>
+<div class="level2">
+
+<p>
+<strong>Note!</strong> The functionality mentioned below  will be available only if the dynamic loading mode is enabled.
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">data</span>.<span class="me1">enableDynamicLoading</span><span class="br0">&#40;</span>DHXDynLoadingMode.<span class="me1">week</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+The <strong>DHXEventManager</strong> class provides 3 special methods which are:
+</p>
+<ol>
+<li class="level1"><div class="li"> <strong>getFilterFrom()</strong> - returns the start limitation date from the request (request parameter <em>from</em>);</div>
+</li>
+<li class="level1"><div class="li"> <strong>getFilterTo()</strong> - returns the end limitation date from the request (request parameter <em>to</em>);</div>
+</li>
+<li class="level1"><div class="li"> <strong>setDynFilter(Boolean <em>isLoadingDynamic</em>)</strong> - disables the dynamic loading mode.</div>
+</li>
+</ol>
+
+<p>
+
+Let&#039;s talk about these methods cause they deserve more ample treatment.
+
+</p>
+<ul>
+<li class="level1"><div class="li"> In the dynamic mode planner loads data by parts, necessary to fill the viewable area of planner. To change this behavior and load all data at once (as in the standard static mode) -  call the <strong>setDynFilter(Boolean <em>isLoadingDynamic</em>)</strong> method with the <em>false</em> parameter. Most probably, you won&#039;t need to do this, but such a possibility still exists.<br/>
+<br/>
+ <pre class="code java"><span class="kw1">public</span> <span class="kw1">class</span> CustomEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+	...
+        <span class="kw1">public</span> Iterable<span class="sy0">&lt;</span>DHXEv<span class="sy0">&gt;</span> getEvents<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                setDynFilter<span class="br0">&#40;</span><span class="kw2">false</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                ... 
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> When the user loads the page with a specific view, for example, Month view from 01.01.2013 to 01.02.2013, the page passes the request to data loader such as:<br/>
+<br/>
+<pre class="code java">events.<span class="me1">jsp</span><span class="sy0">?</span>from<span class="sy0">=</span><span class="nu0">2013</span><span class="sy0">-</span>01<span class="sy0">-</span>01<span class="sy0">&amp;</span>to<span class="sy0">=</span><span class="nu0">2013</span><span class="sy0">-</span>02<span class="sy0">-</span>01</pre>
+
+<p>
+ The <strong><em>from</em></strong> and <strong><em>to</em></strong> request parameters don&#039;t affect the data that is retrieved from the server and used only to limit the range of events passed to the client (client-side filtering).<br/>
+To provide server-side filtering, you can use <strong>DHXEventManager.getFilterFrom()</strong> and <strong>DHXEventManager.getFilterTo()</strong> methods in the related <acronym title="Structured Query Language">SQL</acronym> statement and limit data retrieved from the server as in: 
+</p>
+<pre class="code java"><span class="kw1">public</span> <span class="kw1">class</span> CustomEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+	...
+        <span class="kw1">public</span> Iterable<span class="sy0">&lt;</span>DHXEv<span class="sy0">&gt;</span> getEvents<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Adate+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Date</span></a> start <span class="sy0">=</span> getFilterFrom<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Adate+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Date</span></a> end <span class="sy0">=</span> getFilterTo<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                <span class="co1">// here is your database request with date conditions</span>
+                ... 
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="client-side_filtering" id="client-side_filtering">Client-side filtering</a></h2>
+<div class="level2">
+
+<p>
+Each view available in the library has an inner object of the <strong>DHXFilter</strong> class that allows adding client-side filtering rules for the view (through the <strong>DHXFilter.addRule</strong>(DHXFieldRule <em>rule</em>) method). <br/>
+
+So, you can specify different filtering rules for different views to get certain sets of events. And all this is without reloading data.
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">DHXTimelineView</span> timeline <span class="sy0">=</span> <span class="kw1">new</span> DHXTimelineView<span class="br0">&#40;</span><span class="st0">&quot;type&quot;</span>, <span class="st0">&quot;Type&quot;</span>, <span class="st0">&quot;event_type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+DHXFilter filter <span class="sy0">=</span> <span class="kw1">new</span> DHXFilter<span class="br0">&#40;</span><span class="st0">&quot;month&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+filter.<span class="me1">addRule</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXRule<span class="br0">&#40;</span><span class="st0">&quot;start_date&quot;</span>, DHXRule.<span class="me1">DHXOperator</span>.<span class="me1">Greater</span>, <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Acalendar+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Calendar</span></a>.<span class="me1">getInstance</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+timeline.<span class="me1">setFilter</span><span class="br0">&#40;</span>filter<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+The <strong>DHXRule</strong> object takes 3 parameters:
+</p>
+<ol>
+<li class="level1"><div class="li"> The property name;</div>
+</li>
+<li class="level1"><div class="li"> A relational operator;</div>
+</li>
+<li class="level1"><div class="li"> A value to compare.</div>
+</li>
+</ol>
+
+<p>
+By default, when you specify several rules, the library applies AND logic to them, i.e. planner will display just events that meet all criteria at once.<br/>
+If you want, you can change the default logic. The available variants are contained in the <strong>DHXFilter.DHXLogic</strong> class and set with method <strong>DHXFilter.setLogic</strong>(DHXLogic <em>type</em>):
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>AND</strong> (the default value)</div>
+</li>
+<li class="level1"><div class="li"> <strong>OR</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>XOR</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>NOT</strong></div>
+</li>
+</ul>
+
+<p>
+To set the desired logic, just call the code as in:
+</p>
+<pre class="code java">DHXFilter filter <span class="sy0">=</span> <span class="kw1">new</span> DHXFilter<span class="br0">&#40;</span><span class="st0">&quot;month&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+filter.<span class="me1">setLogic</span><span class="br0">&#40;</span>DHXFilter.<span class="me1">DHXLogic</span>.<span class="me1">OR</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

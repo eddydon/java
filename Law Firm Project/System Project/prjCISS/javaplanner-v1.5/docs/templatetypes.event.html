@@ -1,0 +1,538 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;<a href="options_and_templates.html" class="wikilink1" title="options_and_templates">Configuration options and templates</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;<a href="dhxplanner.templates.html" class="wikilink1" title="dhxplanner.templates">DHXPlanner.templates</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;<a href="default_definitions_template.html" class="wikilink1" title="default_definitions_template">Default Javascript definitions</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Event</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#event" class="toc">Event</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesagenda_text" class="toc">DHXPlanner.templates.agenda_text</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesagenda_time" class="toc">DHXPlanner.templates.agenda_time</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesevent_bar_date" class="toc">DHXPlanner.templates.event_bar_date</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesevent_bar_text" class="toc">DHXPlanner.templates.event_bar_text</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesevent_class" class="toc">DHXPlanner.templates.event_class</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesevent_header" class="toc">DHXPlanner.templates.event_header</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesevent_text" class="toc">DHXPlanner.templates.event_text</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesquick_info_content" class="toc">DHXPlanner.templates.quick_info_content</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesquick_info_date" class="toc">DHXPlanner.templates.quick_info_date</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesquick_info_title" class="toc">DHXPlanner.templates.quick_info_title</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplateslightbox_header" class="toc">DHXPlanner.templates.lightbox_header</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesmap_text" class="toc">DHXPlanner.templates.map_text</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesmap_time" class="toc">DHXPlanner.templates.map_time</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesmarker_text" class="toc">DHXPlanner.templates.marker_text</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesmonth_date_class" class="toc">DHXPlanner.templates.month_date_class</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatestooltip_text" class="toc">DHXPlanner.templates.tooltip_text</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatestimeline_tooltip" class="toc">DHXPlanner.templates.timeline_tooltip</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesweek_date_class" class="toc">DHXPlanner.templates.week_date_class</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dhxplannertemplatesyear_tooltip" class="toc">DHXPlanner.templates.year_tooltip</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="event" id="event">Event</a></h1>
+<div class="level1">
+
+<p>
+<em><strong><em class="u">Parameters:</em></strong></em>
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>start</em>  - the date when an event is scheduled to begin.   </div>
+</li>
+<li class="level1"><div class="li"> <em>end</em> - the date when an event is scheduled to be completed.</div>
+</li>
+<li class="level1"><div class="li"> <em>ev</em> - the event object.</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="dhxplannertemplatesagenda_text" id="dhxplannertemplatesagenda_text">DHXPlanner.templates.agenda_text</a></h2>
+<div class="level2">
+
+<p>
+The text in the second column of the view.
+</p>
+
+<p>
+<strong>Applicable views:</strong> agenda
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">agenda_text</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	 <span class="kw1">return</span> ev.<span class="me1">text</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesagenda_time" id="dhxplannertemplatesagenda_time">DHXPlanner.templates.agenda_time</a></h2>
+<div class="level2">
+
+<p>
+The date in the first column of the view.
+</p>
+
+<p>
+<strong>Applicable views:</strong> agenda
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">agenda_time</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	 <span class="kw1">if</span> <span class="br0">&#40;</span>ev._timed<span class="br0">&#41;</span>
+              <span class="kw1">return</span> <span class="kw1">this</span>.<span class="me1">day_date</span><span class="br0">&#40;</span>ev.<span class="me1">start_date</span><span class="sy0">,</span> ev.<span class="me1">end_date</span><span class="sy0">,</span> ev<span class="br0">&#41;</span><span class="sy0">+</span><span class="st0">&quot; &quot;</span><span class="sy0">+</span><span class="kw1">this</span>.<span class="me1">event_date</span><span class="br0">&#40;</span>start<span class="br0">&#41;</span><span class="sy0">;</span>
+         <span class="kw1">else</span>
+              <span class="kw1">return</span> planner.<span class="me1">templates</span>.<span class="me1">day_date</span><span class="br0">&#40;</span>start<span class="br0">&#41;</span><span class="sy0">+</span><span class="st0">&quot; &amp;ndash; &quot;</span><span class="sy0">+</span>planner.<span class="me1">templates</span>.<span class="me1">day_date</span><span class="br0">&#40;</span>end<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesevent_bar_date" id="dhxplannertemplatesevent_bar_date">DHXPlanner.templates.event_bar_date</a></h2>
+<div class="level2">
+
+<p>
+The date of an event. Applied to one-day events.
+</p>
+
+<p>
+<strong>Applicable views:</strong> month
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">event_bar_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	 <span class="kw1">return</span> planner.<span class="me1">templates</span>.<span class="me1">event_date</span><span class="br0">&#40;</span>start<span class="br0">&#41;</span><span class="sy0">+</span><span class="st0">&quot; &quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesevent_bar_text" id="dhxplannertemplatesevent_bar_text">DHXPlanner.templates.event_bar_text</a></h2>
+<div class="level2">
+
+<p>
+The text of an event. Applied to one-day events.
+</p>
+
+<p>
+<strong>Applicable views:</strong> month
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">event_bar_text</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	  <span class="kw1">return</span> ev.<span class="me1">text</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesevent_class" id="dhxplannertemplatesevent_class">DHXPlanner.templates.event_class</a></h2>
+<div class="level2">
+
+<p>
+The css style for the event container.
+</p>
+
+<p>
+<strong>Applicable views:</strong> day, month, week, year, units, timeline (&#039;bar&#039; and &#039;tree&#039; modes)
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">event_class</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesevent_header" id="dhxplannertemplatesevent_header">DHXPlanner.templates.event_header</a></h2>
+<div class="level2">
+
+<p>
+The header of an event.
+</p>
+
+<p>
+<strong>Applicable views:</strong> day, week, units
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">event_header</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> planner.<span class="me1">templates</span>.<span class="me1">event_date</span><span class="br0">&#40;</span>start<span class="br0">&#41;</span><span class="sy0">+</span><span class="st0">&quot; - &quot;</span><span class="sy0">+</span> planner.<span class="me1">templates</span>.<span class="me1">event_date</span><span class="br0">&#40;</span>end<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesevent_text" id="dhxplannertemplatesevent_text">DHXPlanner.templates.event_text</a></h2>
+<div class="level2">
+
+<p>
+The text of an event.
+</p>
+
+<p>
+<strong>Available views:</strong> day, month, week, units
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">event_text</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> ev.<span class="me1">text</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesquick_info_content" id="dhxplannertemplatesquick_info_content">DHXPlanner.templates.quick_info_content</a></h2>
+<div class="level2">
+
+<p>
+The content of the pop-up edit form.
+</p>
+
+<p>
+<strong>Available views:</strong> all views
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">quick_info_content</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span> end<span class="sy0">,</span> ev<span class="br0">&#41;</span><span class="br0">&#123;</span> 
+       <span class="kw1">return</span> ev.<span class="me1">details</span> <span class="sy0">||</span> ev.<span class="me1">text</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesquick_info_date" id="dhxplannertemplatesquick_info_date">DHXPlanner.templates.quick_info_date</a></h2>
+<div class="level2">
+
+<p>
+The date of the pop-up edit form.
+</p>
+
+<p>
+<strong>Available views:</strong> all views
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">quick_info_date</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span> end<span class="sy0">,</span> ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+       <span class="kw1">if</span> <span class="br0">&#40;</span>scheduler.<span class="me1">is_one_day_event</span><span class="br0">&#40;</span>ev<span class="br0">&#41;</span><span class="br0">&#41;</span>
+            <span class="kw1">return</span> scheduler.<span class="me1">templates</span>.<span class="me1">day_date</span><span class="br0">&#40;</span>start<span class="sy0">,</span> end<span class="sy0">,</span> ev<span class="br0">&#41;</span> <span class="sy0">+</span> <span class="st0">&quot; &quot;</span> <span class="sy0">+</span>scheduler.<span class="me1">templates</span>.<span class="me1">event_header</span><span class="br0">&#40;</span>start<span class="sy0">,</span> end<span class="sy0">,</span> ev<span class="br0">&#41;</span><span class="sy0">;</span>
+       <span class="kw1">else</span>
+            <span class="kw1">return</span> scheduler.<span class="me1">templates</span>.<span class="me1">week_date</span><span class="br0">&#40;</span>start<span class="sy0">,</span> end<span class="sy0">,</span> ev<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesquick_info_title" id="dhxplannertemplatesquick_info_title">DHXPlanner.templates.quick_info_title</a></h2>
+<div class="level2">
+
+<p>
+The title of the pop-up edit form.
+</p>
+
+<p>
+<strong>Available views:</strong> all views
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">quick_info_title</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span> end<span class="sy0">,</span> ev<span class="br0">&#41;</span><span class="br0">&#123;</span> 
+       <span class="kw1">return</span> ev.<span class="me1">text</span>.<span class="me1">substr</span><span class="br0">&#40;</span>0<span class="sy0">,</span>50<span class="br0">&#41;</span><span class="sy0">;</span> 
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplateslightbox_header" id="dhxplannertemplateslightbox_header">DHXPlanner.templates.lightbox_header</a></h2>
+<div class="level2">
+
+<p>
+The header of the lightbox.
+</p>
+
+<p>
+<strong>Available views:</strong> all views
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">lightbox_header</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> templates.<span class="me1">event_header</span><span class="br0">&#40;</span>ev.<span class="me1">start_date</span><span class="sy0">,</span>ev.<span class="me1">end_date</span><span class="sy0">,</span>ev<span class="br0">&#41;</span> <span class="sy0">+</span> 
+        templates.<span class="me1">event_bar_text</span><span class="br0">&#40;</span>ev.<span class="me1">start_date</span><span class="sy0">,</span>ev.<span class="me1">end_date</span><span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesmap_text" id="dhxplannertemplatesmap_text">DHXPlanner.templates.map_text</a></h2>
+<div class="level2">
+
+<p>
+The text in the second column of the view.
+</p>
+
+<p>
+<strong>Available views:</strong> map
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">map_text</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> ev.<span class="me1">text</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesmap_time" id="dhxplannertemplatesmap_time">DHXPlanner.templates.map_time</a></h2>
+<div class="level2">
+
+<p>
+The date in the first column of the view.
+</p>
+
+<p>
+<strong>Available views:</strong> map
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">map_time</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>ev._timed<span class="br0">&#41;</span>
+            <span class="kw1">return</span> <span class="kw1">this</span>.<span class="me1">day_date</span><span class="br0">&#40;</span>ev.<span class="me1">start_date</span><span class="sy0">,</span> ev.<span class="me1">end_date</span><span class="sy0">,</span> ev<span class="br0">&#41;</span> <span class="sy0">+</span> <span class="st0">&quot; &quot;</span> <span class="sy0">+</span> <span class="kw1">this</span>.<span class="me1">event_date</span><span class="br0">&#40;</span>start<span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="kw1">else</span>
+            <span class="kw1">return</span> planner.<span class="me1">templates</span>.<span class="me1">day_date</span><span class="br0">&#40;</span>start<span class="br0">&#41;</span> <span class="sy0">+</span> <span class="st0">&quot; &amp;ndash; &quot;</span> <span class="sy0">+</span> planner.<span class="me1">templates</span>.<span class="me1">day_date</span><span class="br0">&#40;</span>end<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesmarker_text" id="dhxplannertemplatesmarker_text">DHXPlanner.templates.marker_text</a></h2>
+<div class="level2">
+
+<p>
+The text of the event in the google maps popup marker.
+</p>
+
+<p>
+<strong>Available views:</strong> map
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">marker_text</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	 <span class="kw1">return</span> <span class="st0">&quot;&lt;div&gt;&lt;b&gt;&quot;</span> <span class="sy0">+</span> ev.<span class="me1">text</span> <span class="sy0">+</span> <span class="st0">&quot;&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;&quot;</span> <span class="sy0">+</span> <span class="br0">&#40;</span>ev.<span class="me1">event_location</span> <span class="sy0">||</span> <span class="st0">''</span><span class="br0">&#41;</span> <span class="sy0">+</span> <span class="st0">&quot;&lt;br/&gt;&lt;br/&gt;&quot;</span> <span class="sy0">+</span>
+         planner.<span class="me1">templates</span>.<span class="me1">marker_date</span><span class="br0">&#40;</span>start<span class="br0">&#41;</span> <span class="sy0">+</span> <span class="st0">&quot; - &quot;</span> <span class="sy0">+</span> planner.<span class="me1">templates</span>.<span class="me1">marker_date</span><span class="br0">&#40;</span>end<span class="br0">&#41;</span> <span class="sy0">+</span> <span class="st0">&quot;&lt;/div&gt;&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesmonth_date_class" id="dhxplannertemplatesmonth_date_class">DHXPlanner.templates.month_date_class</a></h2>
+<div class="level2">
+
+<p>
+The css style for a day cell.
+</p>
+
+<p>
+<strong>Available views:</strong> month
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">month_date_class</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatestooltip_text" id="dhxplannertemplatestooltip_text">DHXPlanner.templates.tooltip_text</a></h2>
+<div class="level2">
+
+<p>
+The text of tooltips.
+</p>
+
+<p>
+<strong>Available views:</strong> agenda, day, map, month, week, weekAgenda, units
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">tooltip_text</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> <span class="st0">&quot;&lt;b&gt;Event:&lt;/b&gt; &quot;</span><span class="sy0">+</span>ev.<span class="me1">text</span><span class="sy0">+</span><span class="st0">&quot;&lt;br/&gt;&lt;b&gt;Start date:&lt;/b&gt; &quot;</span><span class="sy0">+</span> 
+planner.<span class="me1">templates</span>.<span class="me1">tooltip_date_format</span><span class="br0">&#40;</span>start<span class="br0">&#41;</span><span class="sy0">+</span><span class="st0">&quot;&lt;br/&gt;&lt;b&gt;End date:&lt;/b&gt; &quot;</span><span class="sy0">+</span>
+planner.<span class="me1">templates</span>.<span class="me1">tooltip_date_format</span><span class="br0">&#40;</span>end<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatestimeline_tooltip" id="dhxplannertemplatestimeline_tooltip">DHXPlanner.templates.timeline_tooltip</a></h2>
+<div class="level2">
+
+<p>
+The tooltip over a day cell containing some scheduled event(s).
+</p>
+
+<p>
+<strong>Available views:</strong> timeline
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">timeline_tooltip</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> ev.<span class="me1">text</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesweek_date_class" id="dhxplannertemplatesweek_date_class">DHXPlanner.templates.week_date_class</a></h2>
+<div class="level2">
+
+<p>
+The css style for a day cell.
+</p>
+
+<p>
+<strong>Available views:</strong> week, units
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">week_date_class</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h2><a name="dhxplannertemplatesyear_tooltip" id="dhxplannertemplatesyear_tooltip">DHXPlanner.templates.year_tooltip</a></h2>
+<div class="level2">
+
+<p>
+The tooltip over a day cell containing some scheduled event(s).
+</p>
+
+<p>
+<strong>Available views:</strong> year
+
+</p>
+<pre class="code javascript">planner.<span class="me1">templates</span>.<span class="me1">year_tooltip</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>start<span class="sy0">,</span>end<span class="sy0">,</span>ev<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">return</span> ev.<span class="me1">text</span><span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

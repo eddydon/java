@@ -1,0 +1,319 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Data collections</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#data_collections" class="toc">Data collections</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#events_data_collections" class="toc">Events data collections</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#data_collection_in_dropdown_lists" class="toc">Data collection in dropdown lists</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#data_collections_for_the_timeline_view" class="toc">Data collections for the Timeline view</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#data_collections_for_the_units_view" class="toc">Data collections for the Units view</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="data_collections" id="data_collections">Data collections</a></h1>
+<div class="level1">
+
+<p>
+In this chapter we will consider data collections in the context of static data loading (in the static mode, data is loaded once when the planner starts to run and doesn&#039;t require any additional requests to the server).<br/>
+
+</p>
+
+<p>
+Let&#039;s consider 3 situations you may need to use a data collection:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="data_collections.html#events_data_collections" class="wikilink1" title="data_collections">To populate the planner with data</a></span>;</div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="data_collections.html#data_collection_in_dropdown_lists" class="wikilink1" title="data_collections">To specify select options of a dropdown list</a></span>;</div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="data_collections.html#data_collections_for_timeline_view" class="wikilink1" title="data_collections">To specify axis items in the Unit and Timeline views</a></span>.</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="events_data_collections" id="events_data_collections">Events data collections</a></h2>
+<div class="level2">
+
+<p>
+You can use data collections to <a href="loading_data.html" class="wikilink1" title="loading_data">load data into the planner</a>. Data is loaded through the <strong>DHXPlanner.parse(Iterable &lt;DHXEv&gt; events_list)</strong> method:
+</p>
+<pre class="code java"><span class="co1">//CustomEventsManager.java file</span>
+<span class="kw1">public</span> <span class="kw1">class</span> CustomEventsManager <span class="kw1">extends</span> DHXEventsManager <span class="br0">&#123;</span>
+    ...
+    @Override
+    <span class="kw1">public</span> Iterable getEvents<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+          <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aarraylist+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">ArrayList</span></a> events <span class="sy0">=</span> <span class="kw1">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Aarraylist+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">ArrayList</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+          events.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXEvent<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="st0">&quot;05/13/2013 06:00&quot;</span>, <span class="st0">&quot;05/13/2013 10:00&quot;</span>, <span class="st0">&quot;Demo event #1&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+          events.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXEvent<span class="br0">&#40;</span><span class="nu0">2</span>, <span class="st0">&quot;05/14/2013 06:00&quot;</span>, <span class="st0">&quot;05/14/2013 10:00&quot;</span>, <span class="st0">&quot;Demo event #2&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+          events.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXEvent<span class="br0">&#40;</span><span class="nu0">3</span>, <span class="st0">&quot;05/15/2013 06:00&quot;</span>, <span class="st0">&quot;05/15/2013 10:00&quot;</span>, <span class="st0">&quot;Demo event #3&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+          <span class="kw1">return</span> events<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+<pre class="code java"><span class="co1">//Sampleplanner.jsp</span>
+DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">CustomEventsManager</span> evs <span class="sy0">=</span> <span class="kw1">new</span> CustomEventsManager<span class="br0">&#40;</span>request<span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">parse</span><span class="br0">&#40;</span>events.<span class="me1">getEvents</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Note, to be correctly processed data items for the controls should have 4 properties:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>id</strong> - (<em>Integer, String etc.</em>) the event id.</div>
+</li>
+<li class="level1"><div class="li"> <strong>start_date</strong> - (<em>Date or String</em>) the date when an event is scheduled to begin. The default format - ”%m/%d/%Y %H:%i”.</div>
+</li>
+<li class="level1"><div class="li"> <strong>end_date</strong> - (<em>Date or String</em>) the date when an event is scheduled to be completed. The default format - ”%m/%d/%Y %H:%i”.</div>
+</li>
+<li class="level1"><div class="li"> <strong>text</strong> - (<em>String</em>) the event text.</div>
+</li>
+</ul>
+
+<p>
+
+Read chapter <a href="format_string.html" class="wikilink1" title="format_string">&#039;Format string&#039;</a> to find out what characters you can use while setting the format for dates.
+</p>
+
+</div>
+
+<h2><a name="data_collection_in_dropdown_lists" id="data_collection_in_dropdown_lists">Data collection in dropdown lists</a></h2>
+<div class="level2">
+
+<p>
+Another use case of  data collections is to specify select options for various dropdown lists, e.g. &#039;select&#039; control.
+
+</p>
+<pre class="code java">DHXLightboxSelect select <span class="sy0">=</span> <span class="kw1">new</span> DHXLightboxSelect<span class="br0">&#40;</span><span class="st0">&quot;textColor&quot;</span>, <span class="st0">&quot;Priority&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+select.<span class="me1">addOption</span><span class="br0">&#40;</span><span class="st0">&quot;gray&quot;</span>, <span class="st0">&quot;Low&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+select.<span class="me1">addOption</span><span class="br0">&#40;</span><span class="st0">&quot;blue&quot;</span>, <span class="st0">&quot;Medium&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+select.<span class="me1">addOption</span><span class="br0">&#40;</span><span class="st0">&quot;red&quot;</span>, <span class="st0">&quot;Low&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+
+Note, the <strong>DHXLightboxSelect.addOption</strong>(String <em>key</em>, String <em>value</em>) takes 2 parameters:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>key</strong> - the item id;</div>
+</li>
+<li class="level1"><div class="li"> <strong>label</strong> - the item label.</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="data_collections_for_the_timeline_view" id="data_collections_for_the_timeline_view">Data collections for the Timeline view</a></h2>
+<div class="level2">
+
+<p>
+Items for Y-Axis in the Timeline view can be specified by a data collection.
+
+</p>
+<pre class="code java">DHXTimelineView view <span class="sy0">=</span> <span class="kw1">new</span> DHXTimelineView<span class="br0">&#40;</span><span class="st0">&quot;type&quot;</span>, <span class="st0">&quot;Type&quot;</span>, <span class="st0">&quot;event_type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">view</span>.<span class="me1">addOption</span><span class="br0">&#40;</span> <span class="kw1">new</span> DHXTimelineUnit<span class="br0">&#40;</span><span class="st0">&quot;1&quot;</span>, <span class="st0">&quot;Department 1&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+view.<span class="me1">addOption</span><span class="br0">&#40;</span> <span class="kw1">new</span> DHXTimelineUnit<span class="br0">&#40;</span><span class="st0">&quot;2&quot;</span>, <span class="st0">&quot;Department 2&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Note, a <strong>DHXTimelineUnit</strong> objects take 2 parameters:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>key</strong> - the item id;</div>
+</li>
+<li class="level1"><div class="li"> <strong>label</strong> - the item label.</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="data_collections_for_the_units_view" id="data_collections_for_the_units_view">Data collections for the Units view</a></h2>
+<div class="level2">
+
+<p>
+Items for X-Axis in the Units view can be specified by a data collection.
+
+</p>
+<pre class="code java">DHXUnitsView view <span class="sy0">=</span> <span class="kw1">new</span> DHXUnitsView<span class="br0">&#40;</span><span class="st0">&quot;type&quot;</span>, <span class="st0">&quot;event_type&quot;</span>, <span class="st0">&quot;Type&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">view</span>.<span class="me1">addOption</span><span class="br0">&#40;</span> <span class="kw1">new</span> DHXUnit<span class="br0">&#40;</span><span class="st0">&quot;1&quot;</span>, <span class="st0">&quot;Room 1&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+view.<span class="me1">addOption</span><span class="br0">&#40;</span> <span class="kw1">new</span> DHXUnit<span class="br0">&#40;</span><span class="st0">&quot;1&quot;</span>, <span class="st0">&quot;Room 2&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Note,  <strong>DHXUnit</strong> objects take 2 parameters:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>key</strong> - the item id;</div>
+</li>
+<li class="level1"><div class="li"> <strong>label</strong> - the item label.</div>
+</li>
+</ul>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

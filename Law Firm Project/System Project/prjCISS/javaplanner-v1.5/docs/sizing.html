@@ -1,0 +1,358 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Sizing the container, scale and events boxes</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#sizing_the_container_scale_and_events_boxes" class="toc">Sizing the container, scale and events boxes</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#how_to_automatically_resize_container_to_fit_the_content" class="toc">How to automatically resize container to fit the content</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#how_to_make_short_events_fit_the_scale" class="toc">How to make short events fit the scale</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#changing_the_scale_unit_height" class="toc">Changing the scale unit height</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#customizing_the_event_box" class="toc">Customizing the event box</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#preventing_short_events_from_overlapping" class="toc">Preventing short events from overlapping</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#how_to_change_the_background_accordingly_to_the_scale_set" class="toc">How to change the background accordingly to the scale set</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#how_to_change_the_scale_spacing" class="toc">How to change the scale spacing</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="sizing_the_container_scale_and_events_boxes" id="sizing_the_container_scale_and_events_boxes">Sizing the container, scale and events boxes</a></h1>
+<div class="level1">
+
+<p>
+In this article we would like to consider planner container, scale and event box sizing through the example of solving 5 problems:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>Problem 1:</strong> I want the planner container to automatically change its size according to the size of the content area. </div>
+</li>
+<li class="level1"><div class="li"> <strong>Problem 2:</strong> Events that last less then 1 hour look in the planner the same as the 1-hour events do. I want short events to fit the scale.</div>
+</li>
+<li class="level1"><div class="li"> <strong>Problem 3:</strong> Events that last less then 1 hour and occur at the different times but within one hour overlap. I want such short events to not overlap.</div>
+</li>
+<li class="level1"><div class="li"> <strong>Problem 4:</strong> I change the scale unit height and want to change the striped background accordingly.</div>
+</li>
+<li class="level1"><div class="li"> <strong>Problem 5:</strong> The default scale spacing is 1 hour. I want to change it and make, for example, 30 minutes.</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="how_to_automatically_resize_container_to_fit_the_content" id="how_to_automatically_resize_container_to_fit_the_content">How to automatically resize container to fit the content</a></h2>
+<div class="level2">
+
+<p>
+To force the planner container to automatically change its size to show the whole content without scrolling, you should enable the <strong>DHXExtension.CONTAINER_AUTORESIZE</strong> extension as in:
+
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">extensions</span>.<span class="me1">add</span><span class="br0">&#40;</span>DHXExtension.<span class="me1">CONTAINER_AUTORESIZE</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+<img src="images/ext_container_autoresize.png" class="media" alt="" />
+</p>
+
+</div>
+
+<h2><a name="how_to_make_short_events_fit_the_scale" id="how_to_make_short_events_fit_the_scale">How to make short events fit the scale</a></h2>
+<div class="level2">
+
+<p>
+First, let&#039;s know the default behavior of the events boxes:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> the default scale unit height is 42px (or the hour height).</div>
+</li>
+<li class="level1"><div class="li"> the minimum height of the event box is 42px. </div>
+</li>
+<li class="level1"><div class="li"> events that last less than 1 hour take the size of 42px. So, 15-minute and 1-hour events  will look the same in the planner.</div>
+</li>
+<li class="level1"><div class="li"> events that last more than 1 hour take their height according to the side scale (assuming that 1 hour is equal to 42px, i.e. 90-minutes event will take the 63px height).</div>
+</li>
+</ul>
+
+<p>
+Let&#039;s assume you want 30-minute events to fit the scale. Then you have 2 solutions:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="sizing.html#changing_the_scale_unit_height" class="wikilink1" title="sizing">to increase the scale unit height</a></span></div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="sizing.html#customizing_the_event_box" class="wikilink1" title="sizing">to customize the event box</a></span> </div>
+</li>
+</ul>
+
+<p>
+
+<img src="images/how-to-make-short-events-fit-the-scale.png" class="media" alt="" />
+</p>
+
+</div>
+
+<h3><a name="changing_the_scale_unit_height" id="changing_the_scale_unit_height">Changing the scale unit height</a></h3>
+<div class="level3">
+
+<p>
+To change the scale unit height you should use the <strong>DHXPlanner.config.setHourSizePx(Integer <em>hourHeight</em>)</strong> config method.<br/>
+
+For example, to increase the unit height twice you should call the option as in:
+</p>
+<pre class="code csharp">DHXPlanner planner <span class="sy0">=</span> <a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">config</span>.<span class="me1">setHourSizePx</span><span class="br0">&#40;</span>84<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Now the scale unit height is 84 px and the 30-minute event taking 42px will occupy the 30-minute height as it needed.
+</p>
+
+</div>
+
+<h3><a name="customizing_the_event_box" id="customizing_the_event_box">Customizing the event box</a></h3>
+<div class="level3">
+
+<p>
+To customize the events boxes display you should use the <strong>DHXPlanner.templates.setEventBox(DHXEventBox <em>ev</em>)</strong> method and specify some <strong>DHXEventBox</strong> object that contains definition of the required display there.
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">DHXEventBox</span> ev <span class="sy0">=</span> <span class="kw1">new</span> DHXEventBox<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ev.<span class="me1">setTemplate</span><span class="br0">&#40;</span>...<span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">templates</span>.<span class="me1">setEventBox</span><span class="br0">&#40;</span>ev<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+
+Read the details in the related chapter - <a href="custom_box.html" class="wikilink1" title="custom_box">Custom display for events</a>.
+</p>
+
+</div>
+
+<h2><a name="preventing_short_events_from_overlapping" id="preventing_short_events_from_overlapping">Preventing short events from overlapping</a></h2>
+<div class="level2">
+
+<p>
+To display short events separately and eliminate a possibility of their overlapping, you should call the <strong>DHXPlanner.config.setSeparateShortEvents(Boolean <em>separateEvents</em>)</strong> method with the <em>true</em> value:
+
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">config</span>.<span class="me1">setSeparateShortEvents</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+<img src="images/preventing-short-events-from-overlapping.png" class="media" alt="" />
+</p>
+
+</div>
+
+<h2><a name="how_to_change_the_background_accordingly_to_the_scale_set" id="how_to_change_the_background_accordingly_to_the_scale_set">How to change the background accordingly to the scale set</a></h2>
+<div class="level2">
+
+<p>
+the planner background is set by a mere image.<br/>
+To change the background image you should redefine the related css class which is <strong>.dhx_scale_holder</strong>:
+</p>
+<pre class="code html4strict"><span class="sc2">&lt;<a href="http://december.com/html/4/element/style.html"><span class="kw2">style</span></a>&gt;</span>
+.dhx_scale_holder {
+	 background-image: url(&quot;imgs/myNewImage.png&quot;);
+}
+<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/style.html"><span class="kw2">style</span></a>&gt;</span></pre>
+
+<p>
+
+<img src="images/how-to-change-the-background-accordingly-to-the-scale-set.png" class="media" alt="" />
+</p>
+
+</div>
+
+<h2><a name="how_to_change_the_scale_spacing" id="how_to_change_the_scale_spacing">How to change the scale spacing</a></h2>
+<div class="level2">
+
+<p>
+To change the default scale spacing you need to rewrite the <strong>hour_scale</strong> template (read more about templates <a href="dhxplanner.templates.html" class="wikilink1" title="dhxplanner.templates">here</a>).<br/>
+
+To make the scale spacing equal to 30 minutes you can rewrite the template on the client side as follows:
+</p>
+<pre class="code javascript"><span class="kw2">var</span> step <span class="sy0">=</span> <span class="nu0">30</span><span class="sy0">;</span>
+<span class="kw2">var</span> format <span class="sy0">=</span> planner.<span class="me1">date</span>.<span class="me1">date_to_str</span><span class="br0">&#40;</span><span class="st0">&quot;%H:%i&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+planner.<span class="me1">templates</span>.<span class="me1">hour_scale</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	html<span class="sy0">=</span><span class="st0">&quot;&quot;</span><span class="sy0">;</span>
+	<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw2">var</span> i<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>60<span class="sy0">/</span>step<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+		html<span class="sy0">+=</span><span class="st0">&quot;&lt;div style='height:21px;line-height:21px;'&gt;&quot;</span><span class="sy0">+</span>format<span class="br0">&#40;</span>date<span class="br0">&#41;</span><span class="sy0">+</span><span class="st0">&quot;&lt;/div&gt;&quot;</span><span class="sy0">;</span>
+		date <span class="sy0">=</span> planner.<span class="me1">date</span>.<span class="me1">add</span><span class="br0">&#40;</span>date<span class="sy0">,</span>step<span class="sy0">,</span><span class="st0">&quot;minute&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	<span class="br0">&#125;</span>
+	<span class="kw1">return</span> html<span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<img src="images/how-to-change-the-scale-spacing.png" class="media" alt="" />
+
+</p>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

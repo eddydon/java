@@ -1,0 +1,235 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Format string</div>
+    <div class="inner">
+        
+    
+    
+
+
+<h1><a name="format_string" id="format_string">Format string</a></h1>
+<div class="level1">
+
+<p>
+Format string can contain any separator character and any element from the following list:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>%y</strong> - the year as a two-digit number ( <em>00 to 99</em> );</div>
+</li>
+<li class="level2"><div class="li"> <strong>%Y</strong> - the year as a four-digit number ( <em>1900–9999</em> );</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong>%m</strong> - the month as a number without a leading zero ( <em>1 to 12</em> );</div>
+</li>
+<li class="level2"><div class="li"> <strong>%n</strong> - the month as a number with a leading zero ( <em>01 to 12</em>);</div>
+</li>
+<li class="level2"><div class="li"> <strong>%M</strong> - the month as an abbreviation ( <em>Jan to Dec</em> );</div>
+</li>
+<li class="level2"><div class="li"> <strong>%F</strong> - the month as a full name ( <em>January to December</em> );</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong>%W</strong> - the <acronym title="International Organization for Standardization">ISO</acronym>-8601 week number of the year. Weeks start on Monday; <sup><a href="#fn__1" name="fnt__1" id="fnt__1" class="fn_top">1)</a></sup></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong>%d</strong> - the day as a number with a leading zero ( <em>01 to 31</em> );</div>
+</li>
+<li class="level2"><div class="li"> <strong>%j</strong> - the day as a number without a leading zero ( <em>1 to 31</em> );</div>
+</li>
+<li class="level2"><div class="li"> <strong>%D</strong> - the day as an abbreviation ( <em>Sun to Sat</em> );</div>
+</li>
+<li class="level2"><div class="li"> <strong>%l</strong> - the day as a full name ( <em>Sunday to Saturday</em> );</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong>%h</strong> - the hour based on the 12-hour clock with a leading zero ( <em>01 to 12</em> );</div>
+</li>
+<li class="level2"><div class="li"> <strong>%H</strong> - the hour based on the 24-hour clock with a leading zero ( <em>00 to 23</em> );</div>
+</li>
+<li class="level2"><div class="li"> <strong>%g</strong> - the hour based on the 12-hour clock without a leading zero ( <em>1 to 12</em> );</div>
+</li>
+<li class="level2"><div class="li"> <strong>%G</strong> - the hour based on the 24-hour clock without a leading zero ( <em>0 to 23</em> );</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong>%i</strong> - the minute as a number with a leading zero ( <em>00 to 59</em> );</div>
+</li>
+<li class="level2"><div class="li"> <strong>%s</strong> - the second as a number without a leading zero ( <em>00 to 59</em> ); <sup><a href="#fn__2" name="fnt__2" id="fnt__2" class="fn_top">2)</a></sup></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong>%a</strong> - displays <strong>am</strong> (for times from midnight until noon) and <strong>pm</strong> (for times from noon until midnight);</div>
+</li>
+<li class="level2"><div class="li"> <strong>%A</strong> - displays <strong>AM</strong> (for times from midnight until noon) and <strong>PM</strong> (for times from noon until midnight).</div>
+</li>
+</ul>
+
+<p>
+
+For example, if you want to set 1st June 2011 as 01.06.2011, the following format should be specified:
+</p>
+<pre class="code java">planner.<span class="me1">config</span>.<span class="me1">setXmlDate</span><span class="br0">&#40;</span><span class="st0">&quot;%d.%m.%Y&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+<div class="footnotes">
+<div class="fn"><sup><a href="#fnt__1" id="fn__1" name="fn__1" class="fn_bot">1)</a></sup> 
+version 2.3+</div>
+<div class="fn"><sup><a href="#fnt__2" id="fn__2" name="fn__2" class="fn_bot">2)</a></sup> 
+version 2.1+</div>
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

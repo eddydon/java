@@ -1,0 +1,344 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Data export</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#data_export" class="toc">Data export</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#export_to_ical" class="toc">Export to iCal</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#export_to_pdf" class="toc">Export to PDF</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="data_export" id="data_export">Data export</a></h1>
+<div class="level1">
+
+<p>
+Java Planner supports export to: 
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="data_export.html#export_to_ical" class="wikilink1" title="data_export">iCal</a></span></div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="data_export.html#export_to_pdf" class="wikilink1" title="data_export">PDF</a></span></div>
+</li>
+</ul>
+
+<p>
+<strong>Tip!</strong><br/>
+
+All export techniques that you will see in this chapter result in a JavaScript code that can be added to the page.<br/>
+
+More on the JavaScript export functionality you can find in the related chapter of dhtmlxScheduler documentation  - <a href="http://docs.dhtmlx.com/doku.php?id=dhtmlxscheduler:data_export_and_import" class="urlextern" title="http://docs.dhtmlx.com/doku.php?id=dhtmlxscheduler:data_export_and_import"  rel="nofollow">Data export and import</a>.
+</p>
+
+</div>
+
+<h2><a name="export_to_ical" id="export_to_ical">Export to iCal</a></h2>
+<div class="level2">
+
+<p>
+To export data into the iCal format you need to:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> Enable the related export extension;</div>
+</li>
+<li class="level1"><div class="li"> Call the  <strong>DHXPlanner.toICal</strong>(String <em>url</em>) method.</div>
+</li>
+</ul>
+
+<p>
+
+<div class='dhx_note'><div class='dhx_note_img'>&nbsp;</div>
+ Note, planner has built-in buttons for iCal, PDF export. Once, you call DHXPlanner.toPDF() or DHXPlanner.toICal() method, the related button is added to the page.
+</div>
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">extensions</span>.<span class="me1">add</span><span class="br0">&#40;</span>DHXExtension.<span class="me1">ICAL</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">toICal</span><span class="br0">&#40;</span><span class="st0">&quot;ical.jsp&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+The method can be called in 2 ways:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>DHXPlanner.toICal</strong>(String <em>url</em>);.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXPlanner.toICal</strong>(String <em>url</em>, String <em>name</em>).<br/>
+<br/>
+</div>
+<ul>
+<li class="level2"><div class="li"> <strong><em>url</em></strong> - specifies the handler that the exported data will be passed to;</div>
+</li>
+<li class="level2"><div class="li"> <strong><em>name</em></strong> - sets the name of a POST parameter,</div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+As the <em>url</em> parameter, you can set the path to a file that will process the exported data. For example, if you want to display dialog window (that asks where and how to save your iCal file) when the user clicks on the <strong>&#039;Export to iCal&#039;</strong> button, you may provide the following code:
+
+</p>
+<pre class="code java"><span class="co1">//ical.jsp</span>
+<span class="sy0">&lt;%</span>
+<a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> ical <span class="sy0">=</span> request.<span class="me1">getParameter</span><span class="br0">&#40;</span><span class="st0">&quot;ical&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw1">if</span> <span class="br0">&#40;</span>ical<span class="sy0">!=</span><span class="kw2">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+	response.<span class="me1">setContentType</span><span class="br0">&#40;</span><span class="st0">&quot;text/plain&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	response.<span class="me1">addHeader</span><span class="br0">&#40;</span><span class="st0">&quot;Content-Disposition&quot;</span>,<span class="st0">&quot;attachment; filename=calendar.ics&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	response.<span class="me1">setContentLength</span><span class="br0">&#40;</span>ical.<span class="me1">length</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+	response.<span class="me1">getWriter</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">write</span><span class="br0">&#40;</span>ical<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="sy0">%&gt;</span></pre>
+
+</div>
+
+<h2><a name="export_to_pdf" id="export_to_pdf">Export to PDF</a></h2>
+<div class="level2">
+
+<p>
+To export planner to a <acronym title="Portable Document Format">PDF</acronym> document you can use:
+</p>
+<ol>
+<li class="level1"><div class="li"> <span class="curid"><a href="data_export.html#using_the_online_export_service" class="wikilink1" title="data_export">The online export service</a></span>.</div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="data_export.html#using_the_server-side_export_library" class="wikilink1" title="data_export">The export library</a></span>.</div>
+</li>
+</ol>
+
+<p>
+
+In both cases you should  call method <strong>DHXPlanner.toPDF()</strong> to initiate exporting. The method makes serialization and passes serialized data to a handler (online service, action) for generating a pdf document.
+</p>
+
+<p>
+The method can be called in 3 ways:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>DHXPlanner.toPDF()</strong> - <em>only if you use the online export service! In such a case, the method sets the url parameter to the default value  - &#039;<a href="http://dhtmlxscheduler.appspot.com/export/pdf" class="urlextern" title="http://dhtmlxscheduler.appspot.com/export/pdf"  rel="nofollow">http://dhtmlxscheduler.appspot.com/export/pdf</a>&#039;</em>.</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXPlanner.toPDF</strong>(String <em>url</em>)</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXPlanner.toPDF</strong>(String <em>url</em>, DHXExportMode <em>color</em>)</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <em><strong>url</strong></em> - the &#039;url&#039; which specifies the handler that the exported data will be passed to (online service or action).</div>
+</li>
+<li class="level1"><div class="li"> <em><strong>color</strong></em> - specifies the document colormap.</div>
+<ul>
+<li class="level2"><div class="li"> <strong>DHXExportMode</strong>: </div>
+<ol>
+<li class="level3"><div class="li"> <em>COLOR</em> - full-color printing (default);</div>
+</li>
+<li class="level3"><div class="li"> <em>BLACKWHITE</em> - uses only black and white colors;</div>
+</li>
+<li class="level3"><div class="li"> <em>FULLCOLOR</em> - actual background and text colors used while exporting;</div>
+</li>
+<li class="level3"><div class="li"> <em>GRAY</em> - prints in shades of black and white.</div>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="using_the_online_export_service" id="using_the_online_export_service">Using the online export service</a></h4>
+<div class="level4">
+<ul>
+<li class="level1"><div class="li"> First of all, enable the export extension.<br/>
+</div>
+</li>
+<li class="level1"><div class="li"> Then, call method <strong>DHXPlanner.toPDF()</strong>.</div>
+</li>
+</ul>
+
+<p>
+<div class='dhx_note'><div class='dhx_note_img'>&nbsp;</div>
+ Note, planner has built-in buttons for iCal, PDF export. Once, you call DHXPlanner.toPDF() or DHXPlanner.toICal() method, the related button is added to the page.
+</div>
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">extensions</span>.<span class="me1">add</span><span class="br0">&#40;</span>DHXExtension.<span class="me1">PDF</span><span class="br0">&#41;</span><span class="sy0">;</span>
+...
+<span class="me1">planner</span>.<span class="me1">toPDF</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h4><a name="using_the_server-side_export_library" id="using_the_server-side_export_library">Using the server-side export library</a></h4>
+<div class="level4">
+
+<p>
+If you don&#039;t want to use the online export service you can download the export package (<a href="http://dhtmlx.com/x/download/regular/scheduler-pdf-java.zip" class="urlextern" title="http://dhtmlx.com/x/download/regular/scheduler-pdf-java.zip"  rel="nofollow">download link</a>), deploy it and call the <strong>DHXPlanner.toPDF()</strong> method as in:
+</p>
+<pre class="code java">DHXPlanner planner <span class="sy0">=</span> <span class="kw1">new</span> DHXPlanner<span class="br0">&#40;</span><span class="st0">&quot;./static/&quot;</span>, DHXSkin.<span class="me1">TERRACE</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">extensions</span>.<span class="me1">add</span><span class="br0">&#40;</span>DHXExtension.<span class="me1">PDF</span><span class="br0">&#41;</span><span class="sy0">;</span>
+		...
+<span class="me1">planner</span>.<span class="me1">toPDF</span><span class="br0">&#40;</span><span class="st0">&quot;http://sitename/scheduler-pdf-java/generate&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Views</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#views" class="toc">Views</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#default_views" class="toc">Default views</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#additional_views" class="toc">Additional views</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#managing_views" class="toc">Managing views</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="views" id="views">Views</a></h1>
+<div class="level1">
+
+<p>
+The library provides 10 different views that allows you to present data in any possible way. A basic planner has 3 views: Day, Week and Month. Another views can be added (just like the default ones can be removed) as needed.
+</p>
+
+</div>
+
+<h2><a name="default_views" id="default_views">Default views</a></h2>
+<div class="level2">
+
+<p>
+By default, the planner contains 3 tabs with the following views:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="default_views.html" class="wikilink1" title="default_views">Day view</a> </div>
+</li>
+<li class="level1"><div class="li"> <a href="default_views.html" class="wikilink1" title="default_views">Month view</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="default_views.html" class="wikilink1" title="default_views">Week view</a></div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="additional_views" id="additional_views">Additional views</a></h2>
+<div class="level2">
+
+<p>
+Additionally, you can add:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="agendaview.html" class="wikilink1" title="agendaview">Agenda view</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="gridview.html" class="wikilink1" title="gridview">Grid view</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mapview.html" class="wikilink1" title="mapview">Map view</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="timelineview.html" class="wikilink1" title="timelineview">Timeline view</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="weekagendaview.html" class="wikilink1" title="weekagendaview">WeekAgenda view</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="unitsview.html" class="wikilink1" title="unitsview">Units view</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="yearview.html" class="wikilink1" title="yearview">Year view</a></div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="managing_views" id="managing_views">Managing views</a></h2>
+<div class="level2">
+
+<p>
+<div class='dhx_note'><div class='dhx_note_img'>&nbsp;</div>
+Watch out! Java Planner must have at least one view to run correctly.
+</div>
+</p>
+
+<p>
+
+Java Planner views are stored in a <strong>DHXPlanner.views</strong> collection.
+</p>
+
+<p>
+Useful methods for working with views:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>DHXPlanner.views.getViews()</strong> - returns a collection of planner views.<br/>
+<pre class="code java">ArrayList<span class="sy0">&lt;</span>DHXView<span class="sy0">&gt;</span> v <span class="sy0">=</span> planner.<span class="me1">views</span>.<span class="me1">getViews</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXPlanner.views.getView</strong>(Integer <em>index</em>) - returns a view with the specified index (zero-based numbering).<br/>
+<pre class="code java">DHXView firstView <span class="sy0">=</span> planner.<span class="me1">views</span>.<span class="me1">getView</span><span class="br0">&#40;</span>0<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXPlanner.views.count()</strong>- returns the number of views in the collection.<br/>
+<pre class="code java">planner.<span class="me1">views</span>.<span class="me1">count</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXPlanner.views.clear()</strong> - clears the <strong>DHXPlanner.views</strong> collection (removes all views from the planner).<br/>
+<pre class="code java">planner.<span class="me1">views</span>.<span class="me1">clear</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXPlanner.views.add</strong>(DHXView <em>view</em>) - adds a new view to the planner collection.<br/>
+<pre class="code java">planner.<span class="me1">views</span>.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXAgendaView<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXPlanner. setInitialView</strong>(DHXView <em>view</em>) - makes the specified view selected initially (by default, it&#039;s the week view):<br/>
+<pre class="code java">planner.<span class="me1">views</span>.<span class="me1">add</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXAgendaView<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">setInitialView</span><span class="br0">&#40;</span><span class="st0">&quot;agenda&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// &quot;agenda&quot; is the default name of the view</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXPlanner.setInitialDate</strong>(Integer <em>year</em>, Integer <em>month</em>, Integer <em>day</em>) - sets the initial date.<br/>
+<pre class="code java">planner.<span class="me1">setInitialDate</span><span class="br0">&#40;</span>2009, 06, 01<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+</ul>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>

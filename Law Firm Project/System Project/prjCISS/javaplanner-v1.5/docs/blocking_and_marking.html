@@ -1,0 +1,447 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>JSP - Scheduler demo app</title>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            background-color: #faf7f0;
+        }
+        html, a {
+            font-size: 13px;
+            font-family: Verdana, Geneva, Helvetica, sans-serif;
+        }
+        h1, h1 a {
+            font-size: 22px;
+        }
+        h2, h2 a,
+        h3, h3 a,
+        h4, h4 a,
+        h5, h5 a,
+        h6, h6 a{
+            font-size: 18px;
+        }
+        table {
+            background-color: white;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+        table th {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            background-color: #DEE7EC;
+            font-size: 13px;
+        }
+        table td {
+            padding: 3px;
+            border: 1px solid #8CACBB;
+            font-size: 13px;
+        }
+        a {
+            color: #00829d;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #56a600;
+        }
+        img {
+            border: 1px dashed #8CACBB;
+        }
+        .header {
+            width: 100%;
+            height: 56px;
+            background-image: url("./images/demo/header.png");
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+        }
+        .logo {
+            background-image: url("./images/demo/logo.png");
+            background-position: 40px 10px;
+            background-repeat: no-repeat;
+            width: 250px;
+            height: 100%;
+        }
+        .content {
+            background-color: #faf7f0;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 40px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+        #bread_crumbs div {
+            line-height: 7px;
+            font-size: 7px;
+            width: 4px;
+            height: 7px;
+            background-image: url("images/demo/breadcrumbs_arrow.png");
+            background-position: -1px -1px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .level1 .li .li .toc {
+            border-bottom: 1px dashed;
+        }
+        ul {
+            list-style-image: url(images/demo/maker_doc.png);
+        }
+        ul li {
+            line-height: 170%;;
+        }
+        pre.code {
+            font-size: 13px;
+            padding: 0.5em;
+            border: 1px dashed rgb(140,172,187);
+            color: Black;
+            overflow: visible;
+        }
+        div.inner pre.code {
+            background-color: rgb(249,251,252);
+        }
+            /*code highlight for documentation*/
+        pre.code{font-size:13px;padding:0.5em;border:1px dashed rgb(140,172,187);color:Black;overflow:visible;}
+        .code .br0{color:#6c6;}.code .co0{color:#808080;font-style:italic;}.code .co1{color:#808080;font-style:italic;}.code .co2{color:#808080;font-style:italic;}.code .co3{color:#808080;}.code .coMULTI{color:#808080;font-style:italic;}.code .es0{color:#009;font-weight:bold;}.code .kw1{color:#b1b100;}.code .kw2{color:#000;font-weight:bold;}.code .kw3{color:#006;}.code .kw4{color:#933;}.code .kw5{color:#00f;}.code .me1{color:#060;}.code .me2{color:#060;}.code .nu0{color:#c6c;}.code .re0{color:#00f;}.code .re1{color:#00f;}.code .re2{color:#00f;}.code .re3{color:#f33;font-weight:bold;}.code .re4{color:#099;}.code .st0{color:#f00;}.code .sy0{color:#6c6;}
+        div.inner pre.code{background-color:rgb(249,251,252);}div.inner code{font-size:120%;}
+        .sample {
+            width: 900px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .sample .name {
+            width: 32%;
+            height: 100%;
+            font-family: Arial;
+            font-size: 24px;
+            color: #a54a4a;
+            float: left;
+            padding: 4px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-image: url("./images/demo/delimiter.png");
+            background-position: right top;
+            background-repeat: no-repeat;
+        }
+        .sample .dsc {
+            width: 68%;
+            height: 100%;
+            font-family: Tahoma;
+            font-size: 14px;
+            color: #464646;
+            float: left;
+            padding: 4px;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .scheduler>div {
+            border: 1px solid #cecece;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo"></div>
+</div>
+
+<div class="content" id="content">
+    <div id="bread_crumbs"><a href="start.html" class="wikilink1" title="start">Java Planner</a>&nbsp;<div class="doc_right_arrow"></div>&nbsp;Blocking, marking dates and pointer highlighting</div>
+    <div class="inner">
+        
+    
+    <!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#blocking_marking_dates_and_pointer_highlighting" class="toc">Blocking, marking dates and pointer highlighting</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#blocking_and_marking_dates" class="toc">Blocking and marking dates</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#dhtmlxplannerdhxblocktime_class" class="toc">DHTMLX.Planner.DHXBlockTime class</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#dhtmlxplannerdhxmarktime_class" class="toc">DHTMLX.Planner.DHXMarkTime class</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#pointer_highlighting" class="toc">Pointer highlighting</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="blocking_marking_dates_and_pointer_highlighting" id="blocking_marking_dates_and_pointer_highlighting">Blocking, marking dates and pointer highlighting</a></h1>
+<div class="level1">
+
+</div>
+
+<h2><a name="blocking_and_marking_dates" id="blocking_and_marking_dates">Blocking and marking dates</a></h2>
+<div class="level2">
+
+<p>
+Java Planner provides classes <strong>DHXBlockTime</strong> and <strong>DHXMarkTime</strong> that allow you to have some date range(s) blocked or/and marked.
+</p>
+
+<p>
+Blocked/marked spans are contained in the <strong>DHXPlanner.timespans</strong> object.
+
+</p>
+<pre class="code java"><span class="co1">//blocks each Sunday</span>
+DHXBlockTime block <span class="sy0">=</span> <span class="kw1">new</span> DHXBlockTime<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+block.<span class="me1">setDay</span><span class="br0">&#40;</span>DHXBlockTime.<span class="me1">DHXDayOfWeek</span>.<span class="me1">SUNDAY</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">timespans</span>.<span class="me1">add</span><span class="br0">&#40;</span>block<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="co1">//marks each SUNDAY with the 'blue_section' style</span>
+DHXMarkTime m1 <span class="sy0">=</span> <span class="kw1">new</span> DHXMarkTime<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+m1.<span class="me1">setDay</span><span class="br0">&#40;</span>DHXMarkTime.<span class="me1">DHXDayOfWeek</span>.<span class="me1">SUNDAY</span><span class="br0">&#41;</span><span class="sy0">;</span>
+m1.<span class="me1">setCssClass</span><span class="br0">&#40;</span><span class="st0">&quot;blue_section&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">timespans</span>.<span class="me1">add</span><span class="br0">&#40;</span>m1<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+The duration of blocked/marked spans can be set in 2 ways  (details of the methods used in the code snippets, see in the tables below):
+</p>
+
+<p>
+<div class='dhx_note'><div class='dhx_note_img'>&nbsp;</div>
+<b>setDays()</b>, <b>addZone()</b> and <b>setStartDate()</b>, <b>setEndDate()</b> methods are used in pairs to set the blocking interval and can't be mixed and used in some other variation.<br> For example, you can't specify <b>addZone()</b>, <b>setStartDate()</b> or <b>setDays()</b>, <b>setStartDate()</b>,  <b>setEndDate()</b> at the same time.
+</div>
+</p>
+<ol>
+<li class="level1"><div class="li"> With methods <strong>setStartDate</strong>(), <strong>setEndDate</strong>()<br/>
+<br/>
+<pre class="code java"><span class="co1">//different days</span>
+DHXMarkTime m1 <span class="sy0">=</span> <span class="kw1">new</span> DHXMarkTime<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+m1.<span class="me1">setStartDate</span><span class="br0">&#40;</span>2012,10,25<span class="br0">&#41;</span><span class="sy0">;</span>
+m1.<span class="me1">setEndDate</span><span class="br0">&#40;</span>2012,10,27<span class="br0">&#41;</span><span class="sy0">;</span>
+m1.<span class="me1">setCssClass</span><span class="br0">&#40;</span><span class="st0">&quot;blue_section&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">timespans</span>.<span class="me1">add</span><span class="br0">&#40;</span>m1<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="co1">//or the same day from 8.00 to 20.00 </span>
+DHXMarkTime m1 <span class="sy0">=</span> <span class="kw1">new</span> DHXMarkTime<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+m1.<span class="me1">setStartDate</span><span class="br0">&#40;</span>8, 0<span class="br0">&#41;</span><span class="sy0">;</span>
+m1.<span class="me1">setEndDate</span><span class="br0">&#40;</span>20, 0<span class="br0">&#41;</span><span class="sy0">;</span>
+m1.<span class="me1">setCssClass</span><span class="br0">&#40;</span><span class="st0">&quot;blue_section&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+s.<span class="me1">timespans</span>.<span class="me1">add</span><span class="br0">&#40;</span>m1<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;</pre>
+</div>
+</li>
+<li class="level1"><div class="li"> With methods <strong>setDays</strong>(), <strong>addZone</strong>()  <br/>
+<br/>
+<pre class="code java">DHXMarkTime m2 <span class="sy0">=</span> <span class="kw1">new</span> DHXMarkTime<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+m2.<span class="me1">setDays</span><span class="br0">&#40;</span>DHXBlockTime.<span class="me1">DHXDayOfWeek</span>.<span class="me1">MONDAY</span>, DHXBlockTime.<span class="me1">DHXDayOfWeek</span>.<span class="me1">FRIDAY</span><span class="br0">&#41;</span><span class="sy0">;</span>
+m2.<span class="me1">addZone</span><span class="br0">&#40;</span><span class="kw1">new</span> DHXZone<span class="br0">&#40;</span>600, 900<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">// if zones aren't specified the entire day is blocked</span>
+m2.<span class="me1">setCssClass</span><span class="br0">&#40;</span><span class="st0">&quot;red_section&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+planner.<span class="me1">timespans</span>.<span class="me1">add</span><span class="br0">&#40;</span>m2<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+</ol>
+
+<p>
+
+<em>The remaining methods can be used in any variant.</em>
+</p>
+
+</div>
+
+<h3><a name="dhtmlxplannerdhxblocktime_class" id="dhtmlxplannerdhxblocktime_class">DHTMLX.Planner.DHXBlockTime class</a></h3>
+<div class="level3">
+
+<p>
+
+The <strong>DHXBlockTime</strong> class provides the following methods:
+
+</p>
+<table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">Method  </th><th class="col1 leftalign">Description  </th><th class="col2 leftalign">Examples  </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0 leftalign"><strong>setStartDate</strong>(Calendar <em>Date</em>)<br/>
+<strong>setStartDate</strong>(Integer <em>hour</em>, Integer <em>minute</em>)<br/>
+<strong>setStartDate</strong>(Integer <em>year</em>, Integer <em>month</em>, Integer <em>day</em>)<br/>
+<strong>setStartDate</strong>(Integer <em>year</em>, Integer <em>month</em>, Integer <em>day</em>, Integer <em>hour</em>, Integer <em>minute</em>)    </td><td class="col1"> the limitation start date</td><td class="col2"> <strong>block1.setStartDate(2012, 5, 3)</strong> -  denies creating events from 3rd May,2012 till the <strong>setEndDate()</strong> value</td>
+	</tr>
+	<tr class="row2">
+		<td class="col0 leftalign"><strong>setEndDate</strong>(Calendar <em>Date</em>)<br/>
+<strong>setEndDate</strong>(Integer <em>hour</em>, Integer <em>minute</em>)<br/>
+<strong>setEndDate</strong>(Integer <em>year</em>, Integer <em>month</em>, Integer <em>day</em>)<br/>
+<strong>setEndDate</strong>(Integer <em>year</em>, Integer <em>month</em>, Integer <em>day</em>, Integer <em>hour</em>, Integer <em>minute</em>)   </td><td class="col1"> the Date object that sets the limitation end date</td><td class="col2"> <strong>block1.setEndDate(2012,10,5)</strong> -  denies creating events from the <strong>setStartDate()</strong> value till 5th October,2012</td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"><strong>setDay</strong>(DHXDayOfWeek <em>day</em>)</td><td class="col1 leftalign"> a day that should be limited   </td><td class="col2"><strong>block1.setDay(DHXBlockTime.DHXDayOfWeek.SUNDAY)</strong> - limits each Sunday</td>
+	</tr>
+	<tr class="row4">
+		<td class="col0 leftalign"><strong>setDays</strong>(DHXDayOfWeek <em>day0</em>, …,DHXDayOfWeek <em>day7</em> )  </td><td class="col1 leftalign"> days that should be limited   </td><td class="col2"><strong>block1.setDays(DHXBlockTime.DHXDayOfWeek.MONDAY, DHXBlockTime.DHXDayOfWeek.FRIDAY)</strong> - limits each Monday and Friday</td>
+	</tr>
+	<tr class="row5">
+		<td class="col0 leftalign"><strong>addZone</strong>(DHXZone <em>period</em>)<br/>
+<strong>addZone</strong>(Integer <em>startTime</em>, Integer <em>endTime</em>)  </td><td class="col1 leftalign">the period in minutes that should be limited  </td><td class="col2"><strong>block1.addZone(new DHXZone(600, 900))</strong> - a limitation block: <em>10:00-15:00</em></td>
+	</tr>
+	<tr class="row6">
+		<td class="col0 leftalign"><strong>setHTML</strong>(String <em>html</em>)  </td><td class="col1 leftalign">the <acronym title="HyperText Markup Language">HTML</acronym> content that will be added to the blocked range  </td><td class="col2"> <strong>block1.setHTML(”&lt;b&gt;Blocked&lt;/b&gt;”)</strong> - draws a DIV  with the specified text over the blocked range</td>
+	</tr>
+	<tr class="row7">
+		<td class="col0 leftalign"><strong>setInvert</strong>(Boolean <em>isInverted</em>)  </td><td class="col1 leftalign"> specifies whether time zones (set by <strong>addZone()</strong> ) must be inverted.<br/>
+Default value - <em>false</em>  </td><td class="col2"> <strong>block1.addZone(new DHXZone(480, 1200));<br/>
+block1.setInvert(true);</strong><br/>
+- specifies 2 limitation blocks: <em>00:00-08:00</em> and <em>20:00-00:00</em><br/>
+<strong>block1.addZone(new DHXZone(0, 480));<br/>
+block1.setInvert(false);</strong><br/>
+ - specifies 1 limitation block: <em>00:00-08:00</em></td>
+	</tr>
+	<tr class="row8">
+		<td class="col0 leftalign"><strong>setSections</strong>(ArrayList&lt;DHXSection&gt; <em>sections</em>)  </td><td class="col1"> allows you to block date(s) just for specific items of the<br/>
+views. <acronym title="By the way">BTW</acronym>, the specified date(s) will be blocked just in<br/>
+the related view(s) </td><td class="col2 leftalign"> <strong>
+ArrayList&lt;DHXSection&gt; sections = new ArrayList&lt;DHXSection&gt;();<br/>
+sections.add(new DHXSection(“Units”, “5”));<br/>
+sections.add(new DHXSection(“Timiline”, “3”));<br/>
+block1.setSections(sections);</strong><br/>
+- blocks dates  just for the item with the id=5 in the Units view and the item with the id=3 in the Timeline view  </td>
+	</tr>
+</table>
+
+</div>
+
+<h3><a name="dhtmlxplannerdhxmarktime_class" id="dhtmlxplannerdhxmarktime_class">DHTMLX.Planner.DHXMarkTime class</a></h3>
+<div class="level3">
+
+<p>
+The <strong>DHXMarkTime</strong> class provides the following methods:
+
+</p>
+<table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">Method  </th><th class="col1 leftalign"> Description  </th><th class="col2 leftalign">Examples  </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0 leftalign"><strong>setStartDate</strong>(Calendar <em>Date</em>)<br/>
+<strong>setStartDate</strong>(Integer <em>hour</em>, Integer <em>minute</em>)<br/>
+<strong>setStartDate</strong>(Integer <em>year</em>, Integer <em>month</em>, Integer <em>day</em>)<br/>
+<strong>setStartDate</strong>(Integer <em>year</em>, Integer <em>month</em>, Integer <em>day</em>, Integer <em>hour</em>, Integer <em>minute</em>)    </td><td class="col1">the marking start date</td><td class="col2"> <strong>mark1.setStartDate(2012, 5, 3)</strong> -  marks events from 3rd May,2012 till the <strong>setEndDate()</strong> value</td>
+	</tr>
+	<tr class="row2">
+		<td class="col0 leftalign"><strong>setEndDate</strong>(Calendar <em>Date</em>)<br/>
+<strong>setEndDate</strong>(Integer <em>hour</em>, Integer <em>minute</em>)<br/>
+<strong>setEndDate</strong>(Integer <em>year</em>, Integer <em>month</em>, Integer <em>day</em>)<br/>
+<strong>setEndDate</strong>(Integer <em>year</em>, Integer <em>month</em>, Integer <em>day</em>, Integer <em>hour</em>, Integer <em>minute</em>)   </td><td class="col1"> the marking end date</td><td class="col2"> <strong>mark1.setEndDate(2012,9,3)</strong> -  marks creating events from the <strong>setStartDate()</strong> value till 3rd September,2012</td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"><strong>setDay</strong>(DHXDayOfWeek <em>day0</em>)</td><td class="col1 leftalign"> a day that should be limited   </td><td class="col2"><strong>mark1.setDay(DHXMarkTime.DHXDayOfWeek.SUNDAY)</strong> - limits each Sunday</td>
+	</tr>
+	<tr class="row4">
+		<td class="col0 leftalign"><strong>setDays</strong>(DHXDayOfWeek <em>day0</em>, …,DHXDayOfWeek <em>day7</em> )  </td><td class="col1 leftalign"> days that should be limited   </td><td class="col2"><strong>mark1.setDays(DHXMarkTime.DHXDayOfWeek.MONDAY, DHXMarkTime.DHXDayOfWeek.FRIDAY)</strong> - limits each Monday and Friday</td>
+	</tr>
+	<tr class="row5">
+		<td class="col0 leftalign"><strong>addZone</strong>(DHXZone <em>period</em>)<br/>
+<strong>addZone</strong>(Integer <em>startTime</em>, Integer <em>endTime</em>)  </td><td class="col1 leftalign">the period in minutes that should be marked  </td><td class="col2"><strong>mark1.addZone(new DHXZone(600, 900))</strong> - a limitation block: <em>10:00-15:00</em></td>
+	</tr>
+	<tr class="row6">
+		<td class="col0"><strong>setSpanType</strong>(Type <em>type</em>)</td><td class="col1 leftalign"> defines whether time spans should be just marked or marked and blocked    </td><td class="col2"> If the parameter isn&#039;t specified, events will be just marked<br/>
+<strong>mark1.setSpanType(DHXTimeSpan.Type.BLOCK_EVENTS)</strong> -  events will be marked and blocked </td>
+	</tr>
+	<tr class="row7">
+		<td class="col0"><strong>setCssClass</strong>(String <em>className</em>) </td><td class="col1 leftalign"> the name of a css class   </td><td class="col2"> <strong>mark1.setCssClass(“red_section”)</strong> - draws a DIV and applies the &#039;red_section&#039; css class to it </td>
+	</tr>
+	<tr class="row8">
+		<td class="col0 leftalign"><strong>setHTML</strong>(String <em>html</em>)  </td><td class="col1 leftalign">the <acronym title="HyperText Markup Language">HTML</acronym> content that will be added to the marked range  </td><td class="col2"> <strong>mark1.setHTML(”&lt;b&gt;Blocked&lt;/b&gt;”)</strong> - draws a DIV  with the specified text over the marked range</td>
+	</tr>
+	<tr class="row9">
+		<td class="col0 leftalign"><strong>setInvert</strong>(Boolean <em>isInverted</em>)  </td><td class="col1 leftalign">specifies whether time zones (set by <strong>Zones</strong> ) must be inverted.<br/>
+Default value - <em>false</em>  </td><td class="col2"> <strong>mark1.addZone(new DHXZone(480, 1200));<br/>
+mark1.setInvert(true);</strong><br/>
+- creates 2 limitation blocks: <em>00:00-08:00</em> and <em>20:00-00:00</em><br/>
+<strong>mark1.addZone(new DHXZone(0, 480));<br/>
+mark1.setInvert(false);</strong><br/>
+ - creates 1 limitation block: <em>00:00-08:00</em></td>
+	</tr>
+	<tr class="row10">
+		<td class="col0 leftalign"><strong>setSections</strong>(ArrayList&lt;DHXSection&gt; <em>sections</em>)  </td><td class="col1">allows you to mark date(s) just for specific items of the<br/>
+views. <acronym title="By the way">BTW</acronym>, the specified date(s) will be marked just in<br/>
+the related view(s) </td><td class="col2 leftalign"> <strong>
+ArrayList&lt;DHXSection&gt; sections = new ArrayList&lt;DHXSection&gt;();<br/>
+sections.add(new DHXSection(“Units”, “5”));<br/>
+sections.add(new DHXSection(“Timiline”, “3”));<br/>
+block1.setSections(sections);</strong><br/>
+- marks dates  just for the item with the id=5 in the Units view and the item with the id=3 in the Timeline view  </td>
+	</tr>
+</table>
+
+</div>
+
+<h2><a name="pointer_highlighting" id="pointer_highlighting">Pointer highlighting</a></h2>
+<div class="level2">
+
+<p>
+Pointer highlighting is an ability of the planner to highlight the area under the pointer.
+</p>
+
+<p>
+<img src="images/pointer-highlighting.png" class="media" alt="" />
+</p>
+
+<p>
+The ability is provided by the <strong>DHXPlanner.highlight</strong> class which has the following methods:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong><em>setCreateOnClick</em></strong>(Boolean <em>createOnClick</em>) - if the method is called with the <em>true</em> value, on a single click the user can create events with the duration = highlighted area;</div>
+</li>
+<li class="level1"><div class="li"> <strong><em>setCssClass</em></strong>(String <em>className</em>) - the name of a css class that will be applied to the highlighted area;</div>
+</li>
+<li class="level1"><div class="li"> <strong><em>setEnabled</em></strong>(Boolean <em>isEnabled</em>) - checks whether the pointer highlighting is activated (if it is - returns <em>true</em>);</div>
+</li>
+<li class="level1"><div class="li"> <strong><em>setFixedStep</em></strong>(Boolean <em>enableMoving</em>) - enables/disables moving the highlighted area by <strong>step</strong> units (i.e. you won&#039;t be allowed to move along the full time scale);</div>
+</li>
+<li class="level1"><div class="li"> <strong><em>setHTML</em></strong>(String <em>text</em>) - the <acronym title="HyperText Markup Language">HTML</acronym> content that will be added to the highlighted area;</div>
+</li>
+<li class="level1"><div class="li"> <strong><em>setStep</em></strong>(Integer <em>step</em>) - the duration of the highlighted area in minutes.</div>
+</li>
+</ul>
+
+<p>
+
+<strong>To enable</strong> the pointer highlighting, call method <strong>DHXPlanner.highlight.enable(String <em>className</em>, Integer <em>step</em>)</strong>:
+
+</p>
+<pre class="code java">planner.<span class="me1">highlight</span>.<span class="me1">enable</span><span class="br0">&#40;</span><span class="st0">&quot;highlight_area&quot;</span>, 30<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+The <strong>DHXPlanner.highlight.enable()</strong> method can be called in 2 ways:
+
+</p>
+<ol>
+<li class="level1"><div class="li"> <strong>DHXPlanner.highlight.enable(String <em>className</em>)</strong>;</div>
+</li>
+<li class="level1"><div class="li"> <strong>DHXPlanner.highlight.enable(String <em>className</em>, Integer <em>step</em>)</strong>;</div>
+</li>
+</ol>
+<ul>
+<li class="level1"><div class="li"> <strong>css</strong> - the name of a css class that will be applied to the highlighted area.<br/>
+<strong>Note</strong>, to set colors or borders for the area you must use the <strong>:hover</strong> pseudo-class.<br/>
+<br/>
+<pre class="code html4strict"><span class="sc2">&lt;<a href="http://december.com/html/4/element/style.html"><span class="kw2">style</span></a>&gt;</span>
+        .highlight_area {
+            opacity: 0.3;
+            z-index:0;
+            filter:alpha(opacity=30);
+        } 
+        .highlight_area:hover {
+            background-color: #99F799;
+        }
+<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/style.html"><span class="kw2">style</span></a>&gt;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> <strong>step</strong>  - the duration of the highlighted area in minutes. The default value - 60.</div>
+</li>
+</ul>
+
+</div>
+
+    
+    </div>
+</div>
+</body>
+</html>
