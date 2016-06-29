@@ -1,7 +1,7 @@
 package pkgCISS;
 
 /** Name:		Edward Donkor - Programmer, Sydel Alleyne - Documentaion/Powerpoint, Victoria Amoo
- * 	Date:		March 2, 1015 - April 19, 2015
+ * 	Date:		March 2, 2015 - April 19, 2015
  * 	Program:	Comprehensive Interactive Scheduling System (C.I.S.S.) 	
  * 	Purpose:	
  */
